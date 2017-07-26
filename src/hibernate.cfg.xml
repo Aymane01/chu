@@ -8,11 +8,13 @@
 	<session-factory>
 		
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://localhost\SQLEXPRESS;databasename=CHU;integratedSecurity=true;</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://localhost\CHU;databasename=CHU;integratedSecurity=true;</property>
 		<property name="hibernate.connection.username"></property>
 		<property name="hibernate.connection.password"></property>
 		<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
 		<property name="current_session_context_class">thread</property>
+		<property name="hbm2ddl.auto">create</property>
+		
 		<mapping  resource="org/chu/db/hibernate/bean/Hopital.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
