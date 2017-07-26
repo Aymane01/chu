@@ -1,0 +1,9 @@
+CREATE DATABASE chu
+go
+
+CREATE TABLE Cadre (
+id INT PRIMARY KEY,
+intituleAr VARCHAR(100),
+intituleFr VARCHAR(100)
+) 
+go
