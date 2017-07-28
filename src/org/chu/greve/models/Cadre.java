@@ -1,13 +1,25 @@
 package org.chu.greve.models;
 
-public class Cadre {
+import java.io.Serializable;
+
+public class Cadre implements Serializable {
 
 	private int id;
 	private String intituleFr;
 	private String intituleAr;
 
+	public Cadre() {
+
+	}
+
 	public Cadre(int id, String intituleFr, String intituleAr) {
 		this.id = id;
+		this.intituleFr = intituleFr;
+		this.intituleAr = intituleAr;
+	}
+
+	public Cadre(String intituleFr, String intituleAr) {
+
 		this.intituleFr = intituleFr;
 		this.intituleAr = intituleAr;
 	}

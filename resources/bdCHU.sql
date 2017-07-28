@@ -1,0 +1,33 @@
+CREATE DATABASE chu
+go
+
+USE CHU 
+go
+
+CREATE TABLE Cadre (
+idCa INT PRIMARY KEY,
+intituleAr VARCHAR(100) COLLATE Arabic_100_CS_AS_KS_WS_SC,
+intituleFr VARCHAR(100)
+) 
+go
+
+CREATE TABLE Corps (
+idCr INT PRIMARY KEY,
+intituleAr VARCHAR(100) COLLATE Arabic_100_CS_AS_KS_WS_SC,
+intituleFr VARCHAR(100)
+) 
+go
+
+CREATE TABLE Grade (
+idG INT PRIMARY KEY,
+intituleAr VARCHAR(100) COLLATE Arabic_100_CS_AS_KS_WS_SC,
+intituleFr VARCHAR(100)
+)
+go
+
+CREATE TABLE Specialite (
+idS INT PRIMARY KEY,
+intituleAr VARCHAR(100) COLLATE Arabic_100_CS_AS_KS_WS_SC,
+intituleFr VARCHAR(100)
+) 
+go
