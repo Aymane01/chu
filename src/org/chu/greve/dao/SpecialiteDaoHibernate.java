@@ -1,64 +1,38 @@
 package org.chu.greve.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.chu.greve.util.HibernateUtil;
-import org.chu.greve.models.Corps;
 import org.chu.greve.models.Grade;
 import org.chu.greve.models.Specialite;
-import org.hibernate.SQLQuery;
-import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
 public class SpecialiteDaoHibernate implements SpecialiteDao{
-	private SessionFactory factory;
 
-	private Session session;
-	public SpecialiteDaoHibernate(SessionFactory factory) {
-		this.factory = factory;
+	public SpecialiteDaoHibernate() {
+		// TODO Auto-generated constructor stub
 	}
 	
-	public void openSession() {
-		session = factory.openSession();
-		session.beginTransaction();
-	}
-	public void closeSession() {
-		session.getTransaction().commit();
-		session.close();
-	}
 	@Override
 	public Specialite select(int id) {
-		openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();			
+		session.beginTransaction();
 		
 		Specialite spec = (Specialite) session.get(Specialite.class, id);
 		
-		closeSession();
+		session.getTransaction().commit();
 		return spec;
 	}
 
 	@Override
 	public List<Specialite> selectAll() {
-		openSession();
-		try {
-			List<Specialite> list = new ArrayList<>();
-			String query = "select * from specialite";
-			SQLQuery sql = session.createSQLQuery(query);
-			sql.addEntity(Specialite.class);
-			list = sql.list();
-			
-			closeSession();
-			return list;
-		} catch (Exception e) {
-			System.out.println("l'exeption est ici");
-			closeSession();
-			return null;
-		}
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public int insert(Specialite spec) {
-		openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
 			
@@ -67,35 +41,36 @@ public class SpecialiteDaoHibernate implements SpecialiteDao{
 			s.setIntituleFr(spec.getIntituleFr());
 			
 			session.save(s);
-			closeSession();
+			session.getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
-			closeSession();
 			return 0;
 		}
 	}
 
 	@Override
 	public void delete(int id) {
-		openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();			
+		session.beginTransaction();
 		
 		Specialite g = (Specialite) session.load(Specialite.class, id);
 		
 		session.delete(g);
-		
-		closeSession();
+		session.getTransaction().commit();
+			
 	}
 
 	@Override
 	public void modify(Specialite spec) {
-		openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();			
+		session.beginTransaction();
 		
 		Specialite g = (Specialite) session.get(Specialite.class, spec.getIdS());
 		g.setIntituleAr(spec.getIntituleAr());
 		g.setIntituleFr(spec.getIntituleFr());
 		
 		session.update(g);
-		closeSession();
+		session.getTransaction().commit();
 		
 	}
 

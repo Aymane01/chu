@@ -21,10 +21,10 @@ public class TestAymane {
 	private void test01() {
 		// Test of CadreDao Functions
 		CadreDao cadreDao = new CadreDaoImpl(HibernateUtil.getSessionFactory());
-		Cadre c = new Cadre(1,"inge", "النالي مريم");
+		Cadre c = new Cadre("inge", "ffffff");
 		cadreDao.insertCadre(c);
-		cadreDao.insertCadre(c);
-		cadreDao.insertCadre(c);
+		// cadreDao.insertCadre(c);
+		// cadreDao.insertCadre(c);
 		// cadreDao.deleteCadre(1);
 		// cadreDao.deleteCadre(2);
 		// cadreDao.deleteCadre(3);
@@ -37,8 +37,6 @@ public class TestAymane {
 		// }
 
 	}
-
-	
 
 	public static void main(String[] args) {
 		new TestAymane();

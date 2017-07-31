@@ -3,6 +3,7 @@ package org.chu.greve.business;
 import java.util.List;
 
 import org.chu.greve.models.Grade;
+import org.chu.greve.models.Nationalite;
 import org.chu.greve.models.Specialite;
 
 public interface ApplicationBusiness {
@@ -18,4 +19,7 @@ public interface ApplicationBusiness {
 	public List<Specialite> selectAllSpecilite();
 	public void modifySpecialite(Specialite spec);
 	public void deleteSpecialite(int id);
+	
+	
+	
 }

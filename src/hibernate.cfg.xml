@@ -6,18 +6,19 @@
 
 <hibernate-configuration>
 	<session-factory>
-		
+
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
 		<property name="hibernate.connection.url">jdbc:sqlserver://localhost\CHU;databasename=CHU;integratedSecurity=true;</property>
 		<property name="hibernate.connection.username"></property>
-		
+
 		<property name="hibernate.connection.password"></property>
 		<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
 		<property name="current_session_context_class">thread</property>
-		
-		<mapping  resource="org/chu/greve/models/Grade.hbm.xml" />
-		<mapping  resource="org/chu/greve/models/Cadre.hbm.xml" />
-		<mapping  resource="org/chu/greve/models/Corps.hbm.xml" />
-		<mapping  resource="org/chu/greve/models/Specialite.hbm.xml" />
+
+		<mapping resource="org/chu/greve/models/Cadre.hbm.xml" />
+		<mapping resource="org/chu/greve/models/Corps.hbm.xml" />
+		<mapping resource="org/chu/greve/models/Grade.hbm.xml" />
+		<mapping resource="org/chu/greve/models/Specialite.hbm.xml" />
+		<mapping resource="org/chu/greve/models/Nationalite.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

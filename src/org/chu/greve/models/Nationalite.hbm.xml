@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 26 juil. 2017 17:14:33 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="org.chu.greve.models.Nationalite" table="Nationalite">
+        <id name="id" type="int">
+            <column name="IDNA" />
+            <generator class="increment" />
+        </id>
+        <property name="intitule" type="java.lang.String">
+            <column name="INTITULE" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

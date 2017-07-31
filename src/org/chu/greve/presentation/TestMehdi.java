@@ -10,8 +10,6 @@ import java.util.Vector;
 import org.chu.greve.util.ArabicNameImporter;
 import org.chu.greve.util.DataImporter;
 import org.chu.greve.util.HibernateUtil;
-import org.chu.greve.business.SpecialiteBusiness;
-import org.chu.greve.business.SpecialiteBusinessImpl;
 import org.chu.greve.dao.GradeDao;
 import org.chu.greve.dao.GradeDaoHibernate;
 import org.chu.greve.dao.SpecialiteDao;
@@ -74,21 +72,17 @@ public class TestMehdi {
 	}
 	void exp07() {
 		GradeDao dao = new GradeDaoHibernate();
-		dao.insert(new Grade(6,"","النالي مريم"));
-		System.out.println(dao.select(203).getIntituleAr());;
+		dao.insert(new Grade(6,"Aymane","أيمن"));
+		
 		//System.out.println(dao.select(3).getIntituleAr());
 		HibernateUtil.sessionF.close();
 	}
 	void exp08() {
-		SpecialiteDao dao = new SpecialiteDaoHibernate(HibernateUtil.getSessionFactory());
-		SpecialiteBusiness business = new SpecialiteBusinessImpl(dao);
-		DataImporter importer = new DataImporter();
-		Vector<Specialite> specs = importer.importSpecialite();
-		for (Specialite spec : specs) {
-			business.addSpecialite(new Specialite(spec.getIntituleFr(), spec.getIntituleAr()));
-		}
+		SpecialiteDao dao = new SpecialiteDaoHibernate();
 		
-		
+		//dao.sele
+		//System.out.println(dao.select(10).getIntituleFr());
+		HibernateUtil.sessionF.close();
 	}
 	void exp09() {
 		
@@ -118,15 +112,6 @@ public class TestMehdi {
 		ExcelDataExporter exporter = new ExcelDataExporter("resources/KACUPEE2.xls");
 		exporter.export(donnee);
 	
-	}
-	void exp10() {
-		SpecialiteDao dao = new SpecialiteDaoHibernate(HibernateUtil.getSessionFactory());
-		SpecialiteBusiness business = new SpecialiteBusinessImpl(dao);
-		//List<Specialite> specs= business.selectAllSpecilite();
-//		business.selectSpecialite(id)
-//		System.out.println(specs.get(24).getIntituleAr());
-//		System.out.println(specs.size());
-		
 	}
 	public TestMehdi() {
 		exp07();

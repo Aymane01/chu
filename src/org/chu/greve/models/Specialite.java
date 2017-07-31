@@ -17,16 +17,11 @@ public Specialite(int id, String intituleFr, String intituleAr) {
 		this.intituleFr = intituleFr;
 		this.intituleAr = intituleAr;
 	}
-public Specialite( String intituleFr, String intituleAr) {
-	super();
-	this.intituleFr = intituleFr;
-	this.intituleAr = intituleAr;
-}
 public Specialite(int id, String[] row) {
 	super();
 	this.idS = id;
 	this.intituleFr = row[0];
-	this.intituleAr = "";//row[1] quand on ajoutera le champs en arabe
+	this.intituleAr = row[1];
 }
 
 public int getIdS() {
