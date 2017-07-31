@@ -1,9 +1,6 @@
 CREATE DATABASE chu
 go
 
-USE CHU 
-go
-
 CREATE TABLE Cadre (
 idCa INT PRIMARY KEY,
 intituleAr VARCHAR(100) COLLATE Arabic_100_CS_AS_KS_WS_SC,
