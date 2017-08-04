@@ -13,6 +13,7 @@ public class CadreBusinessImpl implements Cadrebusiness {
 	}
 
 	public int createCadre(Cadre cadre) {
+
 		return cadreDao.insertCadre(cadre);
 	}
 

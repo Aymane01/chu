@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Gestion de Grève</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:panel id="addPanel" header="Ajouter cadre"
+			style="margin-bottom:10px;">
+
+			<h:panelGrid columns="2">
+				<p:outputLabel for="intituleFr" value="Intitulé en Français :" />
+				<p:inputText id="intituleFr" value="#{cadre.intituleFr}"
+					required="true" size="40">
+				</p:inputText>
+				<p:outputLabel for="intituleAr" value="Intitulé en Arabe :" />
+				<p:inputText id="intituleAr" value="#{cadre.intituleAr}"
+					required="true" size="40">
+				</p:inputText>
+			</h:panelGrid>
+		</p:panel>
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton value="Valider" icon="ui-icon-circle-check"
+					actionListener="#{cadreAction.addCadre(cadre)}" update="form">
+				</p:commandButton>
+				<p:commandButton value="Annuler" type="reset"
+					icon="ui-icon-circle-minus">
+				</p:commandButton>
+			</f:facet>
+		</p:toolbar>
+
+		<p:panel id="listPanel" header="Liste des Grades"
+			style="margin-bottom:10px; margin-top:50px;">
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:dataTable var="c" value="#{cadreAction.cadres}" paginator="true"
+				rowsPerPageTemplate="10,15,20" rows="15"
+				emptyMessage="Cadre introuvable">
+				<p:column headerText="Intitulé en Français"
+					filterBy="#{c.intituleFr}" filterMatchMode="contains">
+					<h:outputText value="#{c.intituleFr}" />
+				</p:column>
+				<p:column headerText="Intitulé en Arabe" filterBy="#{c.intituleAr}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.intituleAr}"></h:outputText>
+				</p:column>
+				<p:column style="width:90px; text-align: center">
+
+					<p:commandButton icon="ui-icon-closethick"
+						action="#{cadreAction.removeCadre(c)}" process="@this"
+						update="form" />
+
+					<p:commandButton icon="ui-icon-pencil" update=":form:cadreInfo"
+						oncomplete="PF('cadreDialog').show()"
+						action="#{cadreAction.setCadre(c)}" process="@this"></p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+
+		<p:dialog header="Modifier cadre" widgetVar="cadreDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false">
+			<p:outputPanel id="cadreInfo" style="text-align:center;">
+				<p:panelGrid columns="2">
+					<p:outputLabel for="intituleFr2" value="Intitulé en Français :" />
+					<p:inputText id="intituleFr2" size="40"
+						value="#{cadreAction.cadre.intituleFr}">
+					</p:inputText>
+					<p:outputLabel for="intituleAr2" value="Intitulé en Arabe :" />
+					<p:inputText id="intituleAr2" size="40"
+						value="#{cadreAction.cadre.intituleAr}">
+					</p:inputText>
+
+				</p:panelGrid>
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton value="Valider" icon="ui-icon-circle-check">
+						</p:commandButton>
+						<p:commandButton value="Annuler" type="reset"
+							icon="ui-icon-circle-minus">
+						</p:commandButton>
+					</f:facet>
+				</p:toolbar>
+			</p:outputPanel>
+		</p:dialog>
+	</h:form>
+
+</h:body>
+</html>

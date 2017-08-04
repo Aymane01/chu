@@ -3,10 +3,8 @@ package org.chu.greve.business;
 import java.util.List;
 
 import org.chu.greve.dao.GradeDao;
-import org.chu.greve.dao.NationaliteDao;
 import org.chu.greve.dao.SpecialiteDao;
 import org.chu.greve.models.Grade;
-import org.chu.greve.models.Nationalite;
 import org.chu.greve.models.Specialite;
 
 public class DefaultApplicationBusiness implements ApplicationBusiness {
@@ -18,7 +16,6 @@ public class DefaultApplicationBusiness implements ApplicationBusiness {
 		super();
 		this.daoG = daoG;
 		this.daoS = daoS;
-		
 	}
 
 	@Override
@@ -72,7 +69,5 @@ public class DefaultApplicationBusiness implements ApplicationBusiness {
 	public void deleteSpecialite(int id) {
 		daoS.delete(id);
 	}
-	
-	
 
 }
