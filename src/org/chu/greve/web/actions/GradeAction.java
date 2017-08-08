@@ -5,70 +5,70 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+
+import org.chu.greve.business.GradeBusiness;
+import org.chu.greve.business.GradeBusinessImpl;
 import org.chu.greve.business.SpecialiteBusiness;
 import org.chu.greve.business.SpecialiteBusinessImpl;
+import org.chu.greve.dao.GradeDaoHibernate;
 import org.chu.greve.dao.SpecialiteDaoHibernate;
+import org.chu.greve.models.Grade;
 import org.chu.greve.models.Specialite;
 import org.chu.greve.util.HibernateUtil;
 
-public class SpecialiteAction {
-	private SpecialiteBusiness specService;
-	private List<Specialite> specialites;
-	private Specialite specialite;
+public class GradeAction {
+	private GradeBusiness gradeService;
+	private List<Grade> grades;
+	private Grade grade;
 
-	
-
-
-	
-
-	public SpecialiteBusiness getSpecService() {
-		return specService;
+	public GradeBusiness getGradeService() {
+		return gradeService;
 	}
 
-	public void setSpecService(SpecialiteBusiness specService) {
-		this.specService = specService;
+	public void setGradeService(GradeBusiness gradeService) {
+		this.gradeService = gradeService;
 	}
 
-	public List<Specialite> getSpecialites() {
-		return specialites;
+	public List<Grade> getGrades() {
+		return grades;
 	}
 
-	public void setSpecialites(List<Specialite> specialites) {
-		this.specialites = specialites;
+	public void setGrades(List<Grade> grades) {
+		this.grades = grades;
 	}
 
-	public Specialite getSpecialite() {
-		return specialite;
+	public Grade getGrade() {
+		return grade;
 	}
 
-	public void setSpecialite(Specialite specialite) {
-		this.specialite = specialite;
+	public void setGrade(Grade grade) {
+		this.grade = grade;
 	}
 
 	@PostConstruct
 	public void init() {
-		specService = new SpecialiteBusinessImpl(new SpecialiteDaoHibernate(HibernateUtil.getSessionFactory()));
+		gradeService = new GradeBusinessImpl(new GradeDaoHibernate(HibernateUtil.getSessionFactory()));
 		System.out.println("HERE");
 		refreshList();
 	}
 
-	public void addSpecialite(Specialite specialite) {
+	public void addGrade(Grade grade) {
 
-		int r = specService.addSpecialite(specialite);
+		int r = gradeService.addGrade(grade);
 		refreshList();
 		if (r == 1) {
 
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Specialite enregistré avec succès."));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Grade enregistré avec succès."));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
 					"Une erreur s'est produit lors d'enregistrement."));
 		}
 	}
 
-	public void removeSpecialite(Specialite specialite) {
+	public void removeGrade(Grade grade) {
 
-		int r = specService.deleteSpecialite(specialite.getIdS());
+		int r = gradeService.deleteGrade(grade.getIdG());
 		refreshList();
 		if (r == 1) {
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -80,12 +80,12 @@ public class SpecialiteAction {
 
 	}
 
-	public void updateSpecialite(Specialite specialite) {
-		int r = specService.modifySpecialite(specialite);;
+	public void updateSpecialite(Grade grade) {
+		int r = gradeService.modifyGrade(grade);;
 		refreshList();
 		if (r == 1) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Specialite modifiée avec succès."));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Grade modifiée avec succès."));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
 					"Une erreur s'est produit lors de la modifcation."));
@@ -93,9 +93,9 @@ public class SpecialiteAction {
 	}
 
 	public void refreshList() {
-		specialites = specService.selectAllSpecilite();
-		System.out.println(specialites.size());
-		Collections.reverse(specialites);
+		grades = gradeService.selectAllGrade();
+		System.out.println(grades.size());
+		Collections.reverse(grades);
 	}
 
 }
