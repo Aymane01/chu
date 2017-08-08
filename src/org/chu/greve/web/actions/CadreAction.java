@@ -14,14 +14,29 @@ import org.chu.greve.util.HibernateUtil;
 public class CadreAction {
 	private Cadrebusiness cadreService;
 	private List<Cadre> cadres;
-	private Cadre cadre;
+	private Cadre cadreUpdate;
 
-	public Cadre getCadre() {
-		return cadre;
+	@PostConstruct
+	public void init() {
+		cadreService = new CadreBusinessImpl(new CadreDaoImpl(HibernateUtil.getSessionFactory()));
+		refreshList();
+		cadreUpdate = new Cadre();
 	}
 
-	public void setCadre(Cadre cadre) {
-		this.cadre = cadre;
+	public Cadrebusiness getCadreService() {
+		return cadreService;
+	}
+
+	public void setCadreService(Cadrebusiness cadreService) {
+		this.cadreService = cadreService;
+	}
+
+	public Cadre getCadreUpdate() {
+		return cadreUpdate;
+	}
+
+	public void setCadreUpdate(Cadre cadreUpdate) {
+		this.cadreUpdate = cadreUpdate;
 	}
 
 	public List<Cadre> getCadres() {
@@ -32,14 +47,7 @@ public class CadreAction {
 		this.cadres = cadres;
 	}
 
-	@PostConstruct
-	public void init() {
-		cadreService = new CadreBusinessImpl(new CadreDaoImpl(HibernateUtil.getSessionFactory()));
-		refreshList();
-	}
-
 	public void addCadre(Cadre cadre) {
-
 		int r = cadreService.createCadre(cadre);
 		refreshList();
 		if (r == 1) {
