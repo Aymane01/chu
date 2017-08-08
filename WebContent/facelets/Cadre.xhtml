@@ -17,18 +17,20 @@
 
 			<h:panelGrid columns="2">
 				<p:outputLabel for="intituleFr" value="Intitulé en Français :" />
-				<p:inputText id="intituleFr" value="#{cadre.intituleFr}"
-					required="true" size="40">
+				<p:inputText id="intituleFr" value="#{cadre.intituleFr}" size="40"
+					validatorMessage="Champs requis : Intitulé en Français ">
+					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="intituleAr" value="Intitulé en Arabe :" />
-				<p:inputText id="intituleAr" value="#{cadre.intituleAr}"
-					required="true" size="40">
+				<p:inputText id="intituleAr" value="#{cadre.intituleAr}" size="40"
+					validatorMessage="Champs requis : Intitulé en Arabe  ">
+					<f:validateRequired />
 				</p:inputText>
 			</h:panelGrid>
 		</p:panel>
 		<p:toolbar>
 			<f:facet name="left">
-				<p:commandButton value="Valider" icon="ui-icon-circle-check"
+				<p:commandButton value="Ajouter" icon="ui-icon-circle-check"
 					actionListener="#{cadreAction.addCadre(cadre)}" update="form">
 				</p:commandButton>
 				<p:commandButton value="Annuler" type="reset"
@@ -39,10 +41,10 @@
 
 		<p:panel id="listPanel" header="Liste des Grades"
 			style="margin-bottom:10px; margin-top:50px;">
-			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
+				sticky="false" />
 			<p:dataTable var="c" value="#{cadreAction.cadres}" paginator="true"
-				rowsPerPageTemplate="10,15,20" rows="15"
-				emptyMessage="Cadre introuvable">
+				rowsPerPageTemplate="10,15,20" rows="15" emptyMessage="Aucun cadre">
 				<p:column headerText="Intitulé en Français"
 					filterBy="#{c.intituleFr}" filterMatchMode="contains">
 					<h:outputText value="#{c.intituleFr}" />
@@ -51,43 +53,71 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{c.intituleAr}"></h:outputText>
 				</p:column>
-				<p:column style="width:90px; text-align: center">
+				<p:column headerText="Options"
+					style="width:90px; text-align:  center">
 
-					<p:commandButton icon="ui-icon-closethick"
-						action="#{cadreAction.removeCadre(c)}" process="@this"
-						update="form" />
+					<p:commandButton icon="ui-icon-closethick" update="form"
+						action="#{cadreAction.removeCadre(c)}" process="@this">
+						<p:confirm header="Confirmation"
+							message="voulez-vous supprimer le cadre ?" icon="ui-icon-alert">
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
 
-					<p:commandButton icon="ui-icon-pencil" update=":form:cadreInfo"
-						oncomplete="PF('cadreDialog').show()"
-						action="#{cadreAction.setCadre(c)}" process="@this"></p:commandButton>
+								<p:commandButton value="Oui" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Non" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:confirm>
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil" update=":form:cadreUpdate"
+						oncomplete="PF('cadreDialog').show()" process="@this"
+						action="#{cadreAction.setCadreUpdate(c)}">
+
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 
 		<p:dialog header="Modifier cadre" widgetVar="cadreDialog" modal="true"
-			showEffect="fade" hideEffect="fade" resizable="false">
-			<p:outputPanel id="cadreInfo" style="text-align:center;">
+			showEffect="fade" hideEffect="fade" resizable="false" width="665">
+
+			<p:panel id="cadreUpdate" style="text-align:left;" >
 				<p:panelGrid columns="2">
 					<p:outputLabel for="intituleFr2" value="Intitulé en Français :" />
 					<p:inputText id="intituleFr2" size="40"
-						value="#{cadreAction.cadre.intituleFr}">
+						value="#{cadreAction.cadreUpdate.intituleFr}">
 					</p:inputText>
 					<p:outputLabel for="intituleAr2" value="Intitulé en Arabe :" />
 					<p:inputText id="intituleAr2" size="40"
-						value="#{cadreAction.cadre.intituleAr}">
+						value="#{cadreAction.cadreUpdate.intituleAr}">
 					</p:inputText>
 
-				</p:panelGrid>
+				</p:panelGrid >
 				<p:toolbar>
 					<f:facet name="left">
-						<p:commandButton value="Valider" icon="ui-icon-circle-check">
+						<p:commandButton value="Modifier"
+							action="#{cadreAction.updateCadre(cadreAction.cadreUpdate)}"
+							update="form" icon="ui-icon-circle-check" process="cadreUpdate" >
+							<p:confirm header="Confirmation"
+								message="voulez-vous appliquer la modification ?"
+								icon="ui-icon-alert" />
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Oui" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Non" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
 						</p:commandButton>
 						<p:commandButton value="Annuler" type="reset"
 							icon="ui-icon-circle-minus">
+
 						</p:commandButton>
 					</f:facet>
 				</p:toolbar>
-			</p:outputPanel>
+			</p:panel>
 		</p:dialog>
 	</h:form>
 
