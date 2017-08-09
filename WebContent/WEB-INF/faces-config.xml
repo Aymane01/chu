@@ -13,11 +13,6 @@
 		<managed-bean-class>org.chu.greve.models.Cadre</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>cadreUpdate</managed-bean-name>
-		<managed-bean-class>org.chu.greve.models.Cadre</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
-	</managed-bean>
 	 
 	
 	
@@ -31,11 +26,6 @@
 		<managed-bean-class>org.chu.greve.models.Specialite</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>specialiteUpdate</managed-bean-name>
-		<managed-bean-class>org.chu.greve.models.Specialite</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
-	</managed-bean>
 	
 	
 	<managed-bean>
@@ -48,10 +38,18 @@
 		<managed-bean-class>org.chu.greve.models.Grade</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	
+	
+	
+		<managed-bean>
+		<managed-bean-name>interneAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.InterneAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>gradeUpdate</managed-bean-name>
-		<managed-bean-class>org.chu.greve.models.Grade</managed-bean-class>
-		<managed-bean-scope>view</managed-bean-scope>
+		<managed-bean-name>interne</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Interne</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	
 	

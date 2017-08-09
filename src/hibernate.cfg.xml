@@ -19,5 +19,6 @@
 		<mapping  resource="org/chu/greve/models/Cadre.hbm.xml" />
 		<mapping  resource="org/chu/greve/models/Corps.hbm.xml" />
 		<mapping  resource="org/chu/greve/models/Specialite.hbm.xml" />
+		<mapping  resource="org/chu/greve/models/Interne.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
