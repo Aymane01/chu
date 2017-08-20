@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Generer Attestation de Salaire </title>
+</h:head>
+<h:body>
+	
+	<h:form>
+	<p:panel id="addPanel" header="Ajouter Interne"
+			style="margin-bottom:10px;">
+    <p:growl id="msgs" showDetail="true" />
+    <h:panelGrid columns="2" cellpadding="5">
+        <p:outputLabel value="Simple:" for="acSimple" />
+        <p:autoComplete id="acSimple" value="#{interneAction.query}" completeMethod="#{interneAction.getPropositions}" />
+	</h:panelGrid>
+    <p:commandButton value="Submit" icon="ui-icon-check" ajax="false" process="@this" actionListener="#{documentCreator.createAttestationSalaire(interneAction.getInterne(interneAction.query),true)}"  >
+     <p:fileDownload value="#{documentCreator.file}"   />
+    </p:commandButton>
+    </p:panel>
+    <p:dialog header="Download File" widgetVar="FileDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="665">
+
+<!-- 		<p:commandButton value="Download" ajax="false"  icon="ui-icon-arrowthick" process="@this addPanel">
+			
+    	</p:commandButton> -->
+	</p:dialog>
+</h:form>
+	
+</h:body>
+</html>

@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Gestion de Grade</title>
+	<title>Gestion de Grève</title>
 </h:head>
 <h:body>
 	<h:form id="form">
@@ -19,10 +19,12 @@
 				<p:outputLabel for="intituleFr" value="Intitulé en Français :" />
 				<p:inputText id="intituleFr" value="#{grade.intituleFr}" size="40"
 					validatorMessage="Champs requis : Intitulé en Français ">
+					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="intituleAr" value="Intitulé en Arabe :" />
-				<p:inputText id="intituleAr" value="grade" size="40"
+				<p:inputText id="intituleAr" value="#{grade.intituleAr}" size="40"
 					validatorMessage="Champs requis : Intitulé en Arabe  ">
+					<f:validateRequired />
 				</p:inputText>
 			</h:panelGrid>
 		</p:panel>
@@ -37,12 +39,12 @@
 			</f:facet>
 		</p:toolbar>
 
-		<p:panel id="listPanel" header="Liste des grades"
+		<p:panel id="listPanel" header="Liste des Grades"
 			style="margin-bottom:10px; margin-top:50px;">
 			<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
 				sticky="false" />
 			<p:dataTable var="c" value="#{gradeAction.grades}" paginator="true"
-				rowsPerPageTemplate="10,15,20" rows="15" emptyMessage="Aucun cadre">
+				rowsPerPageTemplate="10,15,20" rows="15" emptyMessage="Aucun grade">
 				<p:column headerText="Intitulé en Français"
 					filterBy="#{c.intituleFr}" filterMatchMode="contains">
 					<h:outputText value="#{c.intituleFr}" />
@@ -54,47 +56,50 @@
 				<p:column headerText="Options"
 					style="width:90px; text-align:  center">
 
-					<p:commandButton icon="ui-icon-closethick"
-						action="#{gradeAction.removeGrade(c)}" process="@this"
-						update="form">
+					<p:commandButton icon="ui-icon-closethick" update="form"
+						action="#{gradeAction.removegrade(c)}" process="@this">
 						<p:confirm header="Confirmation"
-							message="voulez-vous supprimer ce grade ?" icon="ui-icon-alert" />
+							message="voulez-vous supprimer le grade ?" icon="ui-icon-alert">
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+
+								<p:commandButton value="Oui" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Non" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:confirm>
 					</p:commandButton>
-					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton value="Oui" type="button"
-							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-						<p:commandButton value="Non" type="button"
-							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-					</p:confirmDialog>
-					<p:commandButton icon="ui-icon-pencil" update=":form:gradeInfo"
-						oncomplete="PF('gradeDialog').show()" process="@this">
-						<f:setPropertyActionListener target="#{gradeUpdate}" value="#{c}"
-							process="@this" />
+
+					<p:commandButton icon="ui-icon-pencil" update=":form:gradeUpdate"
+						oncomplete="PF('gradeDialog').show()" process="@this"
+						action="#{gradeAction.setGradeUpdate(c)}">
+
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 
-		<p:dialog header="Modifier grade" widgetVar="gradeDialog" modal="true"
+		<p:dialog header="Modifier Grade" widgetVar="gradeDialog" modal="true"
 			showEffect="fade" hideEffect="fade" resizable="false" width="665">
 
-			<p:panel id="gradeInfo" style="text-align:left;">
+			<p:panel id="gradeUpdate" style="text-align:left;" >
 				<p:panelGrid columns="2">
 					<p:outputLabel for="intituleFr2" value="Intitulé en Français :" />
 					<p:inputText id="intituleFr2" size="40"
-						value="#{gradeUpdate.intituleFr}">
+						value="#{gradeAction.gradeUpdate.intituleFr}">
 					</p:inputText>
 					<p:outputLabel for="intituleAr2" value="Intitulé en Arabe :" />
 					<p:inputText id="intituleAr2" size="40"
-						value="#{gradeUpdate.intituleAr}">
+						value="#{gradeAction.gradeUpdate.intituleAr}">
 					</p:inputText>
 
-				</p:panelGrid>
+				</p:panelGrid >
 				<p:toolbar>
 					<f:facet name="left">
 						<p:commandButton value="Modifier"
-							action="#{gradeAction.updateGrade(gradeUpdate)}" update="form"
-							icon="ui-icon-circle-check">
+							action="#{gradeAction.updateGrade(gradeAction.gradeUpdate)}"
+							update="form" icon="ui-icon-circle-check" process="gradeUpdate" >
 							<p:confirm header="Confirmation"
 								message="voulez-vous appliquer la modification ?"
 								icon="ui-icon-alert" />

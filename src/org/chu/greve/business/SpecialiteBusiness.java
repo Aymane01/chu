@@ -8,6 +8,6 @@ public interface SpecialiteBusiness {
 	public int addSpecialite(Specialite spec);
 	public Specialite selectSpecialite(int id);
 	public List<Specialite> selectAllSpecilite();
-	public void modifySpecialite(Specialite spec);
-	public void deleteSpecialite(int id);
+	public int modifySpecialite(Specialite spec);
+	public int deleteSpecialite(int id);
 }

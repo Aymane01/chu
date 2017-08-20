@@ -85,7 +85,7 @@
 						action="#{interneAction.setInterneUpdate(c)}">
 
 					</p:commandButton>
-					<p:commandButton icon="fa-plus-circle" update=":form:MoreInfoUpdate"
+					<p:commandButton icon="fa-search-plus" update=":form:MoreInfoUpdate"
 						oncomplete="PF('MoreinterneDialog').show()" process="@this"
 						action="#{interneAction.setInterneUpdate(c)}">
 
@@ -186,24 +186,8 @@
 				</p:panelGrid >
 				<p:toolbar>
 					<f:facet name="left">
-						<p:commandButton value="Modifier"
-							action="#{interneAction.updateInterne(interneAction.interneUpdate)}"
-							update="form" icon="ui-icon-circle-check" process="interneUpdate" >
-							<p:confirm header="Confirmation"
-								message="voulez-vous appliquer la modification ?"
-								icon="ui-icon-alert" />
-							<p:confirmDialog global="true" showEffect="fade"
-								hideEffect="fade">
-								<p:commandButton value="Oui" type="button"
-									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-								<p:commandButton value="Non" type="button"
-									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-							</p:confirmDialog>
-						</p:commandButton>
-						<p:commandButton value="Annuler" type="reset"
-							icon="ui-icon-circle-minus">
-
-						</p:commandButton>
+						
+						<p:commandButton value="Annuler" type="reset" icon="ui-icon-circle-minus"></p:commandButton>
 					</f:facet>
 				</p:toolbar>
 			</p:panel>

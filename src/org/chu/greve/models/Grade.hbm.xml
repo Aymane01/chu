@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 26 juil. 2017 17:14:33 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 8 ao?t 2017 13:05:50 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="org.chu.greve.models.Grade" table="GRADE">
         <id name="idG" type="int">
             <column name="IDG" />
-            <generator class="increment"></generator>
+            <generator class="assigned" />
         </id>
         <property name="intituleFr" type="java.lang.String">
             <column name="INTITULEFR" />

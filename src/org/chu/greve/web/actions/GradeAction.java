@@ -19,7 +19,7 @@ import org.chu.greve.util.HibernateUtil;
 public class GradeAction {
 	private GradeBusiness gradeService;
 	private List<Grade> grades;
-	private Grade grade;
+	private Grade gradeUpdate;
 
 	public GradeBusiness getGradeService() {
 		return gradeService;
@@ -37,12 +37,13 @@ public class GradeAction {
 		this.grades = grades;
 	}
 
-	public Grade getGrade() {
-		return grade;
+
+	public Grade getGradeUpdate() {
+		return gradeUpdate;
 	}
 
-	public void setGrade(Grade grade) {
-		this.grade = grade;
+	public void setGradeUpdate(Grade gradeUpdate) {
+		this.gradeUpdate = gradeUpdate;
 	}
 
 	@PostConstruct

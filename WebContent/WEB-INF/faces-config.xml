@@ -39,8 +39,6 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	
-	
-	
 		<managed-bean>
 		<managed-bean-name>interneAction</managed-bean-name>
 		<managed-bean-class>org.chu.greve.web.actions.InterneAction</managed-bean-class>
@@ -52,5 +50,16 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	
+	
+	<managed-bean>
+		<managed-bean-name>documentCreator</managed-bean-name>
+		<managed-bean-class>org.chu.greve.util.DocumentCreator</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>fileDownloadView</managed-bean-name>
+		<managed-bean-class>org.chu.greve.util.FileDownloadView</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	
 </faces-config>

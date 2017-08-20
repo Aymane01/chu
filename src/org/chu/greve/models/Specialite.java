@@ -5,9 +5,9 @@ import org.hibernate.annotations.Entity;
 
 @Entity
 public class Specialite {
-	int idS;
-	String intituleFr;
-	String intituleAr;
+	private int idS;
+	private String intituleFr;
+	private String intituleAr;
 	public Specialite() {
 		// TODO Auto-generated constructor stub
 	}

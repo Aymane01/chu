@@ -66,10 +66,10 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> CRUD <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="">Specialite</a></li>
+                      <li><a href="../chu/listeSpec">Specialite</a></li>
+                      <li><a href="../chu/listeGrade">Grade</a></li>
                       <li><a href="">Cadre</a></li>
                       <li><a href="">Corps</a></li>
-                      <li><a href="">Grade</a></li>
                       <li><a href="">X</a></li>
                       <li><a href="">Y</a></li>
                       <li><a href="">Z</a></li>
@@ -80,10 +80,10 @@
                   </li>
                   <li><a><i class="fa fa-edit"></i> Generer <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">Attestation Travail</a></li>
-                      <li><a href="form_advanced.html">Attestation Salaire</a></li>
-                      <li><a href="form_validation.html">Demande D'explication</a></li>
-                      <li><a href="form_wizards.html">Rapport de punition</a></li>
+                       <li><a href="../chu/const">Attestation Travail</a></li>
+                      <li><a href="../chu/const">Attestation Salaire</a></li>
+                      <li><a href="../chu/const">Demande D'explication</a></li>
+                      <li><a href="../chu/const">Rapport de punition</a></li>
                     </ul>
                   </li>
                    </ul>
@@ -156,13 +156,7 @@
                     <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="../chu/addSpec">
 
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ID  : <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" name="id" id="id">
-                        </div>
-                      </div>
+                     
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Intitulé francais <span class="required">*</span>
                         </label>

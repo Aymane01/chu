@@ -8,7 +8,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Gestion de Specialite</title>
+	<title>Gestion de Grève</title>
 </h:head>
 <h:body>
 	<h:form id="form">
@@ -19,10 +19,12 @@
 				<p:outputLabel for="intituleFr" value="Intitulé en Français :" />
 				<p:inputText id="intituleFr" value="#{specialite.intituleFr}" size="40"
 					validatorMessage="Champs requis : Intitulé en Français ">
+					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="intituleAr" value="Intitulé en Arabe :" />
 				<p:inputText id="intituleAr" value="#{specialite.intituleAr}" size="40"
 					validatorMessage="Champs requis : Intitulé en Arabe  ">
+					<f:validateRequired />
 				</p:inputText>
 			</h:panelGrid>
 		</p:panel>
@@ -37,12 +39,12 @@
 			</f:facet>
 		</p:toolbar>
 
-		<p:panel id="listPanel" header="Liste des Specialites"
+		<p:panel id="listPanel" header="Liste des Grades"
 			style="margin-bottom:10px; margin-top:50px;">
 			<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
 				sticky="false" />
 			<p:dataTable var="c" value="#{specialiteAction.specialites}" paginator="true"
-				rowsPerPageTemplate="10,15,20" rows="15" emptyMessage="Aucun cadre">
+				rowsPerPageTemplate="10,15,20" rows="15" emptyMessage="Aucun specialite">
 				<p:column headerText="Intitulé en Français"
 					filterBy="#{c.intituleFr}" filterMatchMode="contains">
 					<h:outputText value="#{c.intituleFr}" />
@@ -54,22 +56,25 @@
 				<p:column headerText="Options"
 					style="width:90px; text-align:  center">
 
-					<p:commandButton icon="ui-icon-closethick"
-						action="#{specialiteAction.removeSpecialite(c)}" process="@this"
-						update="form">
+					<p:commandButton icon="ui-icon-closethick" update="form"
+						action="#{specialiteAction.removeSpecialite(c)}" process="@this">
 						<p:confirm header="Confirmation"
-							message="voulez-vous supprimer cette Specialite ?" icon="ui-icon-alert" />
+							message="voulez-vous supprimer le Specialite ?" icon="ui-icon-alert">
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+
+								<p:commandButton value="Oui" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Non" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:confirm>
 					</p:commandButton>
-					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:commandButton value="Oui" type="button"
-							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-						<p:commandButton value="Non" type="button"
-							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-					</p:confirmDialog>
-					<p:commandButton icon="ui-icon-pencil" update=":form:specialiteInfo"
-						oncomplete="PF('specialiteDialog').show()" process="@this">
-						<f:setPropertyActionListener target="#{specialiteUpdate}" value="#{c}"
-							process="@this" />
+
+					<p:commandButton icon="ui-icon-pencil" update=":form:specialiteUpdate"
+						oncomplete="PF('specialiteDialog').show()" process="@this"
+						action="#{specialiteAction.setSpecialiteUpdate(c)}">
+
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -78,23 +83,23 @@
 		<p:dialog header="Modifier Specialite" widgetVar="specialiteDialog" modal="true"
 			showEffect="fade" hideEffect="fade" resizable="false" width="665">
 
-			<p:panel id="specialiteInfo" style="text-align:left;">
+			<p:panel id="specialiteUpdate" style="text-align:left;" >
 				<p:panelGrid columns="2">
 					<p:outputLabel for="intituleFr2" value="Intitulé en Français :" />
 					<p:inputText id="intituleFr2" size="40"
-						value="#{specialiteUpdate.intituleFr}">
+						value="#{specialiteAction.specialiteUpdate.intituleFr}">
 					</p:inputText>
 					<p:outputLabel for="intituleAr2" value="Intitulé en Arabe :" />
 					<p:inputText id="intituleAr2" size="40"
-						value="#{specialiteUpdate.intituleAr}">
+						value="#{specialiteAction.specialiteUpdate.intituleAr}">
 					</p:inputText>
 
-				</p:panelGrid>
+				</p:panelGrid >
 				<p:toolbar>
 					<f:facet name="left">
 						<p:commandButton value="Modifier"
-							action="#{specialiteAction.updateSpecialite(specialiteUpdate)}" update="form"
-							icon="ui-icon-circle-check">
+							action="#{specialiteAction.updateSpecialite(specialiteAction.specialiteUpdate)}"
+							update="form" icon="ui-icon-circle-check" process="specialiteUpdate" >
 							<p:confirm header="Confirmation"
 								message="voulez-vous appliquer la modification ?"
 								icon="ui-icon-alert" />

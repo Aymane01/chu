@@ -14,12 +14,15 @@ import org.chu.greve.util.HibernateUtil;
 public class SpecialiteAction {
 	private SpecialiteBusiness specService;
 	private List<Specialite> specialites;
-	private Specialite specialite;
+	private Specialite specialiteUpdate;
 
 	
-
-
-	
+	@PostConstruct
+	public void init() {
+		specService = new SpecialiteBusinessImpl(new SpecialiteDaoHibernate(HibernateUtil.getSessionFactory()));
+		System.out.println("HERE");
+		refreshList();
+	}
 
 	public SpecialiteBusiness getSpecService() {
 		return specService;
@@ -37,19 +40,13 @@ public class SpecialiteAction {
 		this.specialites = specialites;
 	}
 
-	public Specialite getSpecialite() {
-		return specialite;
+
+	public Specialite getSpecialiteUpdate() {
+		return specialiteUpdate;
 	}
 
-	public void setSpecialite(Specialite specialite) {
-		this.specialite = specialite;
-	}
-
-	@PostConstruct
-	public void init() {
-		specService = new SpecialiteBusinessImpl(new SpecialiteDaoHibernate(HibernateUtil.getSessionFactory()));
-		System.out.println("HERE");
-		refreshList();
+	public void setSpecialiteUpdate(Specialite specUpdate) {
+		this.specialiteUpdate = specUpdate;
 	}
 
 	public void addSpecialite(Specialite specialite) {
