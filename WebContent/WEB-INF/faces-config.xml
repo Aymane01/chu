@@ -14,7 +14,16 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	 
-	
+	<managed-bean>
+		<managed-bean-name>corpsAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.CorpsAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>corps</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Corps</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	
 	<managed-bean>
 		<managed-bean-name>specialiteAction</managed-bean-name>

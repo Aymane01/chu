@@ -13,6 +13,8 @@ public class Fonctionnaire {
 	private String dateArrive;
 	private String budget;
 	private String observation;
+	
+	
 	public Fonctionnaire() {
 		
 	}
