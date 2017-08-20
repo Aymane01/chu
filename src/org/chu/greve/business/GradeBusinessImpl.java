@@ -27,14 +27,25 @@ public class GradeBusinessImpl implements GradeBusiness {
 	}
 
 	@Override
-	public void modifyGrade(Grade g) {
-		daoG.modify(g);
+	public int modifyGrade(Grade g) {
+		try {
+			daoG.modify(g);
+			return 1;
+		} catch (Exception e) {
+			return 0;
+		}
+		
 		
 	}
 
 	@Override
-	public void deleteGrade(int id) {
-		daoG.delete(id);
+	public int deleteGrade(int id) {
+		try {
+			daoG.delete(id);
+			return 1;
+		} catch (Exception e) {
+			return 0;
+		}
 		
 	}
 }
