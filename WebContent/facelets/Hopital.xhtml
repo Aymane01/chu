@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Gestion de Grève</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
+			sticky="false" />
+		<p:panel id="addPanelHopital" header="Ajouter nouveau Hôpital"
+			style="margin-bottom:2px;">
+
+			<h:panelGrid columns="2" id="hopitalp">
+				<p:outputLabel for="intituleFr" value="Intitulé en Français : *" />
+				<p:inputText id="intituleFr" value="#{hopital.intituleFr}" size="40"
+					validatorMessage="Champs requis : Intitulé en Français ">
+					<f:validateRequired />
+				</p:inputText>
+				<p:outputLabel for="intituleAr" value="Intitulé en Arabe : *" />
+				<p:inputText id="intituleAr" value="#{hopital.intituleAr}" size="40"
+					validatorMessage="Champs requis : Intitulé en Arabe  ">
+					<f:validateRequired />
+				</p:inputText>
+			</h:panelGrid>
+		</p:panel>
+		<p:toolbar style="margin-bottom:20px;">
+			<f:facet name="left">
+				<p:commandButton type="submit" value="Ajouter"
+					icon="ui-icon-circle-check" process="@this addPanelHopital"
+					action="#{hopitalAction.addHopital(hopital)}" update="form">
+				</p:commandButton>
+				<p:commandButton value="Annuler" type="reset"
+					icon="ui-icon-circle-minus">
+				</p:commandButton>
+			</f:facet>
+		</p:toolbar>
+		<p:panel id="addPanelService" header="Ajouter service"
+			style="margin-bottom:2px;">
+
+			<h:panelGrid columns="2">
+				<p:outputLabel for="intituleFr1" value="Intitulé en Français : *" />
+				<p:inputText id="intituleFr1" value="#{service.intituleFr}"
+					size="40" validatorMessage="Champs requis : Intitulé en Français ">
+					<f:validateRequired />
+				</p:inputText>
+				<p:outputLabel for="intituleAr1" value="Intitulé en Arabe : *" />
+				<p:inputText id="intituleAr1" value="#{service.intituleAr}"
+					size="40" validatorMessage="Champs requis : Intitulé en Arabe  ">
+					<f:validateRequired />
+				</p:inputText>
+				<p:outputLabel for="hopital" value="Hopital :" />
+				<p:selectOneMenu required="true"
+					requiredMessage="Veuillez seletionner un hopital" effect="scale"
+					id="hopital" value="#{service.hopital.idH}" style="width:420px">
+					<f:selectItem itemLabel="Selectionner un hopital"
+						noSelectionOption="true"></f:selectItem>
+					<f:selectItems var="h" value="#{hopitalAction.listHopital}"
+						itemLabel="#{h.intituleFr}" itemValue="#{h.idH}">
+					</f:selectItems>
+				</p:selectOneMenu>
+			</h:panelGrid>
+		</p:panel>
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton value="Ajouter" icon="ui-icon-circle-check"
+					actionListener="#{hopitalAction.addService(service)}"
+					process="@this addPanelService" update="form">
+				</p:commandButton>
+				<p:commandButton value="Annuler" type="reset"
+					icon="ui-icon-circle-minus">
+				</p:commandButton>
+			</f:facet>
+		</p:toolbar>
+
+		<p:panel id="listHopitalPanel" header="Liste des Hôpitaux"
+			style="margin-bottom:10px; margin-top:50px;">
+			<p:dataTable var="h" value="#{hopitalAction.listHopital}"
+				paginator="true" rowsPerPageTemplate="10,15,20" rows="15"
+				emptyMessage="Aucun Hôpital">
+				<p:column headerText="Intitulé en Français"
+					filterBy="#{h.intituleFr}" filterMatchMode="contains">
+					<h:outputText value="#{h.intituleFr}" />
+				</p:column>
+				<p:column headerText="Intitulé en Arabe" filterBy="#{h.intituleAr}"
+					filterMatchMode="contains">
+					<h:outputText value="#{h.intituleAr}"></h:outputText>
+				</p:column>
+				<p:column headerText="Options"
+					style="width:135px; text-align:  center" id="options">
+					<p:tooltip id="toolTipGrowD" for="remove" value="Supprimer"
+						showEffect="clip" hideEffect="clip" position="left" />
+					<p:tooltip id="toolTipGrowU" for="update" value="Modifier"
+						showEffect="clip" hideEffect="clip" position="left" />
+					<p:tooltip id="toolTipGrowS" for="showPlus" value="Voir Services"
+						showEffect="clip" hideEffect="clip" position="left" />
+					<p:commandButton icon="ui-icon-closethick" update="form"
+						id="remove" action="#{hopitalAction.deleteHopital(h)}"
+						process="@this">
+						<p:confirm header="Confirmation"
+							message="La suppression de l’hôpital entraînera la suppression de tous les services affectés à cet hôpital, voulez-vous continuer ?"
+							icon="ui-icon-alert">
+						</p:confirm>
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Oui" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="Non" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+					<p:commandButton icon="ui-icon-pencil" update=":form:hopitalUpdate"
+						id="update" oncomplete="PF('hopitalDialog').show()"
+						process="@this" action="#{hopitalAction.setHopital(h)}">
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-plus" id="showPlus" process="@this"
+						action="#{hopitalAction.serviceNavigation(h)}">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+		<p:dialog header="Modifier Hôpital" widgetVar="hopitalDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+			width="665">
+
+			<p:panel id="hopitalUpdate" style="text-align:left;">
+				<p:panelGrid columns="2">
+					<p:outputLabel for="intituleFr2" value="Intitulé en Français :" />
+					<p:inputText id="intituleFr2" size="40"
+						value="#{hopitalAction.hopital.intituleFr}">
+					</p:inputText>
+					<p:outputLabel for="intituleAr2" value="Intitulé en Arabe :" />
+					<p:inputText id="intituleAr2" size="40"
+						value="#{hopitalAction.hopital.intituleAr}">
+					</p:inputText>
+
+				</p:panelGrid>
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton value="Modifier"
+							action="#{hopitalAction.updateHopital(hopitalAction.hopital)}"
+							update="form" icon="ui-icon-circle-check" process="hopitalUpdate">
+							<p:confirm header="Confirmation"
+								message="voulez-vous appliquer la modification ?"
+								icon="ui-icon-alert" />
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Oui" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Non" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:commandButton>
+						<p:commandButton value="Annuler" type="reset"
+							icon="ui-icon-circle-minus">
+
+						</p:commandButton>
+					</f:facet>
+				</p:toolbar>
+			</p:panel>
+		</p:dialog>
+	</h:form>
+</h:body>
+</html>

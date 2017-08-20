@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 26 juil. 2017 17:14:33 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="org.chu.greve.models.Service" table="SERVICE">
+		<id name="idSe" type="int">
+			<column name="IDSE" />
+			<generator class="increment" />
+		</id>
+		<property name="intituleAr" type="java.lang.String">
+			<column name="INTITULEAR" />
+		</property>
+		<property name="intituleFr" type="java.lang.String">
+			<column name="INTITULEFR" />
+		</property>
+		<many-to-one name="hopital"
+			class="org.chu.greve.models.Hopital" column="fk_idHopital"
+			foreign-key="fk_hopital" />
+	</class>
+</hibernate-mapping>
