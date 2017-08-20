@@ -29,25 +29,13 @@ public class SpecialiteBusinessImpl implements SpecialiteBusiness{
 	}
 
 	@Override
-	public int modifySpecialite(Specialite spec) {
-		try {
-			daoS.modify(spec);
-			return 1;
-		} catch (Exception e) {
-			// TODO: handle exception
-			return 0;
-		}
+	public void modifySpecialite(Specialite spec) {
+		daoS.modify(spec);
 	}
 
 	@Override
-	public int deleteSpecialite(int id) {
-		try {
-			daoS.delete(id);
-			return 1;
-		} catch (Exception e) {
-			// TODO: handle exception
-			return 0;
-		}
+	public void deleteSpecialite(int id) {
+		daoS.delete(id);
 	}
 
 }

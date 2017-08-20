@@ -8,7 +8,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-public class CadreDaoImpl implements CadreDao, SessionDao {
+public class CadreDaoImpl implements CadreDao {
 	private SessionFactory factory;
 
 	private Session session;

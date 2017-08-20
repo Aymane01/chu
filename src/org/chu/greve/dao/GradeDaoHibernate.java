@@ -1,43 +1,29 @@
 package org.chu.greve.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.chu.greve.util.HibernateUtil;
 import org.chu.greve.models.Grade;
-import org.chu.greve.models.Specialite;
-import org.hibernate.SQLQuery;
-import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
 public class GradeDaoHibernate implements GradeDao{
-	private SessionFactory factory;
 
-	private Session session;
 	public GradeDaoHibernate() {
 	}
-	
-	public void openSession() {
-		session = factory.openSession();
-		session.beginTransaction();
-	}
-	public void closeSession() {
-		session.getTransaction().commit();
-		session.close();
-	}
-	public GradeDaoHibernate(SessionFactory factory) {
-		this.factory = factory;
-	}
+
+
 	@Override
 	public int insert(Grade g) {
-		openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
+			session.beginTransaction();
+			
 			Grade grd = new Grade();
 			grd.setIntituleAr(g.getIntituleAr());
 			grd.setIntituleFr(g.getIntituleFr());
 			
 			session.save(grd);
-			closeSession();
+			session.getTransaction().commit();
 			return 1;
 		} catch (Exception e) {
 			return 0;
@@ -46,55 +32,51 @@ public class GradeDaoHibernate implements GradeDao{
 
 	@Override
 	public void delete(int id) {
-			openSession();
+			Session session = HibernateUtil.getSessionFactory().getCurrentSession();			
+			session.beginTransaction();
 			
 			Grade g = (Grade) session.load(Grade.class, id);
 			
 			session.delete(g);
-			closeSession();
+			session.getTransaction().commit();
 		
 	}
 
 	@Override
 	public Grade select(int id) {
-		openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();			
+		session.beginTransaction();
 		
 		Grade g = (Grade) session.get(Grade.class, id);
-		closeSession();
+		
+		session.getTransaction().commit();
 		return g;
 	}
 
 
 	@Override
 	public List<Grade> selectAll() {
-		openSession();
-		try {
-			List<Grade> list = new ArrayList<>();
-			String query = "select * from grade";
-			SQLQuery sql = session.createSQLQuery(query);
-			sql.addEntity(Grade.class);
-			list = sql.list();
-			
-			closeSession();
-			return list;
-		} catch (Exception e) {
-			System.out.println("l'exeption est ici");
-			closeSession();
-			return null;
-		}
+		Session session = HibernateUtil.getSessionFactory().openSession();			
+		session.beginTransaction();
+		
+		
+		
+		session.getTransaction().commit();
+		return null;
 	}
 
 
 	@Override
 	public void modify(Grade gr) {
-		openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();			
+		session.beginTransaction();
 		
 		Grade g = (Grade) session.get(Grade.class, gr.getIdG());
 		g.setIntituleAr(gr.getIntituleAr());
 		g.setIntituleFr(gr.getIntituleFr());
 		
 		session.update(g);
-		closeSession();
+		session.getTransaction().commit();
 		
 	}
 	

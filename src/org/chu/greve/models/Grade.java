@@ -25,11 +25,6 @@ public class Grade {
 		this.intituleAr = "";
 	}
 	
-	public Grade(String intituleFr, String intituleAr) {
-		super();
-		this.intituleFr = intituleFr;
-		this.intituleAr = intituleAr;
-	}
 	public int getIdG() {
 		return idG;
 	}

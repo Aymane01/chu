@@ -1,98 +1,68 @@
 package org.chu.greve.web.actions;
 
-import java.util.Collections;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+
 import org.chu.greve.business.SpecialiteBusiness;
-import org.chu.greve.business.SpecialiteBusinessImpl;
-import org.chu.greve.dao.SpecialiteDaoHibernate;
 import org.chu.greve.models.Specialite;
-import org.chu.greve.util.HibernateUtil;
+import org.chu.greve.web.WebContext;
 
 public class SpecialiteAction {
-	private SpecialiteBusiness specService;
-	private List<Specialite> specialites;
-	private Specialite specialiteUpdate;
-
+	private SpecialiteBusiness business;
 	
-	@PostConstruct
-	public void init() {
-		specService = new SpecialiteBusinessImpl(new SpecialiteDaoHibernate(HibernateUtil.getSessionFactory()));
-		System.out.println("HERE");
-		refreshList();
-	}
-
-	public SpecialiteBusiness getSpecService() {
-		return specService;
-	}
-
-	public void setSpecService(SpecialiteBusiness specService) {
-		this.specService = specService;
-	}
-
-	public List<Specialite> getSpecialites() {
-		return specialites;
-	}
-
-	public void setSpecialites(List<Specialite> specialites) {
-		this.specialites = specialites;
+	
+	public SpecialiteAction() {
+		// TODO Auto-generated constructor stub
 	}
 
 
-	public Specialite getSpecialiteUpdate() {
-		return specialiteUpdate;
+	public SpecialiteAction(SpecialiteBusiness business) {
+		super();
+		this.business = business;
 	}
 
-	public void setSpecialiteUpdate(Specialite specUpdate) {
-		this.specialiteUpdate = specUpdate;
+
+	public SpecialiteBusiness getBusiness() {
+		return business;
 	}
 
-	public void addSpecialite(Specialite specialite) {
 
-		int r = specService.addSpecialite(specialite);
-		refreshList();
-		if (r == 1) {
-
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Specialite enregistré avec succès."));
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
-					"Une erreur s'est produit lors d'enregistrement."));
+	public void setBusiness(SpecialiteBusiness business) {
+		this.business = business;
+	}
+	
+	public String addSpecialite(WebContext context) {
+		Specialite spec = new Specialite(context.getParameter("intitulefr"), context.getParameter("intitulear"));
+		int res = business.addSpecialite(spec);
+		if(res == 1) {
+			context.setMdel("model", business.selectAllSpecilite());
+			return "specialite";
+		}else {
+			return "error";
 		}
 	}
+	public String listSpec(WebContext context) {
+		List<Specialite> specs = business.selectAllSpecilite();
 
-	public void removeSpecialite(Specialite specialite) {
-
-		int r = specService.deleteSpecialite(specialite.getIdS());
-		refreshList();
-		if (r == 1) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Specialite supprimée avec succès."));
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
-					"Une erreur s'est produit lors de la suppression."));
-		}
-
+		System.out.println(specs.size());
+		context.setMdel("model", specs);
+		return "specialite";
 	}
-
-	public void updateSpecialite(Specialite specialite) {
-		int r = specService.modifySpecialite(specialite);;
-		refreshList();
-		if (r == 1) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Specialite modifiée avec succès."));
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
-					"Une erreur s'est produit lors de la modifcation."));
+	public String removeSpec(WebContext context) {
+		try {
+			business.deleteSpecialite(context.getIntParameter("id"));
+			context.setMdel("model", business.selectAllSpecilite());
+			return "specialite";
+		} catch (Exception e) {
+			return "error";
 		}
 	}
-
-	public void refreshList() {
-		specialites = specService.selectAllSpecilite();
-		System.out.println(specialites.size());
-		Collections.reverse(specialites);
+	public String modifierSpec(WebContext context) {
+		try {
+			business.modifySpecialite(new Specialite(context.getIntParameter("id"), context.getParameter("intitulefr"), context.getParameter("intitulear")));
+			context.setMdel("model", business.selectAllSpecilite());
+			return "specialite";
+		} catch (Exception e) {
+			return "error";
+		}
 	}
-
 }
