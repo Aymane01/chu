@@ -27,7 +27,7 @@ public class FileDownloadView {
     public FileDownloadView() {        
     	InputStream stream=null;
 		try {
-
+			stream = new FileInputStream("C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\header.png");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

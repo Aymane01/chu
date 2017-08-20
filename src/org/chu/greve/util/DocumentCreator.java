@@ -3,6 +3,7 @@ package org.chu.greve.util;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,6 +51,8 @@ import org.primefaces.model.DefaultStreamedContent;
 public class DocumentCreator {
 	private String target;
 	private DefaultStreamedContent file;
+	private InputStream stream;
+	private boolean unMois;
 	private String[] head = {"ROYAUME DU MAROC"
 			,"MINISTERE DE LA SANTE"
 			,"CENTRE HOSPITALO-UNIVERSITAIRE HASSAN II "                                                  
@@ -58,12 +61,15 @@ public class DocumentCreator {
 	  private String imgFile="C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\header.png";
 	@PostConstruct
 	  public void init() {
-		file = new DefaultStreamedContent();
 	}
 	  public DocumentCreator() {
 		target="C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\test.docx";
-		InputStream stream = FacesContext.getCurrentInstance().getExternalContext().getResourceAsStream("resources/test.docx");
-		file = new DefaultStreamedContent(stream, "doc/docx", "attest_salaire.docx");
+		try {
+			stream = new FileInputStream(target);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public DocumentCreator(String target) {
 		super();
@@ -76,6 +82,12 @@ public class DocumentCreator {
 		this.target = target;
 	}
 	
+	public boolean isUnMois() {
+		return unMois;
+	}
+	public void setUnMois(boolean unMois) {
+		this.unMois = unMois;
+	}
 	public DefaultStreamedContent getFile() {
 		return file;
 	}
@@ -83,6 +95,7 @@ public class DocumentCreator {
 		this.file = file;
 	}
 	public int createAttestationSalaire(Interne interne, boolean unMois) {
+		file = new DefaultStreamedContent(stream, "doc/docx", "attest_salaire_" + interne.getNomFr() + ".docx");
 		XWPFDocument doc= new XWPFDocument();
 		 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		 DateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yy");
@@ -128,8 +141,10 @@ public class DocumentCreator {
 				e.printStackTrace();
 			}
 			
-			Date  dateArr = new Date(dateAr.getYear(), dateAr.getMonth() -1, dateAr.getDay());
-			  if(d.before(dateArr)) {
+			Date  dateArr = new Date(dateAr.getYear(), dateAr.getMonth() +1, dateAr.getDay());
+			System.out.println("Date d'aujourd'hui : " + d.toGMTString());
+			System.out.println("Date de recrutement : " + dateArr.toGMTString());
+			  if(d.after(dateArr)) {
 					run.setText("      Le Directeur du Centre Hospitalo-universitaire Hassan II  atteste par la présente que M(me) " + interne.getNomFr() + " (CIN N° : " +  interne.getCin() + " ), Interne dudit Centre, perçoit une indemnité de fonction au taux mensuel de 3400,00 Dh."); 
 
 				  }else {
@@ -145,8 +160,12 @@ public class DocumentCreator {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				Date  dateArr = new Date(dateAr.getYear(), dateAr.getMonth() -1, dateAr.getDay());
-			  if(d.before(dateArr)) {
+				Date  dateArr = new Date();
+				dateArr.setYear(dateAr.getYear());
+				dateArr.setMonth(dateAr.getMonth() + 1);
+				dateArr.setDate(dateAr.getDay());
+				
+			  if(d.after(dateArr)) {
 				  Date d1 = new Date(d.getYear(), d.getMonth() , d.getDay());
 				  Date d2 = new Date(d.getYear(), d.getMonth() -1 , d.getDay());
 				  Date d3 = new Date(d.getYear(), d.getMonth() -2 , d.getDay());

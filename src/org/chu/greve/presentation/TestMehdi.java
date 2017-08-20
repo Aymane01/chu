@@ -134,7 +134,9 @@ public class TestMehdi {
 	}
 	void exp11() {
 		DocumentCreator creator = new DocumentCreator("resources/test.docx");
-		creator.createAttestationSalaire(new Interne("Mehdi Kaghat", "", "", "CD597779", "", "", "01/08/2017"),false);
+		Interne interne = new Interne("Mehdi Kaghat", "", "", "CD597779", "", "", "01/01/2017");
+		interne.setDateRecru("01/08/2017");
+		creator.createAttestationSalaire(interne,true);
 		System.out.println("fin");
 	}
 	void exp12() {

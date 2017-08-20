@@ -19,8 +19,10 @@
     <h:panelGrid columns="2" cellpadding="5">
         <p:outputLabel value="Simple:" for="acSimple" />
         <p:autoComplete id="acSimple" value="#{interneAction.query}" completeMethod="#{interneAction.getPropositions}" />
+        <h:outputText value="Duree de l'attestation : " />
+        <p:selectBooleanButton id="value1" value="#{documentCreator.unMois}" onLabel="1 " offLabel="3 " style="width:60px" /> Mois
 	</h:panelGrid>
-    <p:commandButton value="Submit" icon="ui-icon-check" ajax="false" process="@this" actionListener="#{documentCreator.createAttestationSalaire(interneAction.getInterne(interneAction.query),true)}"  >
+    <p:commandButton value="Submit" icon="ui-icon-check" ajax="false" process="@this" actionListener="#{documentCreator.createAttestationSalaire(interneAction.getInterne(interneAction.query),documentCreator.unMois)}"  >
      <p:fileDownload value="#{documentCreator.file}"   />
     </p:commandButton>
     </p:panel>
