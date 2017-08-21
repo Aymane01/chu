@@ -6,11 +6,7 @@
     <class name="org.chu.greve.models.Corps" table="CORPS">
         <id name="id" type="int">
             <column name="IDCR" />
-<<<<<<< HEAD
-            <generator class="assigned" />
-=======
             <generator class="increment" />
->>>>>>> e5196ee27c3812e09fc1a96232545d5ad7868bdf
         </id>
         <property name="intituleAr" type="java.lang.String">
             <column name="INTITULEAR" />
