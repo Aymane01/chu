@@ -1,6 +1,5 @@
 package org.chu.greve.models;
 
-import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Entity;
 
 @Entity

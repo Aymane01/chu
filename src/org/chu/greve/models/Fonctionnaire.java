@@ -13,11 +13,14 @@ public class Fonctionnaire {
 	private String dateArrive;
 	private String budget;
 	private String observation;
+<<<<<<< HEAD
 	private int echelle;
 	private int echelon;
 	private int indice;
 	
 	
+=======
+>>>>>>> 28527d9490e2f32167b4ccfd0a869d41c83bd113
 	public Fonctionnaire() {
 		
 	}
