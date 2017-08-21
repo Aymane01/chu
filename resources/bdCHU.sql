@@ -44,3 +44,20 @@ stage3 VARCHAR(255),
 stage4 VARCHAR(255)
 ) 
 go
+
+CREATE TABLE Hopital (
+idH INT PRIMARY KEY,
+intituleAr VARCHAR(100) COLLATE Arabic_100_CS_AS_KS_WS_SC,
+intituleFr VARCHAR(100)
+) 
+go
+
+CREATE TABLE Service (
+idSe INT PRIMARY KEY,
+intituleAr VARCHAR(100) COLLATE Arabic_100_CS_AS_KS_WS_SC,
+intituleFr VARCHAR(100),
+fk_idHopital INT,
+
+CONSTRAINT  fk_hopital FOREIGN KEY (fk_idHopital) REFERENCES Hopital(idH)
+) 
+go
