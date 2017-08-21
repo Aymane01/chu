@@ -13,6 +13,9 @@ public class Fonctionnaire {
 	private String dateArrive;
 	private String budget;
 	private String observation;
+	private int echelle;
+	private int echelon;
+	private int indice;
 	
 	
 	public Fonctionnaire() {
@@ -29,9 +32,12 @@ public class Fonctionnaire {
 		this.dateN = dateN;
 		this.sexe = sexe;
 		this.dateArrive = dateArrive;
+		this.echelle = echelle;
+		this.echelon = echelon;
+		this.indice = indice;
 	}
 	public Fonctionnaire(String nomFr, String prenomFr, String nomCompletAr, String cin, String dateN,
-			String sexe, String dateArrive) {
+			String sexe, String dateArrive,int echelle,int echelon,int indice) {
 		super();
 		this.ppr = ppr;
 		this.nomFr = nomFr;
@@ -41,6 +47,9 @@ public class Fonctionnaire {
 		this.dateN = dateN;
 		this.sexe = sexe;
 		this.dateArrive = dateArrive;
+		this.echelle = echelle;
+		this.echelon = echelon;
+		this.indice = indice;
 	}
 	public int getPpr() {
 		return ppr;
@@ -101,6 +110,24 @@ public class Fonctionnaire {
 	}
 	public void setObservation(String observation) {
 		this.observation = observation;
+	}
+	public int getEchelle() {
+		return echelle;
+	}
+	public void setEchelle(int echelle) {
+		this.echelle = echelle;
+	}
+	public int getEchelon() {
+		return echelon;
+	}
+	public void setEchelon(int echelon) {
+		this.echelon = echelon;
+	}
+	public int getIndice() {
+		return indice;
+	}
+	public void setIndice(int indice) {
+		this.indice = indice;
 	}
 	
 	
