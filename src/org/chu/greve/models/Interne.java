@@ -42,8 +42,8 @@ public class Interne extends Fonctionnaire{
 		setStage4(row[9]);
 	}
 	public Interne(String nomFr, String prenomFr, String nomCompletAr, String cin, String dateN, String sexe,
-			String dateArrive) {
-		super(nomFr, prenomFr, nomCompletAr, cin, dateN, sexe, dateArrive);
+			String dateArrive,int echelle,int echelon,int indice) {
+		super(nomFr, prenomFr, nomCompletAr, cin, dateN, sexe, dateArrive, echelle, echelon, indice);
 		// TODO Auto-generated constructor stub
 	}
 

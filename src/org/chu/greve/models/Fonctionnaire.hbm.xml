@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22 ao?t 2017 19:38:56 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="org.chu.greve.models.Fonctionnaire" table="FONCTIONNAIRE">
+        <id name="cin" type="java.lang.String">
+            <column name="CIN" />
+        </id>
+        <component name="service" class="org.chu.greve.models.Service">
+			<property name="idSe" type="int">
+				<column name="IDSE" />
+			</property>
+		</component>
+		
+		<component name="grade" class="org.chu.greve.models.Grade">
+			<property name="idG" type="int">
+				<column name="IDG" />
+			</property>
+		</component>
+		
+		<component name="cadre" class="org.chu.greve.models.Cadre">
+			<property name="id" type="int">
+				<column name="IDCA" />
+			</property>
+		</component>
+		
+		<component name="corps" class="org.chu.greve.models.Corps">
+			<property name="id" type="int">
+				<column name="IDCR" />
+			</property>
+		</component>
+        <property name="ppr" type="java.lang.Integer">
+        	<column name="PPR"></column>
+        </property>
+        <property name="nomFr" type="java.lang.String">
+            <column name="NOMCOMPLETFR" />
+        </property>
+        
+        <property name="nomCompletAr" type="java.lang.String">
+            <column name="NOMCOMPLETAR" />
+        </property>
+        <property name="dateN" type="java.lang.String">
+            <column name="DATEN" />
+        </property>
+        <property name="sexe" type="java.lang.String">
+            <column name="SEXE" />
+        </property>
+        <property name="dateArrive" type="java.lang.String">
+            <column name="DATEARR" />
+        </property>
+        <property name="budget" type="java.lang.String">
+            <column name="BUDGET" />
+        </property>
+        <property name="observation" type="java.lang.String">
+            <column name="OBSERVATION" />
+        </property>
+        <property name="echelle" type="int">
+            <column name="ECHELLE" />
+        </property>
+        <property name="echelon" type="int">
+            <column name="ECHELON" />
+        </property>
+        <property name="indice" type="int">
+            <column name="INDICE" />
+        </property>
+    </class>
+</hibernate-mapping>

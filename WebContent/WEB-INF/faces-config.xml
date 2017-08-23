@@ -3,7 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
 	version="2.2">
-	<!-- Config Aymane -->
 	<managed-bean>
 		<managed-bean-name>cadreAction</managed-bean-name>
 		<managed-bean-class>org.chu.greve.web.actions.CadreAction</managed-bean-class>
@@ -12,6 +11,70 @@
 	<managed-bean>
 		<managed-bean-name>cadre</managed-bean-name>
 		<managed-bean-class>org.chu.greve.models.Cadre</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	 
+	<managed-bean>
+		<managed-bean-name>corpsAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.CorpsAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>corps</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Corps</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>specialiteAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.SpecialiteAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>specialite</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Specialite</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	
+	<managed-bean>
+		<managed-bean-name>gradeAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.GradeAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>grade</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Grade</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+		<managed-bean>
+		<managed-bean-name>interneAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.InterneAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>interne</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Interne</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	
+	<managed-bean>
+		<managed-bean-name>employeAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.EmployeAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>employe</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Employe</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	
+	<managed-bean>
+		<managed-bean-name>documentCreator</managed-bean-name>
+		<managed-bean-class>org.chu.greve.util.DocumentCreator</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
@@ -46,68 +109,5 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	<!-- end -->
-
-	<!-- ******** -->
-	<!-- Config Mehdi -->
-
-
-	<managed-bean>
-		<managed-bean-name>specialiteAction</managed-bean-name>
-		<managed-bean-class>org.chu.greve.web.actions.SpecialiteAction</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>specialite</managed-bean-name>
-		<managed-bean-class>org.chu.greve.models.Specialite</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-
-
-	<managed-bean>
-		<managed-bean-name>gradeAction</managed-bean-name>
-		<managed-bean-class>org.chu.greve.web.actions.GradeAction</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>grade</managed-bean-name>
-		<managed-bean-class>org.chu.greve.models.Grade</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>corpsAction</managed-bean-name>
-		<managed-bean-class>org.chu.greve.web.actions.CorpsAction</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>interneAction</managed-bean-name>
-		<managed-bean-class>org.chu.greve.web.actions.InterneAction</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>interne</managed-bean-name>
-		<managed-bean-class>org.chu.greve.models.Interne</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-
-	<managed-bean>
-		<managed-bean-name>corps</managed-bean-name>
-		<managed-bean-class>org.chu.greve.models.Corps</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>documentCreator</managed-bean-name>
-		<managed-bean-class>org.chu.greve.util.DocumentCreator</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>fileDownloadView</managed-bean-name>
-		<managed-bean-class>org.chu.greve.util.FileDownloadView</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<!-- end -->
-
-
-
-
+	
 </faces-config>

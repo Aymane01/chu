@@ -3,7 +3,7 @@ package org.chu.greve.models;
 
 
 public class Fonctionnaire {
-	private int ppr;
+	private Integer ppr;
 	private String nomFr;
 	private String prenomFr;
 	private String nomCompletAr;
@@ -13,18 +13,24 @@ public class Fonctionnaire {
 	private String dateArrive;
 	private String budget;
 	private String observation;
-<<<<<<< HEAD
-	private int echelle;
-	private int echelon;
-	private int indice;
+
+	private Integer echelle;
+	private Integer echelon;
+	private Integer indice;
 	
+	private Service service;
+	private Grade grade;
+	private Corps corps;
+	private Cadre cadre;
 	
-=======
->>>>>>> 28527d9490e2f32167b4ccfd0a869d41c83bd113
+
 	public Fonctionnaire() {
-		
+		service = new Service();
+		grade = new Grade();
+		corps = new Corps();
+		cadre = new Cadre();
 	}
-	public Fonctionnaire(int ppr, String nomFr, String prenomFr, String nomCompletAr, String cin, String dateN,
+	public Fonctionnaire(Integer ppr, String nomFr, String prenomFr, String nomCompletAr, String cin, String dateN,
 			String sexe, String dateArrive) {
 		super();
 		this.ppr = ppr;
@@ -38,9 +44,10 @@ public class Fonctionnaire {
 		this.echelle = echelle;
 		this.echelon = echelon;
 		this.indice = indice;
+		
 	}
 	public Fonctionnaire(String nomFr, String prenomFr, String nomCompletAr, String cin, String dateN,
-			String sexe, String dateArrive,int echelle,int echelon,int indice) {
+			String sexe, String dateArrive,Integer echelle,Integer echelon,Integer indice) {
 		super();
 		this.ppr = ppr;
 		this.nomFr = nomFr;
@@ -54,10 +61,10 @@ public class Fonctionnaire {
 		this.echelon = echelon;
 		this.indice = indice;
 	}
-	public int getPpr() {
+	public Integer getPpr() {
 		return ppr;
 	}
-	public void setPpr(int ppr) {
+	public void setPpr(Integer ppr) {
 		this.ppr = ppr;
 	}
 	public String getNomFr() {
@@ -114,23 +121,47 @@ public class Fonctionnaire {
 	public void setObservation(String observation) {
 		this.observation = observation;
 	}
-	public int getEchelle() {
+	public Integer getEchelle() {
 		return echelle;
 	}
-	public void setEchelle(int echelle) {
+	public void setEchelle(Integer echelle) {
 		this.echelle = echelle;
 	}
-	public int getEchelon() {
+	public Integer getEchelon() {
 		return echelon;
 	}
-	public void setEchelon(int echelon) {
+	public void setEchelon(Integer echelon) {
 		this.echelon = echelon;
 	}
-	public int getIndice() {
+	public Integer getIndice() {
 		return indice;
 	}
-	public void setIndice(int indice) {
+	public void setIndice(Integer indice) {
 		this.indice = indice;
+	}
+	public Service getService() {
+		return service;
+	}
+	public void setService(Service service) {
+		this.service = service;
+	}
+	public Grade getGrade() {
+		return grade;
+	}
+	public void setGrade(Grade grade) {
+		this.grade = grade;
+	}
+	public Corps getCorps() {
+		return corps;
+	}
+	public void setCorps(Corps corps) {
+		this.corps = corps;
+	}
+	public Cadre getCadre() {
+		return cadre;
+	}
+	public void setCadre(Cadre cadre) {
+		this.cadre = cadre;
 	}
 	
 	

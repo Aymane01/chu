@@ -37,6 +37,7 @@ public class GradeAction {
 		this.grades = grades;
 	}
 
+
 	public Grade getGradeUpdate() {
 		return gradeUpdate;
 	}
@@ -48,7 +49,7 @@ public class GradeAction {
 	@PostConstruct
 	public void init() {
 		gradeService = new GradeBusinessImpl(new GradeDaoHibernate(HibernateUtil.getSessionFactory()));
-		gradeUpdate = new Grade();
+		System.out.println("HERE");
 		refreshList();
 	}
 
@@ -81,8 +82,7 @@ public class GradeAction {
 	}
 
 	public void updateSpecialite(Grade grade) {
-		int r = gradeService.modifyGrade(grade);
-		;
+		int r = gradeService.modifyGrade(grade);;
 		refreshList();
 		if (r == 1) {
 			FacesContext.getCurrentInstance().addMessage(null,

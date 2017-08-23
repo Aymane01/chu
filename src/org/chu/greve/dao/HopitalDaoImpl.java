@@ -25,6 +25,8 @@ public class HopitalDaoImpl implements HopitalDao, SessionDao {
 	public int insertHopital(Hopital hopital) {
 		try {
 			openSession();
+
+			System.out.println(hopital.getIdH());
 			session.save(hopital);
 			closeSession();
 

@@ -28,9 +28,9 @@ public class InterneDaoHibernate implements InterneDao{
 	@Override
 	public Interne select(String CIN) {
 		openSession();
-		Interne spec = (Interne) session.get(Interne.class, CIN);
+		Interne interne = (Interne) session.get(Interne.class, CIN);
 		closeSession();
-		return spec;
+		return interne;
 	}
 
 	@Override
@@ -88,6 +88,7 @@ public class InterneDaoHibernate implements InterneDao{
 			g.setStage2(interne.getStage2());
 			g.setStage3(interne.getStage3());
 			g.setStage4(interne.getStage4());
+			g.setService(interne.getService());
 			
 			session.save(g);
 			closeSession();

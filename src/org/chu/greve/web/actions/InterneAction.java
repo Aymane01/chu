@@ -8,13 +8,17 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.chu.greve.business.CadreBusinessImpl;
 import org.chu.greve.business.InterneBusiness;
 import org.chu.greve.business.InterneBusinessImp;
 import org.chu.greve.business.SpecialiteBusiness;
 import org.chu.greve.business.SpecialiteBusinessImpl;
+import org.chu.greve.dao.CadreDaoImpl;
 import org.chu.greve.dao.InterneDaoHibernate;
 import org.chu.greve.dao.SpecialiteDaoHibernate;
+import org.chu.greve.models.Cadre;
 import org.chu.greve.models.Interne;
+import org.chu.greve.models.Service;
 import org.chu.greve.models.Specialite;
 import org.chu.greve.util.HibernateUtil;
 
@@ -22,8 +26,11 @@ public class InterneAction {
 	private InterneBusiness interneService;
 	private List<Interne> internes;
 	private Interne interneUpdate;
+	private List<Service> listService;
 	private String query;
 
+	
+	
 	public InterneBusiness getInterneService() {
 		return interneService;
 	}
@@ -57,9 +64,18 @@ public class InterneAction {
 		this.interneUpdate = interneUpdate;
 	}
 
+	public List<Service> getListService() {
+		return listService;
+	}
+
+	public void setListService(List<Service> listService) {
+		this.listService = listService;
+	}
+
 	@PostConstruct
 	public void init() {
 		interneService = new InterneBusinessImp(new InterneDaoHibernate(HibernateUtil.getSessionFactory()));
+		interneUpdate = new Interne();
 		refreshList();
 	}
 
@@ -125,6 +141,9 @@ public class InterneAction {
 	public void refreshList() {
 		internes = interneService.selectAllInterne();
 		Collections.reverse(internes);
+	}
+	private void refreshListService() {
+		//Collections.reverse(listService);
 	}
 
 }
