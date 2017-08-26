@@ -3,6 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
 	version="2.2">
+	<!-- Config Aymane -->
 	<managed-bean>
 		<managed-bean-name>cadreAction</managed-bean-name>
 		<managed-bean-class>org.chu.greve.web.actions.CadreAction</managed-bean-class>
@@ -13,7 +14,52 @@
 		<managed-bean-class>org.chu.greve.models.Cadre</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-	 
+	<managed-bean>
+		<managed-bean-name>hopitalAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.HopitalAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>hopital</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Hopital</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>service</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Service</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>resident</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Resident</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>residentAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.ResidentAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<navigation-rule>
+		<from-view-id>/facelets/Hopital.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>service</from-outcome>
+			<to-view-id>/facelets/Service.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/facelets/Service.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>hopital</from-outcome>
+			<to-view-id>/facelets/Hopital.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<converter>
+		<converter-id>myDateConverter</converter-id>
+		<converter-class>org.chu.greve.util.MyDateConverter</converter-class>
+	</converter>
+	<!-- end -->
 	<managed-bean>
 		<managed-bean-name>corpsAction</managed-bean-name>
 		<managed-bean-class>org.chu.greve.web.actions.CorpsAction</managed-bean-class>
@@ -78,36 +124,6 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>hopitalAction</managed-bean-name>
-		<managed-bean-class>org.chu.greve.web.actions.HopitalAction</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>hopital</managed-bean-name>
-		<managed-bean-class>org.chu.greve.models.Hopital</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
-	<managed-bean>
-		<managed-bean-name>service</managed-bean-name>
-		<managed-bean-class>org.chu.greve.models.Service</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
 
-	<navigation-rule>
-		<from-view-id>/facelets/Hopital.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>service</from-outcome>
-			<to-view-id>/facelets/Service.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<from-view-id>/facelets/Service.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>hopital</from-outcome>
-			<to-view-id>/facelets/Hopital.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
 	
 </faces-config>
