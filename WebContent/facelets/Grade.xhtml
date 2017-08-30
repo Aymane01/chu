@@ -11,6 +11,7 @@
 	<title>Gestion de Grève</title>
 </h:head>
 <h:body>
+	<ui:include src="included.xhtml" />
 	<h:form id="form">
 		<p:panel id="addPanel" header="Ajouter Grade"
 			style="margin-bottom:10px;">
@@ -57,7 +58,7 @@
 					style="width:90px; text-align:  center">
 
 					<p:commandButton icon="ui-icon-closethick" update="form"
-						action="#{gradeAction.removegrade(c)}" process="@this">
+						action="#{gradeAction.removeGrade(c)}" process="@this">
 						<p:confirm header="Confirmation"
 							message="voulez-vous supprimer le grade ?" icon="ui-icon-alert">
 							<p:confirmDialog global="true" showEffect="fade"

@@ -8,6 +8,7 @@ public class Corps implements Serializable {
 	private String intituleAr;
 
 	public Corps() {
+		super();
 	}
 
 	public Corps(int id, String intituleFr, String intituleAr) {

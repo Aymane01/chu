@@ -11,284 +11,111 @@
 	<title>Gestion de Grève</title>
 </h:head>
 <h:body>
+	<ui:include src="included.xhtml" />
 	<h:form id="form">
-		<p:panel id="addPanel" header="Ajouter Interne"
-			style="margin-bottom:10px;">
+		<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
+			sticky="false" />
+		<p:panel id="addPanel" header="Ajouter nouveau Interne"
+			style="margin-bottom:5px;">
 
 			<h:panelGrid columns="2">
-				<p:outputLabel for="Cin" value="CIN :" />
-				<p:inputText id="Cin" value="#{interne.cin}" size="40"
-					validatorMessage="Champs requis : Cin ">
+				<p:outputLabel for="ppr" value="PPR :" />
+				<p:inputText id="ppr" value="#{interne.ppr}" size="40"
+					validatorMessage="Champs requis ou invalide : PPR ">
 					<f:validateRequired />
 				</p:inputText>
-				<p:outputLabel for="nomFr" value="Nom Complet Francais :" />
+				<p:outputLabel for="cin" value="CIN :" />
+				<p:inputText id="cin" value="#{interne.cin}" size="40"
+					validatorMessage="Champs requis : CIN">
+					<f:validateRequired />
+				</p:inputText>
+				<p:outputLabel for="nomFr" value="Nom en Français :" />
 				<p:inputText id="nomFr" value="#{interne.nomFr}" size="40"
-					validatorMessage="Champs requis : Nom   ">
+					validatorMessage="Champs requis : Nom en Français">
 					<f:validateRequired />
 				</p:inputText>
-			    <p:outputLabel for="sexe" value="Sexe : " />
-					<p:selectOneRadio id="sexe" value="#{interne.sexe}">
-			        	<f:selectItem itemLabel="Homme" itemValue="MASCULIN" />
-			            <f:selectItem itemLabel="Femme" itemValue="FEMININ" />
-			     	 </p:selectOneRadio>
+				<p:outputLabel for="prenomFr" value="Prénom en Français :" />
+				<p:inputText id="prenomFr" value="#{interne.prenomFr}" size="40"
+					validatorMessage="Champs requis : Prénom en Français">
+					<f:validateRequired />
+				</p:inputText>
+				<p:outputLabel for="nomCompletAr" value="Nom et Prénom en Arabe :" />
+				<p:inputText id="nomCompletAr" value="#{interne.nomCompletAr}"
+					size="40" validatorMessage="Champs requis : Nom et Prénom en Arabe">
+					<f:validateRequired />
+				</p:inputText>
 				<p:outputLabel for="dateN" value="Date de naissance :" />
-				<p:inputText id="dateN" value="#{interne.dateN}" size="40"
-					validatorMessage="Champs requis : date Naissance   ">
+				<p:calendar id="dateN" value="#{interne.dateN}"
+					pattern="yyyy-MM-dd" mask="true"
+					validatorMessage="Champs requis : Date de naissance" effect="scale"
+					converter="myDateConverter">
+
 					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="dateArr" value="Date d'arrivée :" />
-				<p:inputText id="dateArr" value="#{interne.dateArrive}" size="40"
-					validatorMessage="Champs requis : date Arrivée   ">
+				</p:calendar>
+				<p:outputLabel for="sexe" value="Sexe :" />
+				<p:selectOneRadio id="sexe" value="#{interne.sexe}"
+					validatorMessage="Champs requis : Sexe">
+					<f:selectItem itemLabel="Masculin" itemValue="Masculin" />
+					<f:selectItem itemLabel="Feminin" itemValue="Feminin" />
 					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="dateRecru" value="Date de Recrutement :" />
-				<p:inputText id="dateRecru" value="#{interne.dateRecru}" size="40"
-					validatorMessage="Champs requis : date Recrutement   ">
+				</p:selectOneRadio>
+				<p:outputLabel for="nationalite" value="Nationalité :" />
+				<p:selectOneMenu id="nationalite"
+					validatorMessage="Champs requis : Nationalité"
+					value="#{interne.nationalite}" effect="scale">
+					<f:selectItem itemLabel="MAROCAIN" itemValue="MAROCAIN"
+						noSelectionOption="true" />
+					<f:selectItems var="n" value="#{interneAction.nationalite}"
+						itemValue="#{n}" itemLabel="#{n}" />
 					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="Stage1" value="1er Stage :" />
-				<p:inputText id="Stage1" value="#{interne.stage1}" size="40"
-					validatorMessage="Champs requis : Stage   ">
+				</p:selectOneMenu>
+				<p:outputLabel for="dateArrive" value="Date d'arrivée :" />
+				<p:calendar id="dateArrive" value="#{interne.dateRecru}"
+					pattern="dd-MM-yyyy" mask="true"
+					validatorMessage="Champs requis : Date d'arrivée" effect="scale"
+					converter="myDateConverter">
 					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="Stage2" value="2eme Stage :" />
-				<p:inputText id="Stage2" value="#{interne.stage2}" size="40"
-					validatorMessage="Champs requis : Stage   ">
-					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="Stage3" value="3eme Stage :" />
-				<p:inputText id="Stage3" value="#{interne.stage3}" size="40"
-					validatorMessage="Champs requis : Stage   ">
-					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="Stage4" value="4eme Stage :" />
-				<p:inputText id="Stage4" value="#{interne.stage4}" size="40"
-					validatorMessage="Champs requis : Stage   ">
-					<f:validateRequired />
-				</p:inputText>
-				
-				
-				
+
+				</p:calendar>
+
 				<p:outputLabel for="hopital" value="Hopital :" />
 				<p:selectOneMenu required="true"
 					requiredMessage="Veuillez seletionner un hopital" effect="scale"
-					id="hopital" value="#{hopitalAction.hopital.idH}" style="width:420px">
+					id="hopital" value="#{hopitalAction.hopital.idH}"
+					style="width:420px">
 					<f:selectItem itemLabel="Selectionner un hopital"
 						noSelectionOption="true"></f:selectItem>
 					<f:selectItems var="h" value="#{hopitalAction.listHopital}"
 						itemLabel="#{h.intituleFr}" itemValue="#{h.idH}">
 					</f:selectItems>
-					<p:ajax update="service" listener="#{hopitalAction.refreshListService}" process="@this" />
+					<p:ajax update="service"
+						listener="#{hopitalAction.refreshListService}" process="@this" />
 				</p:selectOneMenu>
-				
+
 				<p:outputLabel for="service" value="Service :" />
-				<p:selectOneMenu required="true" 
+				<p:selectOneMenu required="true"
 					requiredMessage="Veuillez seletionner un Service" effect="scale"
 					id="service" value="#{interne.service.idSe}" style="width:420px">
 					<f:selectItem itemLabel="Selectionner un Service"
 						noSelectionOption="true"></f:selectItem>
 					<f:selectItems var="s" value="#{hopitalAction.listService}"
-						itemLabel="#{s.intituleFr}"  itemValue="#{s.idSe}">
+						itemLabel="#{s.intituleFr}" itemValue="#{s.idSe}">
 					</f:selectItems>
 				</p:selectOneMenu>
-				
-				
-				
+
 			</h:panelGrid>
 		</p:panel>
 		<p:toolbar>
 			<f:facet name="left">
 				<p:commandButton value="Ajouter" icon="ui-icon-circle-check"
-					actionListener="#{interneAction.addInterne(interne)}" update="form">
+					actionListener="#{interneAction.addInterne(interne)}"
+					update="form">
 				</p:commandButton>
 				<p:commandButton value="Annuler" type="reset"
 					icon="ui-icon-circle-minus">
 				</p:commandButton>
 			</f:facet>
 		</p:toolbar>
-
-		<p:panel id="listPanel" header="Liste des Internes"
-			style="margin-bottom:10px; margin-top:50px;">
-			<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
-				sticky="false" />
-			<p:dataTable var="c" value="#{interneAction.internes}" paginator="true"
-				rowsPerPageTemplate="10,15,20" rows="15" emptyMessage="Aucun Interne">
-				<p:column headerText="CIN : "
-					filterBy="#{c.cin}" filterMatchMode="contains">
-					<h:outputText value="#{c.cin}" />
-				</p:column>
-				<p:column headerText="Nom Francais" filterBy="#{c.nomFr}"
-					filterMatchMode="contains">
-					<h:outputText value="#{c.nomFr}"></h:outputText>
-				</p:column>
-				<p:column headerText="Date Naissance" filterBy="#{c.dateN}"
-					filterMatchMode="contains">
-					<h:outputText value="#{c.dateN}"></h:outputText>
-				</p:column>
-				<p:column headerText="Options"
-					style="width:150px; text-align:  center">
-
-					<p:commandButton icon="ui-icon-closethick" update="form"
-						action="#{interneAction.removeInterne(c)}" process="@this">
-						<p:confirm header="Confirmation"
-							message="voulez-vous supprimer l'interne ?" icon="ui-icon-alert">
-							<p:confirmDialog global="true" showEffect="fade"
-								hideEffect="fade">
-
-								<p:commandButton value="Oui" type="button"
-									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-								<p:commandButton value="Non" type="button"
-									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-							</p:confirmDialog>
-						</p:confirm>
-					</p:commandButton>
-
-					<p:commandButton icon="ui-icon-pencil" update=":form:interneUpdate"
-						oncomplete="PF('interneDialog').show()" process="@this"
-						action="#{interneAction.setInterneUpdate(c)}">
-
-					</p:commandButton>
-					<p:commandButton icon="fa-search-plus" update=":form:MoreInfoUpdate"
-						oncomplete="PF('MoreinterneDialog').show()" process="@this"
-						action="#{interneAction.setInterneUpdate(c)}">
-
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
-		</p:panel>
-
-		<p:dialog header="Modifier Interne" widgetVar="interneDialog" modal="true"
-			showEffect="fade" hideEffect="fade" resizable="false" width="665">
-
-			<p:panel id="interneUpdate" style="text-align:left;" >
-				<p:panelGrid columns="2">
-					<p:outputLabel for="Cin2" value="CIN  :" />
-					<p:inputText id="Cin2" size="40"
-						value="#{interneAction.interneUpdate.cin}">
-					</p:inputText>
-					<p:outputLabel for="nomFr2" value="Nom Francais :" />
-					<p:inputText id="nomFr2" size="40"
-						value="#{interneAction.interneUpdate.nomFr}">
-					</p:inputText>
-					 <p:outputLabel for="sexe2" value="Sexe : " />
-					<p:selectOneRadio id="sexe2" value="#{interneAction.interneUpdate.sexe}">
-			        	<f:selectItem itemLabel="Homme" itemValue="MASCULIN" />
-			            <f:selectItem itemLabel="Femme" itemValue="FEMININ" />
-			     	 </p:selectOneRadio>
-					<p:outputLabel for="dateN2" value="Date de naissance :" />
-					<p:inputText id="dateN2" size="40"
-						value="#{interneAction.interneUpdate.dateN}">
-					</p:inputText>
-				<p:outputLabel for="dateArr2" value="Date d'arrivée :" />
-				<p:inputText id="dateArr2" value="#{interneAction.interneUpdate.dateArrive}" size="40"
-					validatorMessage="Champs requis : date Arrivée   ">
-					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="dateRecru2" value="Date de Recrutement :" />
-				<p:inputText id="dateRecru2" value="#{interneAction.interneUpdate.dateRecru}" size="40"
-					validatorMessage="Champs requis : date Recrutement   ">
-					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="Stage12" value="1er Stage :" />
-				<p:inputText id="Stage12" value="#{interneAction.interneUpdate.stage1}" size="40"
-					validatorMessage="Champs requis : Stage   ">
-					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="Stage22" value="2eme Stage :" />
-				<p:inputText id="Stage22" value="#{interneAction.interneUpdate.stage2}" size="40"
-					validatorMessage="Champs requis : Stage   ">
-					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="Stage32" value="3eme Stage :" />
-				<p:inputText id="Stage32" value="#{interneAction.interneUpdate.stage3}" size="40"
-					validatorMessage="Champs requis : Stage   ">
-					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="Stage42" value="4eme Stage :" />
-				<p:inputText id="Stage42" value="#{interneAction.interneUpdate.stage4}" size="40"
-					validatorMessage="Champs requis : Stage   ">
-					<f:validateRequired />
-				</p:inputText>
-				</p:panelGrid >
-				<p:toolbar>
-					<f:facet name="left">
-						<p:commandButton value="Modifier"
-							action="#{interneAction.updateInterne(interneAction.interneUpdate)}"
-							update="form" icon="ui-icon-circle-check" process="interneUpdate" >
-							<p:confirm header="Confirmation"
-								message="voulez-vous appliquer la modification ?"
-								icon="ui-icon-alert" />
-							<p:confirmDialog global="true" showEffect="fade"
-								hideEffect="fade">
-								<p:commandButton value="Oui" type="button"
-									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-								<p:commandButton value="Non" type="button"
-									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-							</p:confirmDialog>
-						</p:commandButton>
-						<p:commandButton value="Annuler" type="reset"
-							icon="ui-icon-circle-minus">
-
-						</p:commandButton>
-					</f:facet>
-				</p:toolbar>
-			</p:panel>
-		</p:dialog>
-		<p:dialog header="Afficher Info" widgetVar="MoreinterneDialog" modal="true"
-			showEffect="fade" hideEffect="fade" resizable="false" width="665">
-
-			<p:panel id="MoreInfoUpdate" style="text-align:left;" >
-				<p:panelGrid columns="2">
-					<p:outputLabel for="Cin3" value="CIN  :" />
-					<p:inputText id="Cin3" size="40"
-						value="#{interneAction.interneUpdate.cin}">
-					</p:inputText>
-					<p:outputLabel for="nomFr3" value="Nom Francais :" />
-					<p:inputText id="nomFr3" size="40"
-						value="#{interneAction.interneUpdate.nomFr}">
-					</p:inputText>
-					<p:outputLabel for="dateN3" value="Date de naissance :" />
-					<p:inputText id="dateN3" size="40"
-						value="#{interneAction.interneUpdate.dateN}">
-					</p:inputText>
-					<p:outputLabel for="sexe3" value="Sexe :" />
-					<p:inputText id="sexe3" size="40"
-						value="#{interneAction.interneUpdate.sexe}">
-					</p:inputText>
-					<p:outputLabel for="dateArr3" value="Date d'arrivee :" />
-					<p:inputText id="dateArr3" size="40"
-						value="#{interneAction.interneUpdate.dateArrive}">
-					</p:inputText>
-					<p:outputLabel for="dateRecru3" value="Date de recrutement :" />
-					<p:inputText id="dateRecru3" size="40"
-						value="#{interneAction.interneUpdate.dateRecru}">
-					</p:inputText>
-					<p:outputLabel for="stage13" value="Stage 1 :" />
-					<p:inputText id="stage13" size="40"
-						value="#{interneAction.interneUpdate.stage1}">
-					</p:inputText>
-					<p:outputLabel for="stage23" value="Stage 2 :" />
-					<p:inputText id="stage23" size="40"
-						value="#{interneAction.interneUpdate.stage2}">
-					</p:inputText>
-					<p:outputLabel for="stage33" value="Stage 3 :" />
-					<p:inputText id="stage33" size="40"
-						value="#{interneAction.interneUpdate.stage3}">
-					</p:inputText>
-					<p:outputLabel for="stage43" value="Stage 4 :" />
-					<p:inputText id="stage43" size="40"
-						value="#{interneAction.interneUpdate.stage4}">
-					</p:inputText>
-
-				</p:panelGrid >
-				<p:toolbar>
-					<f:facet name="left">
-						
-						<p:commandButton value="Annuler" type="reset" icon="ui-icon-circle-minus"></p:commandButton>
-					</f:facet>
-				</p:toolbar>
-			</p:panel>
-		</p:dialog>
 	</h:form>
 
 </h:body>

@@ -49,5 +49,10 @@ public class SpecialiteBusinessImpl implements SpecialiteBusiness{
 			return 0;
 		}
 	}
+	@Override
+	public Specialite selectSpecialite(String intituleFr) {
+		// TODO Auto-generated method stub
+		return daoS.select(intituleFr);
+	}
 
 }

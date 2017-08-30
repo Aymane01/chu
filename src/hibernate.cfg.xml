@@ -21,6 +21,6 @@
 		<mapping  resource="org/chu/greve/models/Specialite.hbm.xml" />
 		<mapping  resource="org/chu/greve/models/Hopital.hbm.xml" />
 		<mapping  resource="org/chu/greve/models/Service.hbm.xml" />
-		<mapping  resource="org/chu/greve/models/Interne.hbm.xml" />
+		<mapping  resource="org/chu/greve/models/Fonctionnaire.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

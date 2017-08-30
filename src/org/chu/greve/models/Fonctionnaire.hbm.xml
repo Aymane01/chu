@@ -1,68 +1,142 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated 22 ao?t 2017 19:38:56 by Hibernate Tools 3.5.0.Final -->
+<!-- Generated 26 juil. 2017 17:14:33 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
-    <class name="org.chu.greve.models.Fonctionnaire" table="FONCTIONNAIRE">
-        <id name="cin" type="java.lang.String">
-            <column name="CIN" />
-        </id>
-        <component name="service" class="org.chu.greve.models.Service">
-			<property name="idSe" type="int">
-				<column name="IDSE" />
+	<class name="org.chu.greve.models.Fonctionnaire">
+		<id name="cin" type="java.lang.String">
+			<column name="CIN" />
+		</id>
+		<property name="ppr" type="int">
+			<column name="PPR" />
+		</property>
+		<property name="nomFr" type="java.lang.String">
+			<column name="NOMFR" />
+		</property>
+		<property name="prenomFr" type="java.lang.String">
+			<column name="PRENOMFR" />
+		</property>
+		<property name="nomCompletAr" type="java.lang.String">
+			<column name="NOMCOMPLETAR" />
+		</property>
+
+		<property name="dateN" type="java.lang.String">
+			<column name="DATEN" />
+		</property>
+		<property name="sexe" type="java.lang.String">
+			<column name="SEXE" />
+		</property>
+		<property name="nationalite" type="java.lang.String">
+			<column name="NATIONALITE" />
+		</property>
+		<property name="dateArrive" type="java.lang.String">
+			<column name="DATEARRIVE" />
+		</property>
+		<property name="budget" type="java.lang.String">
+			<column name="BUDGET" />
+		</property>
+		<property name="observation" type="java.lang.String">
+			<column name="OBSERVATION" />
+		</property>
+		<property name="echelle" type="int">
+			<column name="ECHELLE" />
+		</property>
+		<property name="echelon" type="int">
+			<column name="ECHELON" />
+		</property>
+		<property name="indice" type="int">
+			<column name="INDICE" />
+		</property>
+
+		
+		
+		
+		
+		<union-subclass name="org.chu.greve.models.Resident" table="Resident">
+			<component name="cadre" class="org.chu.greve.models.Cadre">
+			<property name="id" type="int">
+				<column name="IDCADRE" />
 			</property>
 		</component>
-		
 		<component name="grade" class="org.chu.greve.models.Grade">
 			<property name="idG" type="int">
-				<column name="IDG" />
+				<column name="IDGRADE" />
 			</property>
 		</component>
-		
-		<component name="cadre" class="org.chu.greve.models.Cadre">
+		<!-- <many-to-one name="service" class="org.chu.greve.models.Service"
+			column="idService" foreign-key="fk_service" cascade="all" /> -->
+		<component name="service" class="org.chu.greve.models.Service">
+			<property name="idSe" type="int">
+				<column name="IDSERVICE" />
+			</property>
+		</component>
+		<component name="specialite" class="org.chu.greve.models.Specialite">
+			<property name="idS" type="int">
+				<column name="IDSPECIALITE" />
+			</property>
+		</component>
+			<many-to-one name="corps" class="org.chu.greve.models.Corps"
+			column="idCorps" foreign-key="fk_corps" cascade="all" />
+			<property name="type" type="java.lang.String">
+				<column name="TYPER"></column>
+			</property>
+			<property name="status" type="java.lang.String">
+				<column name="STATUS"></column>
+			</property>
+		</union-subclass>
+		<union-subclass name="org.chu.greve.models.Employe" table="Employe">
+        	<component name="cadre" class="org.chu.greve.models.Cadre">
 			<property name="id" type="int">
-				<column name="IDCA" />
+				<column name="IDCADRE" />
 			</property>
 		</component>
-		
+		<component name="grade" class="org.chu.greve.models.Grade">
+			<property name="idG" type="int">
+				<column name="IDGRADE" />
+			</property>
+		</component>
+		<!-- <many-to-one name="service" class="org.chu.greve.models.Service"
+			column="idService" foreign-key="fk_service" cascade="all" /> -->
+		<component name="service" class="org.chu.greve.models.Service">
+			<property name="idSe" type="int">
+				<column name="IDSERVICE" />
+			</property>
+		</component>
+		<component name="specialite" class="org.chu.greve.models.Specialite">
+			<property name="idS" type="int">
+				<column name="IDSPECIALITE" />
+			</property>
+		</component>
 		<component name="corps" class="org.chu.greve.models.Corps">
 			<property name="id" type="int">
-				<column name="IDCR" />
+				<column name="IDCORPS" />
 			</property>
 		</component>
-        <property name="ppr" type="java.lang.Integer">
-        	<column name="PPR"></column>
-        </property>
-        <property name="nomFr" type="java.lang.String">
-            <column name="NOMCOMPLETFR" />
-        </property>
-        
-        <property name="nomCompletAr" type="java.lang.String">
-            <column name="NOMCOMPLETAR" />
-        </property>
-        <property name="dateN" type="java.lang.String">
-            <column name="DATEN" />
-        </property>
-        <property name="sexe" type="java.lang.String">
-            <column name="SEXE" />
-        </property>
-        <property name="dateArrive" type="java.lang.String">
-            <column name="DATEARR" />
-        </property>
-        <property name="budget" type="java.lang.String">
-            <column name="BUDGET" />
-        </property>
-        <property name="observation" type="java.lang.String">
-            <column name="OBSERVATION" />
-        </property>
-        <property name="echelle" type="int">
-            <column name="ECHELLE" />
-        </property>
-        <property name="echelon" type="int">
-            <column name="ECHELON" />
-        </property>
-        <property name="indice" type="int">
-            <column name="INDICE" />
-        </property>
-    </class>
-</hibernate-mapping>
+		
+			
+        </union-subclass>
+         <union-subclass name="org.chu.greve.models.Interne" table="INTERNE">
+         	
+		<component name="service" class="org.chu.greve.models.Service">
+			<property name="idSe" type="int">
+				<column name="IDSERVICE" />
+			</property>
+		</component>
+        	<property name="dateRecru" type="java.lang.String">
+            <column name="DATERECRU" />
+	        </property>
+	        <property name="stage3" type="java.lang.String">
+	            <column name="STAGE3" />
+	        </property>
+	        <property name="stage2" type="java.lang.String">
+	            <column name="STAGE2" />
+	        </property>
+	        <property name="stage4" type="java.lang.String">
+	            <column name="STAGE4" />
+	        </property>
+	        <property name="stage1" type="java.lang.String">
+	            <column name="STAGE1" />
+	        </property>
+        </union-subclass>
+	</class>
+</hibernate-mapping> 

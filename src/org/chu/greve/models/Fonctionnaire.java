@@ -1,7 +1,6 @@
 package org.chu.greve.models;
 
 
-
 public class Fonctionnaire {
 	private Integer ppr;
 	private String nomFr;
@@ -13,6 +12,8 @@ public class Fonctionnaire {
 	private String dateArrive;
 	private String budget;
 	private String observation;
+	
+	private String nationalite;
 
 	private Integer echelle;
 	private Integer echelon;
@@ -22,13 +23,25 @@ public class Fonctionnaire {
 	private Grade grade;
 	private Corps corps;
 	private Cadre cadre;
+	private Specialite specialite;
 	
-
-	public Fonctionnaire() {
+	
+public Fonctionnaire() {
+	service = new Service();
+	grade = new Grade();
+	corps = new Corps();
+	cadre = new Cadre();
+	specialite = new Specialite();
+	// TODO Auto-generated constructor stub
+}
+	public Fonctionnaire(int ppr2, String nomFr2, String prenomFr2, String nomCompletAr2, String cin2, String dateN2, String sexe2, String nationalite, String dateArrive2, String budget2, String observation2, int echelle2, int echelon2, int indice2, Corps corps2, Grade grade2, Cadre cadre2, Service service2, Specialite specialite2) {
+		this(ppr2, nomFr2, prenomFr2, nomCompletAr2, cin2, dateN2, sexe2, dateArrive2);
+		setSpecialite(specialite2);
 		service = new Service();
 		grade = new Grade();
 		corps = new Corps();
 		cadre = new Cadre();
+		specialite = new Specialite();
 	}
 	public Fonctionnaire(Integer ppr, String nomFr, String prenomFr, String nomCompletAr, String cin, String dateN,
 			String sexe, String dateArrive) {
@@ -84,6 +97,18 @@ public class Fonctionnaire {
 	}
 	public void setNomCompletAr(String nomCompletAr) {
 		this.nomCompletAr = nomCompletAr;
+	}
+	public String getNationalite() {
+		return nationalite;
+	}
+	public void setNationalite(String nationalite) {
+		this.nationalite = nationalite;
+	}
+	public Specialite getSpecialite() {
+		return specialite;
+	}
+	public void setSpecialite(Specialite specialite) {
+		this.specialite = specialite;
 	}
 	public String getCin() {
 		return Cin;
@@ -163,6 +188,6 @@ public class Fonctionnaire {
 	public void setCadre(Cadre cadre) {
 		this.cadre = cadre;
 	}
-	
+
 	
 }

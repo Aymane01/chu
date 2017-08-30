@@ -5,12 +5,18 @@ import java.io.FileInputStream;
 import java.util.List;
 import java.util.Vector;
 
+import org.chu.greve.business.SpecialiteBusiness;
+import org.chu.greve.business.SpecialiteBusinessImpl;
+import org.chu.greve.dao.SpecialiteDaoHibernate;
 import org.chu.greve.models.Grade;
 import org.chu.greve.models.Interne;
+import org.chu.greve.models.Resident;
 import org.chu.greve.models.Specialite;
 import org.mql.jee.doa.jdbc.importer.excelDataImporter;
 
 public class DataImporter {
+	
+	private SpecialiteBusiness specB;
 	
 //	public Vector<Interne> importInternes(){
 //		Vector<Interne> internes = new Vector<>();
@@ -23,6 +29,9 @@ public class DataImporter {
 //		}
 //		return internes;
 //	}
+	public DataImporter() {
+		specB = new SpecialiteBusinessImpl(new SpecialiteDaoHibernate(HibernateUtil.getSessionFactory()));
+	}
 	public List<Grade> importGrades(){
 		List<Grade> grades = new Vector<>();
 		
@@ -34,6 +43,21 @@ public class DataImporter {
 			grades.add(grade);
 		}
 		return grades;
+	}
+	public List<Resident> importResidents(){
+		List<Resident> residents = new Vector<>();
+		
+		excelDataImporter importer = new excelDataImporter("resources/residents.xls");
+		importer.setSid(0);
+		String[][] rows = importer.importContent();
+		
+		for (int i = 1; i < rows.length; i++) {
+			Resident res = new Resident(rows[i]);
+			res.setSpecialite(specB.selectSpecialite(rows[i][7]));
+			residents.add(res);
+		}
+		
+		return residents;
 	}
 	
 	public Vector<Specialite> importSpecialite(){

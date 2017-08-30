@@ -28,6 +28,7 @@ public class ResidentDaoImpl implements ResidentDao, SessionDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return 0;
 		}
 	}

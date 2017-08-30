@@ -19,12 +19,19 @@ import org.chu.greve.dao.GradeDao;
 import org.chu.greve.dao.GradeDaoHibernate;
 import org.chu.greve.dao.InterneDao;
 import org.chu.greve.dao.InterneDaoHibernate;
+import org.chu.greve.dao.ResidentDao;
+import org.chu.greve.dao.ResidentDaoImpl;
 import org.chu.greve.dao.SpecialiteDao;
 import org.chu.greve.dao.SpecialiteDaoHibernate;
+import org.chu.greve.models.Cadre;
+import org.chu.greve.models.Corps;
 import org.chu.greve.models.Employe;
 import org.chu.greve.models.Fonctionnaire;
 import org.chu.greve.models.Grade;
+import org.chu.greve.models.Hopital;
 import org.chu.greve.models.Interne;
+import org.chu.greve.models.Resident;
+import org.chu.greve.models.Service;
 import org.chu.greve.models.Specialite;
 import org.hibernate.classic.Session;
 import org.mql.jee.doa.jdbc.exporter.ExcelDataExporter;
@@ -35,9 +42,9 @@ public class TestMehdi {
 	private String[][] donnee ;
 	void exp01() {
 		DataImporter importer = new DataImporter();
-		Vector<Grade> grades = (Vector<Grade>) importer.importGrades();
-		for (Grade grade  : grades) {
-			System.out.println(grade.getIntituleAr());
+		Vector<Resident> residents = (Vector<Resident>) importer.importResidents();
+		for (Resident resident : residents) {
+			System.out.println(resident.getCin());
 		}
 	}
 	void exp02() {
@@ -138,24 +145,25 @@ public class TestMehdi {
 	}
 	void exp11() {
 		DocumentCreator creator = new DocumentCreator("resources/test.docx");
-		Interne interne = new Interne("Mehdi Kaghat", "", "", "CD597779", "", "", "01/01/2017",5,4,254);
-		interne.setDateRecru("01/08/2017");
-		creator.createAttestationSalaire(interne,true);
-		System.out.println("fin");
+		//Interne interne = new Interne("Mehdi ZKaghat", "", "", "CD597779", "", "", "20/06/2013",5,4,254);
+		Resident resident = new Resident("benevole", "", 15487, "Kaghat", "Mehdi", "", "CD597779", "1995/07/23", "Homme", "MAROCAINE", "2013/06/20", "INTERNE", "", 1, 5, 88, new Corps(), new Grade(), new Cadre(), new Service(), new Specialite(1, "XX", ""));
+		
+		
+		creator.createAttestationSalaireResident(resident, false);
+		System.out.println("fin ");
 	}
 	void exp12() {
 		InterneDao dao = new InterneDaoHibernate(HibernateUtil.getSessionFactory());
 		System.out.println(dao.selectAll().size());
 	}
 	void exp13() {
-		InterneDao dao = new InterneDaoHibernate(HibernateUtil.getSessionFactory());
+		ResidentDao dao = new ResidentDaoImpl(HibernateUtil.getSessionFactory());
 		
-		DataImporter importer = new DataImporter();
-		List<Interne> internes = importer.importFonctionnaire();
+		Resident resident = new Resident();
+		resident.setCin("XXX1548");
+		int r = dao.addResident(resident);
 		
-		for (Interne interne : internes) {
-			dao.insert(interne);
-		}
+		System.out.println(r);
 	}
 	void exp14() {
 		EmployeDao dao = new EmployeDaoHibernate(HibernateUtil.getSessionFactory());
@@ -165,7 +173,7 @@ public class TestMehdi {
 		}
 	}
 	public TestMehdi() {
-		exp14();
+		exp11();
 	}
 	public static String quote(String data) {
 		if(data == null) return "";

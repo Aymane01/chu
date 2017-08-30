@@ -11,41 +11,41 @@
 	<title>Gestion de Grève</title>
 </h:head>
 <h:body>
-	
+	<ui:include src="included.xhtml" />
 	<h:form id="form">
 		<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
 			sticky="false" />
-		<p:panel id="addPanel" header="Ajouter nouveau Résident"
+		<p:panel id="addPanel" header="Ajouter nouveau employe"
 			style="margin-bottom:5px;">
 
 			<h:panelGrid columns="2">
 				<p:outputLabel for="ppr" value="PPR :" />
-				<p:inputText id="ppr" value="#{resident.ppr}" size="40"
+				<p:inputText id="ppr" value="#{employe.ppr}" size="40"
 					validatorMessage="Champs requis ou invalide : PPR ">
 					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="cin" value="CIN :" />
-				<p:inputText id="cin" value="#{resident.cin}" size="40"
+				<p:inputText id="cin" value="#{employe.cin}" size="40"
 					validatorMessage="Champs requis : CIN">
 					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="nomFr" value="Nom en Français :" />
-				<p:inputText id="nomFr" value="#{resident.nomFr}" size="40"
+				<p:inputText id="nomFr" value="#{employe.nomFr}" size="40"
 					validatorMessage="Champs requis : Nom en Français">
 					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="prenomFr" value="Prénom en Français :" />
-				<p:inputText id="prenomFr" value="#{resident.prenomFr}" size="40"
+				<p:inputText id="prenomFr" value="#{employe.prenomFr}" size="40"
 					validatorMessage="Champs requis : Prénom en Français">
 					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="nomCompletAr" value="Nom et Prénom en Arabe :" />
-				<p:inputText id="nomCompletAr" value="#{resident.nomCompletAr}"
+				<p:inputText id="nomCompletAr" value="#{employe.nomCompletAr}"
 					size="40" validatorMessage="Champs requis : Nom et Prénom en Arabe">
 					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="dateN" value="Date de naissance :" />
-				<p:calendar id="dateN" value="#{resident.dateN}"
+				<p:calendar id="dateN" value="#{employe.dateN}"
 					pattern="yyyy-MM-dd" mask="true"
 					validatorMessage="Champs requis : Date de naissance" effect="scale"
 					converter="myDateConverter">
@@ -53,7 +53,7 @@
 					<f:validateRequired />
 				</p:calendar>
 				<p:outputLabel for="sexe" value="Sexe :" />
-				<p:selectOneRadio id="sexe" value="#{resident.sexe}"
+				<p:selectOneRadio id="sexe" value="#{employe.sexe}"
 					validatorMessage="Champs requis : Sexe">
 					<f:selectItem itemLabel="Masculin" itemValue="Masculin" />
 					<f:selectItem itemLabel="Feminin" itemValue="Feminin" />
@@ -62,68 +62,50 @@
 				<p:outputLabel for="nationalite" value="Nationalité :" />
 				<p:selectOneMenu id="nationalite"
 					validatorMessage="Champs requis : Nationalité"
-					value="#{resident.nationalite}" effect="scale">
+					value="#{employe.nationalite}" effect="scale">
 					<f:selectItem itemLabel="MAROCAIN" itemValue="MAROCAIN"
 						noSelectionOption="true" />
-					<f:selectItems var="n" value="#{residentAction.nationalite}"
+					<f:selectItems var="n" value="#{employeAction.nationalite}"
 						itemValue="#{n}" itemLabel="#{n}" />
 					<f:validateRequired />
 				</p:selectOneMenu>
 				<p:outputLabel for="dateArrive" value="Date d'arrivée :" />
-				<p:calendar id="dateArrive" value="#{resident.dateArrive}"
+				<p:calendar id="dateArrive" value="#{employe.dateArrive}"
 					pattern="yyyy-MM-dd" mask="true"
 					validatorMessage="Champs requis : Date d'arrivée" effect="scale"
 					converter="myDateConverter">
 					<f:validateRequired />
 
 				</p:calendar>
-				<p:outputLabel for="status" value="Status :" />
-				<p:inputText id="status" value="#{resident.status}" size="40"
-					validatorMessage="Champs requis : Status">
-					<f:validateRequired />
-				</p:inputText>
-				<p:outputLabel for="type" value="Type :" />
-				<p:inputText id="type" value="#{resident.type}" size="40"
-					validatorMessage="Champs requis : Type">
-					<f:validateRequired />
-				</p:inputText>
+				
 				<p:outputLabel for="echelle" value="Echelle :" />
-				<p:inputText id="echelle" value="#{resident.echelle}" size="40"
+				<p:inputText id="echelle" value="#{employe.echelle}" size="40"
 					validatorMessage="Champs requis : Echelle">
 					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="echelon" value="Echelon :" />
-				<p:inputText id="echelon" value="#{resident.echelon}" size="40"
+				<p:inputText id="echelon" value="#{employe.echelon}" size="40"
 					validatorMessage="Champs requis : Echelon">
 					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="indice" value="Indice :" />
-				<p:inputText id="indice" value="#{resident.indice}" size="40"
+				<p:inputText id="indice" value="#{employe.indice}" size="40"
 					validatorMessage="Champs requis : Indice">
 					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="budget" value="Budget :" />
-				<p:selectOneRadio id="budget" value="#{resident.budget}"
+				<p:selectOneRadio id="budget" value="#{employe.budget}"
 					validatorMessage="Champs requis : Budget">
 					<f:selectItem itemLabel="Autonome" itemValue="Autonome" />
 					<f:selectItem itemLabel="Générale" itemValue="Générale" />
 					<f:validateRequired />
 				</p:selectOneRadio>
 
-				<p:outputLabel for="corps" value="Corps :" />
-				<p:selectOneMenu required="true"
-					requiredMessage="Veuillez seletionner un corps" effect="scale"
-					id="corps" value="#{resident.corps.id}" style="width:420px">
-					<f:selectItem itemLabel="Selectionner un corps"
-						noSelectionOption="true"></f:selectItem>
-					<f:selectItems var="c" value="#{corpsAction.corps}"
-						itemLabel="#{c.intituleFr}" itemValue="#{c.id}">
-					</f:selectItems>
-				</p:selectOneMenu>
+				
 				<p:outputLabel for="grade" value="Grade :" />
 				<p:selectOneMenu required="true"
 					requiredMessage="Veuillez seletionner un Grade" effect="scale"
-					id="grade" value="#{resident.grade.idG}" style="width:420px">
+					id="grade" value="#{employe.grade.idG}" style="width:420px">
 					<f:selectItem itemLabel="Selectionner un grade"
 						noSelectionOption="true"></f:selectItem>
 					<f:selectItems var="g" value="#{gradeAction.grades}"
@@ -133,7 +115,7 @@
 				<p:outputLabel for="cadre" value="Cadre :" />
 				<p:selectOneMenu required="true"
 					requiredMessage="Veuillez seletionner un Cadre" effect="scale"
-					id="cadre" value="#{resident.cadre.id}" style="width:420px">
+					id="cadre" value="#{employe.cadre.id}" style="width:420px">
 					<f:selectItem itemLabel="Selectionner un cadre"
 						noSelectionOption="true"></f:selectItem>
 					<f:selectItems var="ca" value="#{cadreAction.cadres}"
@@ -143,7 +125,7 @@
 				<p:outputLabel for="specialite" value="Spécialité :" />
 				<p:selectOneMenu required="true"
 					requiredMessage="Veuillez seletionner une spécialité"
-					effect="scale" id="specialite" value="#{resident.specialite.idS}"
+					effect="scale" id="specialite" value="#{employe.specialite.idS}"
 					style="width:420px">
 					<f:selectItem itemLabel="Selectionner une spécialité"
 						noSelectionOption="true"></f:selectItem>
@@ -168,7 +150,7 @@
 				<p:outputLabel for="service" value="Service :" />
 				<p:selectOneMenu required="true"
 					requiredMessage="Veuillez seletionner un Service" effect="scale"
-					id="service" value="#{resident.service.idSe}" style="width:420px">
+					id="service" value="#{employe.service.idSe}" style="width:420px">
 					<f:selectItem itemLabel="Selectionner un Service"
 						noSelectionOption="true"></f:selectItem>
 					<f:selectItems var="s" value="#{hopitalAction.listService}"
@@ -181,7 +163,7 @@
 		<p:toolbar>
 			<f:facet name="left">
 				<p:commandButton value="Ajouter" icon="ui-icon-circle-check"
-					actionListener="#{residentAction.addResident(resident)}"
+					actionListener="#{employeAction.addEmploye(employe)}"
 					update="form">
 				</p:commandButton>
 				<p:commandButton value="Annuler" type="reset"

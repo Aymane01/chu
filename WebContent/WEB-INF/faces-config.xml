@@ -123,7 +123,6 @@
 		<managed-bean-class>org.chu.greve.util.DocumentCreator</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-	<managed-bean>
 
 	
 </faces-config>

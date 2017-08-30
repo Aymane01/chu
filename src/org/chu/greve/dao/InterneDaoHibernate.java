@@ -67,7 +67,7 @@ public class InterneDaoHibernate implements InterneDao{
 			closeSession();
 			return list;
 		} catch (Exception e) {
-			System.out.println("l'exeption est ici");
+			System.out.println("l'exeption est ici selectAll dao");
 			closeSession();
 			return null;
 		}
@@ -81,6 +81,8 @@ public class InterneDaoHibernate implements InterneDao{
 			Interne g = new Interne();
 			g.setCin(interne.getCin());
 			g.setNomFr(interne.getNomFr());
+			g.setPrenomFr(interne.getPrenomFr());
+			g.setNomCompletAr(interne.getNomCompletAr());
 			g.setDateN(interne.getDateN());
 			g.setDateRecru(interne.getDateRecru());
 			g.setSexe(interne.getSexe());

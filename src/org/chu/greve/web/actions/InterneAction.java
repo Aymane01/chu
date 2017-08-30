@@ -2,59 +2,28 @@ package org.chu.greve.web.actions;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Vector;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.chu.greve.business.CadreBusinessImpl;
 import org.chu.greve.business.InterneBusiness;
 import org.chu.greve.business.InterneBusinessImp;
-import org.chu.greve.business.SpecialiteBusiness;
-import org.chu.greve.business.SpecialiteBusinessImpl;
-import org.chu.greve.dao.CadreDaoImpl;
+import org.chu.greve.dao.CadreDao;
+import org.chu.greve.dao.CorpsDao;
+import org.chu.greve.dao.GradeDao;
 import org.chu.greve.dao.InterneDaoHibernate;
-import org.chu.greve.dao.SpecialiteDaoHibernate;
-import org.chu.greve.models.Cadre;
+import org.chu.greve.dao.SpecialiteDao;
 import org.chu.greve.models.Interne;
-import org.chu.greve.models.Service;
-import org.chu.greve.models.Specialite;
 import org.chu.greve.util.HibernateUtil;
+import org.chu.greve.util.Nationalite;
 
 public class InterneAction {
-	private InterneBusiness interneService;
-	private List<Interne> internes;
+
+	private InterneBusiness service;
+	private String nationalite[];
+	private List<Interne> listeInterne;
 	private Interne interneUpdate;
-	private List<Service> listService;
-	private String query;
-
-	
-	
-	public InterneBusiness getInterneService() {
-		return interneService;
-	}
-
-	public void setInterneService(InterneBusiness interneService) {
-		this.interneService = interneService;
-	}
-
-	public List<Interne> getInternes() {
-		return internes;
-	}
-
-	public void setInternes(List<Interne> internes) {
-		this.internes = internes;
-	}
-
-	
-	public String getQuery() {
-		return query;
-	}
-
-	public void setQuery(String query) {
-		this.query = query;
-	}
 
 	public Interne getInterneUpdate() {
 		return interneUpdate;
@@ -64,86 +33,71 @@ public class InterneAction {
 		this.interneUpdate = interneUpdate;
 	}
 
-	public List<Service> getListService() {
-		return listService;
-	}
-
-	public void setListService(List<Service> listService) {
-		this.listService = listService;
-	}
-
 	@PostConstruct
 	public void init() {
-		interneService = new InterneBusinessImp(new InterneDaoHibernate(HibernateUtil.getSessionFactory()));
+		service = new InterneBusinessImp(new InterneDaoHibernate(HibernateUtil.getSessionFactory()));
+		nationalite = Nationalite.getNationalite();
+		refreshListInterne();
 		interneUpdate = new Interne();
-		refreshList();
 	}
 
-	public List<String> getPropositions(String query){
-		List<String> propositions = new Vector<>();
-		for (Interne interne : internes) {
-			if(interne.getNomFr().contains(query)) {
-				propositions.add(interne.getNomFr());
-			}
-		}
-		return propositions;
-	}
-	
-	public Interne getInterne(String name) {
-		for (Interne interne : internes) {
-			if(interne.getNomFr().equals(name)) {
-				return interne;
-			}
-		}
-		return null;
-	}
-	
 	public void addInterne(Interne interne) {
-
-		int r = interneService.addInterne(interne);
-		refreshList();
+		int r = service.addInterne(interne);
 		if (r == 1) {
-
+			refreshListInterne();
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Nouveau Interne enregistré avec succès."));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Résident enregistré avec succès."));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
 					"Une erreur s'est produit lors d'enregistrement."));
 		}
 	}
 
-	public void removeInterne(Interne interne) {
-
-		int r = interneService.deleteInterne(interne.getCin());
-		refreshList();
-		if (r == 1) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Interne supprimée avec succès."));
-		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
-					"Une erreur s'est produit lors de la suppression."));
-		}
-
-	}
-
 	public void updateInterne(Interne interne) {
-		int r = interneService.modifyInterne(interne);;
-		refreshList();
+		refreshListInterne();
+		int r = service.modifyInterne(interne);
 		if (r == 1) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Interne modifiée avec succès."));
+			refreshListInterne();
+			addMessage(FacesMessage.SEVERITY_INFO, "Info", "Résident supprimé avec succès.");
 		} else {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
-					"Une erreur s'est produit lors de la modifcation."));
+			addMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Une erreur s'est produit lors de la modification");
 		}
 	}
 
-	public void refreshList() {
-		internes = interneService.selectAllInterne();
-		Collections.reverse(internes);
-	}
-	private void refreshListService() {
-		//Collections.reverse(listService);
+	public void deleteInterne(String CIN) {
+		System.out.println(CIN);
+		int r = service.deleteInterne(CIN);
+		if (r == 1) {
+			refreshListInterne();
+			addMessage(FacesMessage.SEVERITY_INFO, "Info", "Résident supprimé avec succès.");
+		} else {
+			addMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Une erreur s'est produit lors de la suppression");
+		}
 	}
 
+	private void addMessage(FacesMessage.Severity severity, String label, String message) {
+		FacesMessage msg = new FacesMessage(severity, label, message);
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	private void refreshListInterne() {
+		listeInterne = service.selectAllInterne();
+		Collections.reverse(listeInterne);
+	}
+
+	public String[] getNationalite() {
+		return nationalite;
+	}
+
+	public void setNationalite(String[] nationalite) {
+		this.nationalite = nationalite;
+	}
+
+	public List<Interne> getListeInterne() {
+		return listeInterne;
+	}
+
+	public void setListeInterne(List<Interne> listeInterne) {
+		this.listeInterne = listeInterne;
+	}
 }

@@ -99,4 +99,23 @@ public class SpecialiteDaoHibernate implements SpecialiteDao{
 		
 	}
 
+	@Override
+	public Specialite select(String intituleFr) {
+		openSession();
+		try {
+			List<Specialite> list = new ArrayList<>();
+			String query = "select * from specialite where intituleFr=" + intituleFr ;
+			SQLQuery sql = session.createSQLQuery(query);
+			sql.addEntity(Specialite.class);
+			list = sql.list();
+			
+			closeSession();
+			return list.get(0);
+		} catch (Exception e) {
+			System.out.println("l'exeption est ici");
+			closeSession();
+			return null;
+		}
+	}
+
 }
