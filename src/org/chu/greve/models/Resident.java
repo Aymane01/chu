@@ -20,20 +20,33 @@ public class Resident extends Fonctionnaire {
 		this.type = type;
 	}
 	public Resident(String[] row) {
+		//setIndice(Integer.parseInt(row[0]));
+		setSexe(row[1]);
+		setDateN(row[2]);
+		setStatus(row[3]);
+		setNomFr(row[4]);
 		if(row[5] != "") {
 			System.out.println(row[5]);
 			setPpr(Integer.parseInt(row[5]));
 		}
 		
 		setCin(row[6]);
-		setNomFr(row[4]);
-		setDateN(row[2]);
-		setSexe(row[1]);
-		//setIndice(Integer.parseInt(row[0]));
-//		Specialite spec = new Specialite();spec.setIntituleFr(row[7]);
-//		setSpecialite(spec);
+		setDateArrive(row[10]);
+		
+
 		setDateArrive(row[10]);
 		setObservation(row[14]);
+		
+		Grade g = new Grade();g.setIdG(1);
+		setGrade(g);
+		Cadre c = new Cadre();c.setId(1);
+		setCadre(c);
+		Corps cr = new Corps();cr.setId(1);
+		setCorps(cr);
+		Specialite sp = new Specialite();sp.setIdS(1);
+		setSpecialite(sp);
+		Service s = new Service();s.setIdSe(1);
+		setService(s);
 	}
 
 	public String getStatus() {

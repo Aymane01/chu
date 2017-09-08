@@ -40,6 +40,13 @@ public class Interne extends Fonctionnaire{
 		setStage2(row[7]);
 		setStage3(row[8]);
 		setStage4(row[9]);
+		setIndice(Integer.parseInt(row[0]));
+		setObservation(row[11]);
+		Service s = new Service();
+		s.setIdSe(1);
+		setService(s);
+		
+		
 	}
 	public Interne(String nomFr, String prenomFr, String nomCompletAr, String cin, String dateN, String sexe,
 			String dateArrive,int echelle,int echelon,int indice) {

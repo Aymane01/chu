@@ -19,12 +19,18 @@ public class Grade {
 		this.intituleFr = intituleFr;
 		this.intituleAr = intituleAr;
 	}
+	public Grade(String intituleFr, String intituleAr) {
+		this.intituleFr = intituleFr;
+		this.intituleAr = intituleAr;
+	}
 	public Grade(int id,String[] row) {
 		this.idG = id;
 		this.intituleFr = row[0];
-		this.intituleAr = "";
+		this.intituleAr = row[1];
 	}
-	
+	public Grade(String fr) {
+		this.intituleFr = fr;
+	}
 	public int getIdG() {
 		return idG;
 	}

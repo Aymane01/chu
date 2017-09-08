@@ -11,12 +11,28 @@ import org.chu.greve.util.ArabicNameImporter;
 import org.chu.greve.util.DataImporter;
 import org.chu.greve.util.DocumentCreator;
 import org.chu.greve.util.HibernateUtil;
+import org.chu.greve.business.CadreBusinessImpl;
+import org.chu.greve.business.Cadrebusiness;
+import org.chu.greve.business.EmployeBusiness;
+import org.chu.greve.business.EmployeBusinessImpl;
+import org.chu.greve.business.GradeBusiness;
+import org.chu.greve.business.GradeBusinessImpl;
+import org.chu.greve.business.HopitalService;
+import org.chu.greve.business.HopitalServiceImpl;
+import org.chu.greve.business.InterneBusiness;
+import org.chu.greve.business.InterneBusinessImp;
+import org.chu.greve.business.ResidentBusiness;
+import org.chu.greve.business.ResidentBusinessImpl;
 import org.chu.greve.business.SpecialiteBusiness;
 import org.chu.greve.business.SpecialiteBusinessImpl;
+import org.chu.greve.dao.CadreDao;
+import org.chu.greve.dao.CadreDaoImpl;
 import org.chu.greve.dao.EmployeDao;
 import org.chu.greve.dao.EmployeDaoHibernate;
 import org.chu.greve.dao.GradeDao;
 import org.chu.greve.dao.GradeDaoHibernate;
+import org.chu.greve.dao.HopitalDao;
+import org.chu.greve.dao.HopitalDaoImpl;
 import org.chu.greve.dao.InterneDao;
 import org.chu.greve.dao.InterneDaoHibernate;
 import org.chu.greve.dao.ResidentDao;
@@ -95,15 +111,69 @@ public class TestMehdi {
 		HibernateUtil.sessionF.close();
 	}
 	void exp08() {
-		SpecialiteDao dao = new SpecialiteDaoHibernate(HibernateUtil.getSessionFactory());
-		SpecialiteBusiness business = new SpecialiteBusinessImpl(dao);
+//		SpecialiteDao dao = new SpecialiteDaoHibernate(HibernateUtil.getSessionFactory());
+//		SpecialiteBusiness business = new SpecialiteBusinessImpl(dao);
+//		DataImporter importer = new DataImporter();
+//		Vector<Specialite> specs = importer.importSpecialite();
+//		for (Specialite spec : specs) {
+//			business.addSpecialite(new Specialite(spec.getIntituleFr(), spec.getIntituleAr()));
+//		}
+		CadreDao dao = new CadreDaoImpl(HibernateUtil.getSessionFactory());
+		Cadrebusiness business = new CadreBusinessImpl(dao);
 		DataImporter importer = new DataImporter();
-		Vector<Specialite> specs = importer.importSpecialite();
-		for (Specialite spec : specs) {
-			business.addSpecialite(new Specialite(spec.getIntituleFr(), spec.getIntituleAr()));
+		Vector<Cadre> cadres = importer.importCadre();
+		for (Cadre cadre : cadres) {
+			business.createCadre(cadre);
 		}
 		
+	}
+	void exp081() {
+		GradeDao dao = new GradeDaoHibernate(HibernateUtil.getSessionFactory());
+		GradeBusiness business = new GradeBusinessImpl(dao);
+		DataImporter importer = new DataImporter();
+		Vector<Grade> grades =  importer.importGrades();
+		for (Grade grade : grades) {
+			business.addGrade(new Grade(grade.getIntituleFr(), grade.getIntituleAr()));
+		}
+	}
+	void exp082() {
+		HopitalDao dao = new HopitalDaoImpl(HibernateUtil.getSessionFactory());
+		HopitalService business = new HopitalServiceImpl(dao);
+		DataImporter importer = new DataImporter();
+		Vector<Hopital> hopitals =  importer.importHopitaux();
+		for (Hopital hopital : hopitals) {
+			business.addHopital(new Hopital(hopital.getIntituleFr(), hopital.getIntituleAr()));
+		}
+	}
+	void exp083() {
+		InterneDao dao = new InterneDaoHibernate(HibernateUtil.getSessionFactory());
+		InterneBusiness business = new InterneBusinessImp(dao);
+		DataImporter importer = new DataImporter();
+		List<Interne> internes =  importer.importInterne();
+		for (Interne interne : internes) {
+			business.addInterne(interne);
+		}
 		
+	}
+	void exp084() {
+		ResidentDao dao = new ResidentDaoImpl(HibernateUtil.getSessionFactory());
+		ResidentBusiness business = new ResidentBusinessImpl(dao);
+		DataImporter importer = new DataImporter();
+		List<Resident> residents =  importer.importResidents();
+		for (Resident resident : residents) {
+			business.addResident(resident);
+		}
+		
+	}
+	void exp085() {
+		EmployeDaoHibernate dao = new EmployeDaoHibernate(HibernateUtil.getSessionFactory());
+		EmployeBusiness business = new EmployeBusinessImpl(dao);
+		DataImporter importer = new DataImporter();
+		List<Employe> employes =  importer.importEmploye();
+		for (Employe employe : employes) {
+			business.addEmploye(employe);
+		}
+		business.addEmploye(new Employe());
 	}
 	void exp09() {
 		
@@ -172,8 +242,19 @@ public class TestMehdi {
 			System.out.println(emp.getCin());
 		}
 	}
+	void exp15() {
+		DocumentCreator creator = new DocumentCreator("resources/test.docx");
+		Interne interne = new Interne("Mehdi ZKaghat", "", "", "CD597779", "", "", "20/06/2013",5,4,254);
+		interne.setStage2("Psychiatrie");
+		interne.setStage4("Pediatrie");
+		Resident resident = new Resident("benevole", "", 15487, "Kaghat", "Mehdi", "", "CD597779", "1995/07/23", "Homme", "MAROCAINE", "2013/06/20", "INTERNE", "", 1, 5, 88, new Corps(), new Grade(), new Cadre(), new Service(), new Specialite(1, "XX", ""));
+		
+		
+		creator.CreateAttestationTravailInterne(interne);
+		System.out.println("fin ");
+	}
 	public TestMehdi() {
-		exp11();
+		exp085();
 	}
 	public static String quote(String data) {
 		if(data == null) return "";

@@ -81,7 +81,7 @@ public class GradeAction {
 
 	}
 
-	public void updateSpecialite(Grade grade) {
+	public void updateGrade(Grade grade) {
 		int r = gradeService.modifyGrade(grade);;
 		refreshList();
 		if (r == 1) {

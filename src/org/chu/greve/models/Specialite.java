@@ -25,9 +25,11 @@ public Specialite(int id, String[] row) {
 	super();
 	this.idS = id;
 	this.intituleFr = row[0];
-	this.intituleAr = "";//row[1] quand on ajoutera le champs en arabe
+	this.intituleAr = row[1];//row[1] quand on ajoutera le champs en arabe
 }
-
+public Specialite(String fr) {
+	this.intituleFr = fr;
+}
 public int getIdS() {
 	return idS;
 }

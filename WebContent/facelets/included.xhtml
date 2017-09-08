@@ -1,4 +1,4 @@
-<ui:composition 
+ <ui:composition 
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -6,94 +6,69 @@
 	xmlns:p="http://primefaces.org/ui">
     
 
-
- 
-<p:megaMenu orientation="horizontal" style="margin-top:20px">
-    <p:submenu label="Fonctionnaire" icon="ui-icon-check">
-        <p:column>
-            <p:submenu label="Interne">
-                <p:menuitem value="Ajouter Interne" url="interne.xhtml" />
-                <p:menuitem value="Liste Internes" url="ListeInterne.xhtml" />
-            </p:submenu>
-            <p:submenu label="Resident">
-                <p:menuitem value="Ajouter Resident" url="Resident.xhtml" />
-                <p:menuitem value="Liste Residents" url="ListeResident.xhtml" />
-            </p:submenu>
-           
-        </p:column>
- 
-        <p:column>
-             <p:submenu label="Professeur">
-                <p:menuitem value="Ajouter Professeur" url="Professeur.xhtml" />
-                <p:menuitem value="Liste Professeurs" url="ListeProfesseur.xhtml" />
-            </p:submenu>
-            <p:submenu label="Employe">
-                <p:menuitem value="Ajouter Employe" url="employe.xhtml" />
-                <p:menuitem value="Liste Professeurs" url="ListeEmploye.xhtml" />
-            </p:submenu>
-        </p:column>
- 
-        <p:column>
-            <strong>Image</strong>
-            <p:graphicImage name="/demo/images/nature/nature1.jpg" width="200"/>
-        </p:column>
-    </p:submenu>
- 
-    <p:submenu label="Etablissements" icon="ui-icon-document">
- 
-        <p:column>
-            <p:submenu label="Hopitaux">
-                <p:menuitem value="CRUD Hopitaux" url="Hopital.xhtml" />
-            </p:submenu>
-        </p:column>
- 
-    </p:submenu>
- 
-    <p:submenu label="Caracteristique Fonctionnaire" icon="ui-icon-pencil">
-        <p:column>
-            <p:submenu label="Specialite">
-                <p:menuitem value="CRUD Specialite" url="Specialite.xhtml" />
-            </p:submenu>
-            <p:submenu label="Cadre">
-                <p:menuitem value="CRUD Cadre" url="Cadre.xhtml" />
-            </p:submenu>
-            <p:submenu label="Corps">
-                <p:menuitem value="CRUD Corps" url="Corps.xhtml" />
-            </p:submenu>
-        </p:column>
- 
-        <p:column>
-            <p:submenu label="Grade">
-                <p:menuitem value="CRUD Grade" url="Grade.xhtml" />
-            </p:submenu>
-            <p:submenu label="Cadre">
-                <p:menuitem value="CRUD Cadre" url="Cadre.xhtml" />
-            </p:submenu>
-        </p:column>
-    </p:submenu>
- 
-    <p:submenu label="Attestations" icon="ui-icon-contact">
-        <p:column>
-            <p:submenu label="Attestation Salaire">
-                <p:menuitem value="Attestation Salaire" url="AttestationSalaire.xhtml" />
-            </p:submenu>
-            
-        </p:column>
- 
-        <p:column>
-           <p:submenu label="Attestation Travail">
-                <p:menuitem value="Attestation Travail" url="AttestationTravail.xhtml" />
-            </p:submenu>
-        </p:column>
-    </p:submenu>
- 
-    <p:menuitem value="Quit" url="http://www.google.com" icon="ui-icon-close" />
-</p:megaMenu>
-
-
-
-
-
+<p:breadCrumb>
+    <p:menuitem value="Ajouter Interne" url="interne.xhtml" />
+    <p:menuitem value="Liste Internes" url="ListeInterne.xhtml" />
+    <p:menuitem value="Ajouter Resident" url="Resident.xhtml" />
+    <p:menuitem value="Liste Residents" url="ListeResident.xhtml" />
+    <p:menuitem value="Ajouter Employe" url="employe.xhtml" />
+    <p:menuitem value="Liste Employee" url="ListeEmploye.xhtml" />
+    <p:menuitem value="CRUD Hopitaux" url="Hopital.xhtml" />
+    <p:menuitem value="CRUD Specialite" url="Specialite.xhtml" />
+    <p:menuitem value="CRUD Cadre" url="Cadre.xhtml" />
+    <p:menuitem value="CRUD Corps" url="Corps.xhtml" />
+    <p:menuitem value="CRUD Grade" url="Grade.xhtml" />
+    <p:menuitem value="Attestation Salaire" url="AttestationSalaire.xhtml" />
+    <p:menuitem value="Attestation Travail" url="AttestationTravail.xhtml" />
+</p:breadCrumb>
 </ui:composition>
-
-
+<!-- <h:form>  
+    <p:growl id="messages"/>
+ 
+    <p:menubar>
+        <p:submenu label="Fonctionnaire" icon="ui-icon-document">
+            <p:submenu label="Interne" icon="ui-icon-contact">
+                <p:menuitem value="Liste" url="ListeInterne.xhtml" />
+                <p:menuitem value="Ajouter" url="interne.xhtml" />
+            </p:submenu> 
+            <p:submenu label="Resident" icon="ui-icon-contact">
+                <p:menuitem value="Liste" url="ListeResident.xhtml" />
+                <p:menuitem value="Ajouter" url="Resident.xhtml" />
+            </p:submenu>
+            <p:submenu label="Employe" icon="ui-icon-contact">
+                <p:menuitem value="Liste" url="ListeEmploye.xhtml" />
+                <p:menuitem value="Ajouter" url="employe.xhtml" />
+            </p:submenu>
+        </p:submenu>
+ 
+        <p:submenu label="Hopitaux" icon="ui-icon-pencil">
+            <p:menuitem value="Liste Hopitaux" url="Hopital.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
+            <p:menuitem value="Liste Services" url="Service.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
+        </p:submenu>
+ 
+        <p:submenu label="Caracteristique" icon="ui-icon-help">
+            <p:menuitem value="Specialite" url="Specialite.xhtml" />
+            <p:menuitem value="Grade" url="Grade.xhtml" />
+            <p:menuitem value="Cadre" url="Cadre.xhtml" />
+            <p:menuitem value="Corps" url="Corps.xhtml" />
+            
+        </p:submenu>
+ 
+        <p:submenu label="Attestation" icon="ui-icon-gear">
+            <p:submenu label="Attestation Travail" icon="ui-icon-refresh">
+                <p:menuitem value="Generer" url="AttestationTravail.xhtml" icon="ui-icon-arrowrefresh-1-w" update="messages"/>
+            </p:submenu>
+            <p:submenu label="Attestation Salaire" icon="ui-icon-newwin">
+                <p:menuitem value="Generer" url="AttestationSalaire.xhtml" icon="ui-icon-close" update="messages" ajax="false"/>
+            </p:submenu>
+        </p:submenu>
+ 
+        <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
+ 
+        <f:facet name="options">
+            <p:inputText style="margin-right:10px" placeholder="Search"/>
+            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+        </f:facet>
+    </p:menubar>
+</h:form> 
+</ui:composition>-->

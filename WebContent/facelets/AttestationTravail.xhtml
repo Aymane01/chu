@@ -8,21 +8,19 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-	<title>Generer Attestation de Salaire </title>
+	<title>Generer Attestation de Travail </title>
 </h:head>
 <h:body>
 	<ui:include src="included.xhtml" />
 	<h:form>
-	<p:panel id="addPanel" header="Generer Attestation Salaire : "
+	<p:panel id="addPanel" header="Generer Attestation Travail : "
 			style="margin-bottom:10px;">
     <p:growl id="msgs" showDetail="true" />
     <h:panelGrid columns="2" cellpadding="5">
         <p:outputLabel value="Simple:" for="acSimple" />
         <p:autoComplete id="acSimple" value="#{documentCreator.query}" completeMethod="#{documentCreator.getPropositions}" />
-        <h:outputText value="Duree de l'attestation : " />
-        <p:selectBooleanButton id="value1" value="#{documentCreator.unMois}" onLabel="1 Mois" offLabel="3 Mois" style="width:120px" /> 
 	</h:panelGrid>
-    <p:commandButton value="Submit" icon="ui-icon-check" ajax="false" process="@this" actionListener="#{documentCreator.createAttestationSalaire(documentCreator.getFonctionnaire(documentCreator.query),documentCreator.unMois)}"  >
+    <p:commandButton value="Submit" icon="ui-icon-check" ajax="false" process="@this" actionListener="#{documentCreator.createAttestationTravail(documentCreator.getFonctionnaire(documentCreator.query))}"  >
      <p:fileDownload value="#{documentCreator.file}"   />
     </p:commandButton>
     </p:panel>

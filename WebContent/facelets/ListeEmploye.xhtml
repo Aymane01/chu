@@ -12,6 +12,7 @@
 </h:head>
 <h:body>
 	
+	<ui:include src="included.xhtml" />
 	<h:form id="form">
 		<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
 			sticky="false" />
@@ -199,22 +200,7 @@
 						</p:selectOneRadio>
 					</p:inplace>
 
-					<p:outputLabel for="corps" value="Corps :" />
-					<p:inplace>
-						<p:selectOneMenu requiredMessage="Veuillez seletionner un corps"
-							effect="scale" id="corps"
-							value="#{employeAction.employeUpdate.corps.id}"
-							style="width:420px">
-
-							<f:selectItem
-								itemLabel="#{employeAction.employeUpdate.corps.intituleFr}"
-								itemValue="#{employeAction.employeUpdate.corps.id}"
-								noSelectionOption="true"></f:selectItem>
-							<f:selectItems var="c" value="#{corpsAction.corps}"
-								itemLabel="#{c.intituleFr}" itemValue="#{c.id}">
-							</f:selectItems>
-						</p:selectOneMenu>
-					</p:inplace>
+					
 					<p:outputLabel for="grade" value="Grade :" />
 					<p:inplace>
 						<p:selectOneMenu requiredMessage="Veuillez seletionner un Grade"

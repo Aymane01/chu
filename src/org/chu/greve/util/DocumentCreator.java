@@ -314,7 +314,7 @@ public class DocumentCreator {
 				  Date d1 = new Date(d.getYear(), d.getMonth() , d.getDay());
 				  Date d2 = new Date(d.getYear(), d.getMonth() -1 , d.getDay());
 				  Date d3 = new Date(d.getYear(), d.getMonth() -2 , d.getDay());
-				  run.setText("		 Le Directeur du Centre Hospitalo-universitaire Hassan II, atteste par la présente, que M(me) le Dr. " + resident.getNomFr() + " " + resident.getPrenomFr() + " (CIN N° : " + resident.getCin() +"), Médecin Résident(e) " + resident.getStatus() +" en formation audit Centre, a perçu au titre des mois de " + format2.format(d1) +" , " + format2.format(d2) +" et " + format2.format(d3) +" de l’année 2017 une indemnité de fonction au taux mensuel de 3500.00 Dh.");
+				  run.setText("		 Le Directeur du Centre Hospitalo-universitaire Hassan II, atteste par la présente, que M(me) le Dr. " + resident.getNomFr()  + " (CIN N° : " + resident.getCin() +"), Médecin Résident(e) " + resident.getStatus() +" en formation audit Centre, a perçu au titre des mois de " + format2.format(d1) +" , " + format2.format(d2) +" et " + format2.format(d3) +" de l’année 2017 une indemnité de fonction au taux mensuel de 3500.00 Dh.");
 				
 			  }else {
 				  System.out.println("C'est un nouveau Employée pour avoir une attestation de 3 mois , Essayez 1 mois");
@@ -371,17 +371,26 @@ public class DocumentCreator {
 		List<String> props = new Vector<>();
 		
 		for (Resident resident : residents) {
-			
-			if(resident.getNomFr().contains(query) || resident.getPrenomFr().contains(query)) {
+			if(resident.getPrenomFr()==null) {
+				resident.setPrenomFr("");
+			}
+			if(resident.getNomFr().contains(query) || resident.getPrenomFr().contains(query) ) { 
 
 				props.add(resident.getNomFr() + " " + resident.getPrenomFr());
 			}
 			
 		}
 		for (Interne interne : internes) {
-			if(interne.getNomFr().contains(query) || interne.getPrenomFr().contains(query)) {
-
-				props.add(interne.getNomFr() + " " + interne.getPrenomFr());
+			if(interne.getPrenomFr()==null) {
+				interne.setPrenomFr("");
+			}
+			if(interne.getNomFr().contains(query) || interne.getPrenomFr().contains(query) ) { 
+				if(interne.getPrenomFr()=="") {
+					props.add(interne.getNomFr());
+				}else {
+					props.add(interne.getNomFr() + " " + interne.getPrenomFr());
+				}
+				
 			}
 		}
 		
@@ -399,21 +408,31 @@ public class DocumentCreator {
 			System.out.println("no instance");
 		}
 	}
+	public void createAttestationTravail(Object fonctionnaire) {
+		if(fonctionnaire instanceof Interne) {
+			System.out.println("dans l'instance interne");
+			CreateAttestationTravailInterne((Interne) fonctionnaire);
+			
+		}else if(fonctionnaire instanceof Resident) {
+			CreateAttestationTravailResident((Resident) fonctionnaire);
+		}else {
+			System.out.println("no instance");
+		}
+	}
 	public Object getFonctionnaire(String name) {
 		System.out.println(name);
 		for (Resident resident : residents) {
-			String chaine = resident.getNomFr() + " " + resident.getPrenomFr();
+			String chaine = resident.getNomFr();
 			if(chaine.equals(name)) {
 				return resident;
 			}
 		}
 		for (Interne interne : internes) {
-			String chaine = interne.getNomFr() + " " + interne.getPrenomFr();
+			String chaine = interne.getNomFr();
 			if(chaine.equals(name)) {
 				return interne;
 			}
 		}
-		
 		return null;
 		
 	}
@@ -422,5 +441,164 @@ public class DocumentCreator {
 	}
 	public void setQuery(String query) {
 		this.query = query;
+	}
+	
+	public int CreateAttestationTravailInterne(Interne interne) {
+		System.out.println(interne.getDateRecru());
+		file = new DefaultStreamedContent(stream, "doc/docx", "attest_salaire_" + interne.getNomFr() + ".docx");
+		XWPFDocument doc= new XWPFDocument();
+		 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		 Date d = new Date();
+		  // the body conterne
+		  
+		  //header
+			  XWPFParagraph paragraph = doc.createParagraph();
+			  XWPFRun run = paragraph.createRun();
+			  try {
+				run.addPicture(new FileInputStream(File), XWPFDocument.PICTURE_TYPE_JPEG, File, Units.toEMU(450) , Units.toEMU(100));
+			} catch (InvalidFormatException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		  
+		  
+		  paragraph = doc.createParagraph();
+		  paragraph.setAlignment(ParagraphAlignment.CENTER);
+		  run=paragraph.createRun();
+		  run.addBreak();
+		  run.setText("ATTESTATION DE TRAVAIL:");
+		  run.setBold(true);
+		  run.setFontSize(16);
+		  run.setFontFamily("Times New Roman");
+		  run.addBreak();
+		  run.addBreak();
+		  run.addBreak();
+
+		  paragraph = doc.createParagraph();
+		  run=paragraph.createRun();  
+		  run.setFontSize(16);
+		  run.setFontFamily("Times New Roman");
+		  String exp = "Mme";
+		  if(interne.getSexe().equals("MASCULIN")) {
+			  exp = "Mr";
+		  }
+		  String stage = "";
+		  
+		  if(interne.getStage4() == null) {
+			  if(interne.getStage3() == null) {
+				  if(interne.getStage2() == null) {
+					  stage = interne.getStage1();
+				  }else {
+					  stage = interne.getStage2();
+				  }
+			  }else {
+				  stage = interne.getStage3();
+			  }
+		  }else {
+			  stage = interne.getStage4();
+		  }
+		  System.out.println(stage);
+		  run.setText("		Le Directeur du Centre Hospitalier Hassan II, atteste par la présente que " + exp +" " + interne.getNomFr() + " (CIN N° : " + interne.getCin() +"), est actuellement en formation au Centre Hospitalier Hassan II de Fès en qualité d’Interne en " + stage);
+
+		  run.setTextPosition(40);
+		  run.addBreak();
+
+		  paragraph = doc.createParagraph();
+		  run=paragraph.createRun();
+		  run.setFontSize(18);
+		  run.setFontFamily("Times New Roman");
+		  run.setTextPosition(40);
+		  run.setText("      La présente attestation est délivrée à l’intéressé(e) sur sa demande pour servir et valoir ce que de droit.");
+		  
+		  
+		  paragraph = doc.createParagraph();
+		  paragraph.setAlignment(ParagraphAlignment.RIGHT);
+		  run=paragraph.createRun();
+		  run.setFontSize(18);
+		  run.setFontFamily("Times New Roman");
+		  run.setTextPosition(40);
+
+		  run.setText(" Fès, le " + dateFormat.format(d));
+		  
+		  try {
+			doc.write(new FileOutputStream("C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\test.docx"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  return 1;
+	}
+	public int CreateAttestationTravailResident(Resident resident) {
+		file = new DefaultStreamedContent(stream, "doc/docx", "attest_salaire_" + resident.getNomFr() + ".docx");
+		XWPFDocument doc= new XWPFDocument();
+		 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		 Date d = new Date();
+		  // the body conterne
+		  
+		  //header
+			  XWPFParagraph paragraph = doc.createParagraph();
+			  XWPFRun run = paragraph.createRun();
+			  try {
+				run.addPicture(new FileInputStream(File), XWPFDocument.PICTURE_TYPE_JPEG, File, Units.toEMU(450) , Units.toEMU(100));
+			} catch (InvalidFormatException | IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		  
+		  
+		  paragraph = doc.createParagraph();
+		  paragraph.setAlignment(ParagraphAlignment.CENTER);
+		  run=paragraph.createRun();
+		  run.addBreak();
+		  run.setText("ATTESTATION DE TRAVAIL:");
+		  run.setBold(true);
+		  run.setFontSize(16);
+		  run.setFontFamily("Times New Roman");
+		  run.addBreak();
+		  run.addBreak();
+		  run.addBreak();
+
+		  paragraph = doc.createParagraph();
+		  run=paragraph.createRun();  
+		  run.setFontSize(16);
+		  run.setFontFamily("Times New Roman");
+		  String exp = "Mme";
+		  if(resident.getSexe().equals("MASCULIN")) {
+			  exp = "Mr";
+		  }
+		  if( resident.getStatus().contains("BENEVOLE") || resident.getStatus().contains("SANS CONTRAT")) {
+			  run.setText("		Le Directeur du Centre Hospitalo-universitaire Hassan II, atteste par la présente que " + exp + "  le Dr " + resident.getNomFr() + ", (CIN : " + resident.getCin() + ") est en formation audit Centre en qualité de Médecin Résident Bénévole au service '" + resident.getSpecialite().getIntituleFr() + "'.");
+
+		  }else {
+			 run.setText("		Le Directeur du Centre Hospitalo-universitaire Hassan II, atteste par la présente que " + exp +" le Dr. " + resident.getNomFr() +" (CIN N° : " + resident.getCin() + ") (Mle à la DDP : " + resident.getPpr() +") est actuellement en formation audit Centre en qualité de Médecin Résident(e) en " + resident.getSpecialite().getIntituleFr() +".");
+		  }
+		  
+		  run.setTextPosition(40);
+		  run.addBreak();
+
+		  paragraph = doc.createParagraph();
+		  run=paragraph.createRun();
+		  run.setFontSize(18);
+		  run.setFontFamily("Times New Roman");
+		  run.setTextPosition(40);
+		  run.setText("      La présente attestation est délivrée à l’intéressé(e) sur sa demande pour servir et valoir ce que de droit.");
+		  
+		  
+		  paragraph = doc.createParagraph();
+		  paragraph.setAlignment(ParagraphAlignment.RIGHT);
+		  run=paragraph.createRun();
+		  run.setFontSize(18);
+		  run.setFontFamily("Times New Roman");
+		  run.setTextPosition(40);
+
+		  run.setText(" Fès, le " + dateFormat.format(d));
+		  
+		  try {
+			doc.write(new FileOutputStream("C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\test.docx"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  return 1;
 	}
 }

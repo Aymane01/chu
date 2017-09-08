@@ -18,6 +18,10 @@ public class Hopital {
 		this.idH = idH;
 
 	}
+	public Hopital(String ...rows) {
+		this.intituleFr = rows[0];
+		this.intituleAr = rows[1];
+	}
 
 	public int getIdH() {
 		return idH;
