@@ -15,31 +15,31 @@
 		<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
 			sticky="false" />
 
-		<p:panel id="listPanel" header="Liste des Résident"
+		<p:panel id="listPanel" header="Liste des Professeurs"
 			style="margin-bottom:10px; margin-top:10px;">
 
-			<p:dataTable var="r" value="#{residentAction.listeResident}"
+			<p:dataTable var="p" value="#{professeurAction.listProfesseur}"
 				paginator="true" rowsPerPageTemplate="10,15,20" rows="15"
-				emptyMessage="Aucun Résident">
-				<p:column headerText="PPR" filterBy="#{r.ppr}"
+				emptyMessage="Aucun Professeur">
+				<p:column headerText="PPR" filterBy="#{p.ppr}"
 					filterMatchMode="contains">
-					<h:outputText value="#{r.ppr}" />
+					<h:outputText value="#{p.ppr}" />
 				</p:column>
-				<p:column headerText="CIN" filterBy="#{r.cin}"
+				<p:column headerText="CIN" filterBy="#{p.cin}"
 					filterMatchMode="contains">
-					<h:outputText value="#{r.cin}"></h:outputText>
+					<h:outputText value="#{p.cin}"></h:outputText>
 				</p:column>
-				<p:column headerText="Nom" filterBy="#{r.nomFr}"
+				<p:column headerText="Nom" filterBy="#{p.nomFr}"
 					filterMatchMode="contains">
-					<h:outputText value="#{r.nomFr}"></h:outputText>
+					<h:outputText value="#{p.nomFr}"></h:outputText>
 				</p:column>
-				<p:column headerText="Prénom" filterBy="#{r.prenomFr}"
+				<p:column headerText="Prénom" filterBy="#{p.prenomFr}"
 					filterMatchMode="contains">
-					<h:outputText value="#{r.prenomFr}"></h:outputText>
+					<h:outputText value="#{p.prenomFr}"></h:outputText>
 				</p:column>
 				<p:column headerText="Nom et Prénom (AR)"
-					filterBy="#{r.nomCompletAr}" filterMatchMode="contains">
-					<h:outputText value="#{r.nomCompletAr}"></h:outputText>
+					filterBy="#{p.nomCompletAr}" filterMatchMode="contains">
+					<h:outputText value="#{p.nomCompletAr}"></h:outputText>
 				</p:column>
 				<p:column headerText="Options"
 					style="width:90px; text-align:  center">
@@ -49,9 +49,9 @@
 						showEffect="clip" hideEffect="clip" position="left" />
 					<p:commandButton icon="ui-icon-closethick" id="remove"
 						update="form" process="@this"
-						action="#{residentAction.deleteResident(r)}">
+						action="#{professeurAction.deleteProfesseur(p)}">
 						<p:confirm header="Confirmation"
-							message="Voulez-vous supprimer le résident ?"
+							message="Voulez-vous supprimer le professeur ?"
 							icon="ui-icon-alert">
 						</p:confirm>
 						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
@@ -65,47 +65,49 @@
 
 
 					<p:commandButton icon="ui-icon-pencil" update=":form:updatePanel"
-						id="showMore" oncomplete="PF('residentDialog').show()"
-						process="@this" action="#{residentAction.setResidentUpdate(r)}">
+						id="showMore" oncomplete="PF('professeurDialog').show()"
+						process="@this"
+						action="#{professeurAction.setProfesseurUpdate(p)}">
 
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 		<!--  Modify Dialogue -->
-		<p:dialog header="Résident" widgetVar="residentDialog" modal="true"
+		<p:dialog header="Résident" widgetVar="professeurDialog" modal="true"
 			showEffect="fade" hideEffect="fade" resizable="false" width="750"
 			height="600">
 			<p:panel id="updatePanel" style="margin-bottom:5px; ">
 				<h:panelGrid columns="2">
 					<p:outputLabel for="ppr" value="PPR :" />
 
-					<p:inputText id="ppr" value="#{residentAction.residentUpdate.ppr}"
-						size="40" validatorMessage="Champs requis ou invalide : PPR "
-						label="Number" converterMessage="Champs requis ou invalide : PPR ">
+					<p:inputText id="ppr"
+						value="#{professeurAction.professeurUpdate.ppr}" size="40"
+						validatorMessage="Champs requis ou invalide : PPR ">
 						<f:validateRequired />
-						<f:validateDoubleRange minimum="1" maximum="1000000" />
 					</p:inputText>
 
 					<p:outputLabel for="cin" value="CIN :" />
 
-					<p:inputText id="cin" value="#{residentAction.residentUpdate.cin}"
-						size="40" validatorMessage="Champs requis : CIN">
+					<p:inputText id="cin"
+						value="#{professeurAction.professeurUpdate.cin}" size="40"
+						validatorMessage="Champs requis : CIN">
 						<f:validateRequired />
 					</p:inputText>
 
 					<p:outputLabel for="nomFr" value="Nom et Prénom en Français :" />
-
 					<p:inputText id="nomFr"
-						value="#{residentAction.residentUpdate.nomFr}" size="40"
+						value="#{professeurAction.professeurUpdate.nomFr}" size="40"
 						validatorMessage="Champs requis : Nom et Prénom en Français">
 						<f:validateRequired />
 					</p:inputText>
 
-					<p:outputLabel for="nomCompletAr" value="Nom et Prénom en Arabe :" />
 
+
+					<p:outputLabel for="nomCompletAr" value="Nom et Prénom en Arabe :" />
 					<p:inputText id="nomCompletAr"
-						value="#{residentAction.residentUpdate.nomCompletAr}" size="40"
+						value="#{professeurAction.professeurUpdate.nomCompletAr}"
+						size="40"
 						validatorMessage="Champs requis : Nom et Prénom en Arabe">
 						<f:validateRequired />
 					</p:inputText>
@@ -113,7 +115,7 @@
 					<p:outputLabel for="dateN" value="Date de naissance :" />
 
 					<p:calendar id="dateN"
-						value="#{residentAction.residentUpdate.dateN}"
+						value="#{professeurAction.professeurUpdate.dateN}"
 						pattern="yyyy-MM-dd" mask="true"
 						validatorMessage="Champs requis : Date de naissance"
 						effect="scale" converter="myDateConverter">
@@ -123,7 +125,7 @@
 					<p:outputLabel for="sexe" value="Sexe :" />
 
 					<p:selectOneRadio id="sexe"
-						value="#{residentAction.residentUpdate.sexe}"
+						value="#{professeurAction.professeurUpdate.sexe}"
 						validatorMessage="Champs requis : Sexe">
 						<f:selectItem itemLabel="Masculin" itemValue="Masculin" />
 						<f:selectItem itemLabel="Feminin" itemValue="Feminin" />
@@ -134,73 +136,56 @@
 
 					<p:selectOneMenu id="nationalite"
 						validatorMessage="Champs requis : Nationalité"
-						value="#{residentAction.residentUpdate.nationalite}"
+						value="#{professeurAction.professeurUpdate.nationalite}"
 						effect="scale">
 						<f:selectItem
-							itemLabel="#{residentAction.residentUpdate.nationalite}"
-							itemValue="#{residentAction.residentUpdate.nationalite}"
+							itemLabel="#{professeurAction.professeurUpdate.nationalite}"
+							itemValue="#{professeurAction.professeurUpdate.nationalite}"
 							noSelectionOption="true" />
-						<f:selectItems var="n" value="#{residentAction.nationalite}"
+						<f:selectItems var="n" value="#{professeurAction.nationalite}"
 							itemValue="#{n}" itemLabel="#{n}" />
 						<f:validateRequired />
 					</p:selectOneMenu>
 
-					<p:outputLabel for="dateArrive" value="Date d'arrivée :" />
 
-					<p:calendar id="dateArrive"
-						value="#{residentAction.residentUpdate.dateArrive}"
+					<p:outputLabel for="dateNomination" value="Date de nomination :" />
+					<p:calendar id="dateNomination"
+						value="#{professeurAction.professeurUpdate.dateNomination}"
 						pattern="yyyy-MM-dd" mask="true"
-						validatorMessage="Champs requis : Date d'arrivée" effect="scale"
-						converter="myDateConverter">
+						validatorMessage="Champs requis : Date de nomination"
+						effect="scale" converter="myDateConverter">
 						<f:validateRequired />
 					</p:calendar>
-
-
-
-					<p:outputLabel for="status" value="Status :" />
-
-					<p:inputText id="status"
-						value="#{residentAction.residentUpdate.status}" size="40"
-						validatorMessage="Champs requis : Status">
+					<p:outputLabel for="dateIntegration" value="Date d'intégration :" />
+					<p:calendar id="dateIntegration"
+						value="#{professeurAction.professeurUpdate.dateIntegration}"
+						pattern="yyyy-MM-dd" mask="true"
+						validatorMessage="Champs requis : Date d'intégration"
+						effect="scale" converter="myDateConverter">
 						<f:validateRequired />
-					</p:inputText>
-
-					<p:outputLabel for="type" value="Type :" />
-
-					<p:inputText id="type"
-						value="#{residentAction.residentUpdate.type}" size="40"
-						validatorMessage="Champs requis : Type">
-						<f:validateRequired />
-					</p:inputText>
-
+					</p:calendar>
 					<p:outputLabel for="echelle" value="Echelle :" />
-
 					<p:inputText id="echelle"
-						value="#{residentAction.residentUpdate.echelle}" size="40"
+						value="#{professeurAction.professeurUpdate.echelle}" size="40"
 						validatorMessage="Champs requis : Echelle">
 						<f:validateRequired />
 					</p:inputText>
-
 					<p:outputLabel for="echelon" value="Echelon :" />
-
 					<p:inputText id="echelon"
-						value="#{residentAction.residentUpdate.echelon}" size="40"
+						value="#{professeurAction.professeurUpdate.echelon}" size="40"
 						validatorMessage="Champs requis : Echelon">
 						<f:validateRequired />
 					</p:inputText>
-
 					<p:outputLabel for="indice" value="Indice :" />
-
 					<p:inputText id="indice"
-						value="#{residentAction.residentUpdate.indice}" size="40"
+						value="#{professeurAction.professeurUpdate.indice}" size="40"
 						validatorMessage="Champs requis : Indice">
 						<f:validateRequired />
 					</p:inputText>
 
 					<p:outputLabel for="budget" value="Budget :" />
-
 					<p:selectOneRadio id="budget"
-						value="#{residentAction.residentUpdate.budget}"
+						value="#{professeurAction.professeurUpdate.budget}"
 						validatorMessage="Champs requis : Budget">
 						<f:selectItem itemLabel="Autonome" itemValue="Autonome" />
 						<f:selectItem itemLabel="Générale" itemValue="Générale" />
@@ -210,7 +195,7 @@
 
 					<p:outputLabel for="observation" value="Observation :" />
 					<p:inputText id="observation"
-						value="#{residentAction.residentUpdate.observation}" size="40"
+						value="#{professeurAction.professeurUpdate.observation}" size="40"
 						validatorMessage="Champs requis : Observation">
 						<f:validateRequired />
 					</p:inputText>
@@ -219,12 +204,12 @@
 
 					<p:selectOneMenu requiredMessage="Veuillez seletionner un corps"
 						effect="scale" id="corps"
-						value="#{residentAction.residentUpdate.corps.id}"
+						value="#{professeurAction.professeurUpdate.corps.id}"
 						style="width:420px">
 
 						<f:selectItem
-							itemLabel="#{residentAction.residentUpdate.corps.intituleFr}"
-							itemValue="#{residentAction.residentUpdate.corps.id}"
+							itemLabel="#{professeurAction.professeurUpdate.corps.intituleFr}"
+							itemValue="#{professeurAction.professeurUpdate.corps.id}"
 							noSelectionOption="true"></f:selectItem>
 						<f:selectItems var="c" value="#{corpsAction.corps}"
 							itemLabel="#{c.intituleFr}" itemValue="#{c.id}">
@@ -235,11 +220,11 @@
 
 					<p:selectOneMenu requiredMessage="Veuillez seletionner un Grade"
 						effect="scale" id="grade"
-						value="#{residentAction.residentUpdate.grade.idG}"
+						value="#{professeurAction.professeurUpdate.grade.idG}"
 						style="width:420px">
 						<f:selectItem
-							itemLabel="#{residentAction.residentUpdate.grade.intituleFr}"
-							itemValue="#{residentAction.residentUpdate.grade.idG}"
+							itemLabel="#{professeurAction.professeurUpdate.grade.intituleFr}"
+							itemValue="#{professeurAction.professeurUpdate.grade.idG}"
 							noSelectionOption="true"></f:selectItem>
 						<f:selectItems var="g" value="#{gradeAction.grades}"
 							itemLabel="#{g.intituleFr}" itemValue="#{g.idG}">
@@ -250,11 +235,11 @@
 
 					<p:selectOneMenu requiredMessage="Veuillez seletionner un Cadre"
 						effect="scale" id="cadre"
-						value="#{residentAction.residentUpdate.cadre.id}"
+						value="#{professeurAction.professeurUpdate.cadre.id}"
 						style="width:420px">
 						<f:selectItem
-							itemLabel="#{residentAction.residentUpdate.cadre.intituleFr}"
-							itemValue="#{residentAction.residentUpdate.cadre.id}"
+							itemLabel="#{professeurAction.professeurUpdate.cadre.intituleFr}"
+							itemValue="#{professeurAction.professeurUpdate.cadre.id}"
 							noSelectionOption="true"></f:selectItem>
 						<f:selectItems var="ca" value="#{cadreAction.cadres}"
 							itemLabel="#{ca.intituleFr}" itemValue="#{ca.id}">
@@ -266,11 +251,11 @@
 					<p:selectOneMenu
 						requiredMessage="Veuillez seletionner une spécialité"
 						effect="scale" id="specialite"
-						value="#{residentAction.residentUpdate.specialite.idS}"
+						value="#{professeurAction.professeurUpdate.specialite.idS}"
 						style="width:420px">
 						<f:selectItem
-							itemLabel="#{residentAction.residentUpdate.specialite.intituleFr}"
-							itemValue="#{residentAction.residentUpdate.specialite.idS}"
+							itemLabel="#{professeurAction.professeurUpdate.specialite.intituleFr}"
+							itemValue="#{professeurAction.professeurUpdate.specialite.idS}"
 							noSelectionOption="true"></f:selectItem>
 						<f:selectItems var="sp" value="#{specialiteAction.specialites}"
 							itemLabel="#{sp.intituleFr}" itemValue="#{sp.idS}">
@@ -283,8 +268,8 @@
 						effect="scale" id="hopital" value="#{hopitalAction.hopital.idH}"
 						style="width:420px">
 						<f:selectItem
-							itemLabel="#{residentAction.residentUpdate.service.hopital.intituleFr}"
-							itemValue="#{residentAction.residentUpdate.service.hopital.idH}"
+							itemLabel="#{professeurAction.professeurUpdate.service.hopital.intituleFr}"
+							itemValue="#{professeurAction.professeurUpdate.service.hopital.idH}"
 							noSelectionOption="true"></f:selectItem>
 						<f:selectItems var="h" value="#{hopitalAction.listHopital}"
 							itemLabel="#{h.intituleFr}" itemValue="#{h.idH}">
@@ -295,21 +280,37 @@
 					<p:outputLabel for="service" value="Service :" />
 					<p:selectOneMenu requiredMessage="Veuillez seletionner un Service"
 						effect="scale" id="service"
-						value="#{residentAction.residentUpdate.service.idSe}"
+						value="#{professeurAction.professeurUpdate.service.idSe}"
 						style="width:420px">
 						<f:selectItem
-							itemLabel="#{residentAction.residentUpdate.service.intituleFr}"
-							itemValue="#{residentAction.residentUpdate.service.idSe}"
+							itemLabel="#{professeurAction.professeurUpdate.service.intituleFr}"
+							itemValue="#{professeurAction.professeurUpdate.service.idSe}"
 							noSelectionOption="true"></f:selectItem>
 						<f:selectItems var="s" value="#{hopitalAction.listService}"
 							itemLabel="#{s.intituleFr}" itemValue="#{s.idSe}">
 						</f:selectItems>
 					</p:selectOneMenu>
+					<p:outputLabel for="dateArrive" value="Date d'arrivée au service:" />
+					<p:calendar id="dateArrive"
+						value="#{professeurAction.professeurUpdate.dateArrive}"
+						pattern="yyyy-MM-dd" mask="true"
+						validatorMessage="Champs requis : Date d'arrivée" effect="scale"
+						converter="myDateConverter">
+						<f:validateRequired />
+					</p:calendar>
+					<p:outputLabel for="isChef" value="Chef de service :" />
+					<p:selectOneRadio id="isChef"
+						value="#{professeurAction.professeurUpdate.isChef}"
+						validatorMessage="Champs requis : Budget">
+						<f:selectItem itemLabel="Oui" itemValue="Oui" />
+						<f:selectItem itemLabel="Non" itemValue="Non" />
+						<f:validateRequired />
+					</p:selectOneRadio>
 				</h:panelGrid>
 				<p:toolbar>
 					<f:facet name="left">
 						<p:commandButton value="Modifier" icon="ui-icon-circle-check"
-							actionListener="#{residentAction.updateResident(residentAction.residentUpdate)}"
+							actionListener="#{professeurAction.updateProfesseur(professeurAction.professeurUpdate)}"
 							update="form">
 							<p:confirm header="Confirmation"
 								message="Voulez-vous appliquer la modification ?"
@@ -325,7 +326,7 @@
 						</p:commandButton>
 						<p:commandButton value="Supprimer" icon="ui-icon-closethick"
 							id="remove" update="form" process="@this"
-							action="#{residentAction.deleteResident(residentAction.residentUpdate)}">
+							action="#{professeurAction.deleteProfesseur(professeurAction.professeurUpdate)}">
 							<p:confirm header="Confirmation"
 								message="Voulez-vous supprimer le résident ?"
 								icon="ui-icon-alert">
@@ -337,9 +338,6 @@
 								<p:commandButton value="Non" type="button"
 									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 							</p:confirmDialog>
-						</p:commandButton>
-						<p:commandButton value="Annuler" type="reset"
-							icon="ui-icon-circle-minus">
 						</p:commandButton>
 					</f:facet>
 				</p:toolbar>

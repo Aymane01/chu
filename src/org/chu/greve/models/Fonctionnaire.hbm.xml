@@ -138,5 +138,29 @@
 	            <column name="STAGE1" />
 	        </property>
         </union-subclass>
+
+        <!-- Professeur et Résident-->
+        	<union-subclass name="org.chu.greve.models.Resident"
+			table="RESIDENT">
+			<property name="type" type="java.lang.String">
+				<column name="TYPER"></column>
+			</property>
+			<property name="status" type="java.lang.String">
+				<column name="STATUS"></column>
+			</property>
+		</union-subclass>
+		<union-subclass name="org.chu.greve.models.Professeur"
+			table="PROFESSEUR">
+			<property name="isChef" type="java.lang.String">
+				<column name="ISCHEF" />
+			</property>
+			<property name="dateNomination" type="java.lang.String">
+				<column name="DATENOMINATION" />
+			</property>
+			<property name="dateIntegration" type="java.lang.String">
+				<column name="DATEINTEGRATION" />
+			</property>
+		</union-subclass>
+        <!---->
 	</class>
 </hibernate-mapping> 
