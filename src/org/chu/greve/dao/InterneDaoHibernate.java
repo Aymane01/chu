@@ -3,10 +3,7 @@ package org.chu.greve.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.chu.greve.models.Employe;
-import org.chu.greve.models.Grade;
 import org.chu.greve.models.Interne;
-import org.chu.greve.models.Professeur;
 import org.chu.greve.models.Specialite;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
@@ -42,7 +39,7 @@ public class InterneDaoHibernate implements InterneDao{
 		
 		try {
 			List<Interne> list = new ArrayList<>();
-			String query = "select * from interne where nomFr='" + nomFr + "'";
+			String query = "select * from interne where nomCompletFr=" + nomFr;
 			SQLQuery sql = session.createSQLQuery(query);
 			sql.addEntity(Interne.class);
 			list = sql.list();
@@ -75,27 +72,27 @@ public class InterneDaoHibernate implements InterneDao{
 			return null;
 		}
 	}
-	
+
 	@Override
 	public int insert(Interne interne) {
 		openSession();
 		try {
 			session.beginTransaction();
-//			Interne g = new Interne();
-//			g.setCin(interne.getCin());
-//			g.setNomFr(interne.getNomFr());
-//			g.setPrenomFr(interne.getPrenomFr());
-//			g.setNomCompletAr(interne.getNomCompletAr());
-//			g.setDateN(interne.getDateN());
-//			g.setDateRecru(interne.getDateRecru());
-//			g.setSexe(interne.getSexe());
-//			g.setStage1(interne.getStage1());
-//			g.setStage2(interne.getStage2());
-//			g.setStage3(interne.getStage3());
-//			g.setStage4(interne.getStage4());
-//			g.setService(interne.getService());
-
-			session.save(interne);
+			Interne g = new Interne();
+			g.setCin(interne.getCin());
+			g.setNomFr(interne.getNomFr());
+			g.setPrenomFr(interne.getPrenomFr());
+			g.setNomCompletAr(interne.getNomCompletAr());
+			g.setDateN(interne.getDateN());
+			g.setDateRecru(interne.getDateRecru());
+			g.setSexe(interne.getSexe());
+			g.setStage1(interne.getStage1());
+			g.setStage2(interne.getStage2());
+			g.setStage3(interne.getStage3());
+			g.setStage4(interne.getStage4());
+			g.setService(interne.getService());
+			
+			session.save(g);
 			closeSession();
 			return 1;
 		} catch (Exception e) {
@@ -135,5 +132,5 @@ public class InterneDaoHibernate implements InterneDao{
 		closeSession();
 		
 	}
-	
+
 }

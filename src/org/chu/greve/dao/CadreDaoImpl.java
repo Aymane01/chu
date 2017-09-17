@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.chu.greve.models.Cadre;
+import org.chu.greve.models.Hopital;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -73,6 +74,21 @@ public class CadreDaoImpl implements CadreDao, SessionDao {
 			list = sql.list();
 			closeSession();
 			return list;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	public Cadre selectCadre(String id) {
+		try {
+			List<Cadre> list = new ArrayList<>();
+			String query = "select * from cadre where idCa = " + id;
+			openSession();
+			SQLQuery sql = session.createSQLQuery(query);
+			sql.addEntity(Cadre.class);
+			list = sql.list();
+			closeSession();
+			return list.get(0);
 		} catch (Exception e) {
 			return null;
 		}

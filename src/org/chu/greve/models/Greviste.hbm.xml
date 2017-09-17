@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 26 juil. 2017 17:14:33 by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+	<class name="org.chu.greve.models.Greviste" table="GREVISTE">
+		<id name="id" type="int">
+			<column name="ID" />
+			<generator class="increment" />
+		</id>
+		<many-to-one name="greve" class="org.chu.greve.models.Greve"
+			column="IDGREVE" />
+		<many-to-one name="service" class="org.chu.greve.models.Service"
+			column="IDSERVICEGREVISTE" />
+
+		<!-- <component name="greve" class="org.chu.greve.models.Greve"> <property 
+			name="idG" type="int"> <column name="IDGREVE" /> </property> </component> -->
+		<component name="greviste" class="org.chu.greve.models.Fonctionnaire">
+			<property name="cin" type="java.lang.String">
+				<column name="IDGREVISTE" />
+			</property>
+		</component>
+	<!-- 	<component name="service" class="org.chu.greve.models.Service">
+			<property name="idSe" type="int">
+				<column name="IDSERVICEGREVISTE" />
+			</property>
+		</component> -->
+	</class>
+</hibernate-mapping> 

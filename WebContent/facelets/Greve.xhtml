@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Gestion de Grève</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
+			sticky="false" />
+		<p:panel id="addPanel" header="Ajouter nouvelle Grève"
+			style="margin-bottom:2px;">
+
+			<h:panelGrid columns="2">
+				<p:outputLabel for="dateDebut" value="Date de début :" />
+				<p:calendar id="dateDebut" value="#{greve.dateDebut}"
+					pattern="yyyy-MM-dd" mask="true"
+					validatorMessage="Champs requis : Date de début" effect="scale"
+					converter="myDateConverter">
+					<f:validateRequired />
+				</p:calendar>
+				<p:outputLabel for="dateFin" value="Date de fin :" />
+				<p:calendar id="dateFin" value="#{greve.dateFin}"
+					pattern="yyyy-MM-dd" mask="true"
+					validatorMessage="Champs requis : Date de fin" effect="scale"
+					converter="myDateConverter">
+					<f:validateRequired />
+				</p:calendar>
+			</h:panelGrid>
+		</p:panel>
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton value="Ajouter" icon="ui-icon-circle-check"
+					actionListener="#{greveAction.addGreve(greve)}" update="form"
+					process="@this addPanel">
+				</p:commandButton>
+				<p:commandButton value="Annuler" type="reset"
+					icon="ui-icon-circle-minus">
+				</p:commandButton>
+			</f:facet>
+		</p:toolbar>
+
+		<p:panel id="listPanel" header="Liste des Grèves"
+			style="margin-bottom:10px; margin-top:10px;">
+
+			<p:dataTable var="g" value="#{greveAction.listGreve}"
+				paginator="true" rowsPerPageTemplate="10,15,20" rows="15"
+				emptyMessage="Aucune grève">
+				<p:column headerText="Date de début" filterBy="#{g.dateDebut}"
+					filterMatchMode="contains">
+					<h:outputText value="#{g.dateDebut}" />
+				</p:column>
+				<p:column headerText="Date de fin" filterBy="#{g.dateFin}"
+					filterMatchMode="contains">
+					<h:outputText value="#{g.dateFin}"></h:outputText>
+				</p:column>
+
+				<p:column headerText="Options"
+					style="width:135px; text-align:  center">
+					<p:tooltip id="toolTipGrowD" for="remove" value="Supprimer"
+						showEffect="clip" hideEffect="clip" position="left" />
+					<p:tooltip id="toolTipGrowU" for="update" value="Modifier"
+						showEffect="clip" hideEffect="clip" position="left" />
+					<p:tooltip id="toolTipGrowM" for="greviste" value="Grévistes"
+						showEffect="clip" hideEffect="clip" position="left" />
+					<p:commandButton icon="ui-icon-closethick" update="form"
+						id="remove" action="#{greveAction.deleteGreve(g)}" process="@this">
+						<p:confirm header="Confirmation"
+							message="voulez-vous supprimer la grève ?" icon="ui-icon-alert">
+						</p:confirm>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+							severity="alert">
+
+							<p:commandButton value="Oui" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Non" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil" update=":form:greveUpdate"
+						id="update" oncomplete="PF('greveDialog').show()" process="@this"
+						action="#{greveAction.setGreveUpdate(g)}">
+
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-plus" id="greviste" process="@this"
+						action="#{greveAction.navigateToGreviste(g)}">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			<p:dialog header="Modifier Grève" widgetVar="greveDialog"
+				modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+				width="665">
+
+				<p:panel id="greveUpdate" style="text-align:left;">
+					<h:panelGrid columns="2">
+						<p:outputLabel for="dateDebutU" value="Date de début :" />
+						<p:calendar id="dateDebutU"
+							value="#{greveAction.greveUpdate.dateDebut}" pattern="yyyy-MM-dd"
+							mask="true" validatorMessage="Champs requis : Date de début"
+							effect="scale" converter="myDateConverter">
+							<f:validateRequired />
+						</p:calendar>
+						<p:outputLabel for="dateFinU" value="Date de fin :" />
+						<p:calendar id="dateFinU"
+							value="#{greveAction.greveUpdate.dateFin}" pattern="yyyy-MM-dd"
+							mask="true" validatorMessage="Champs requis : Date de fin"
+							effect="scale" converter="myDateConverter">
+							<f:validateRequired />
+						</p:calendar>
+					</h:panelGrid>
+				</p:panel>
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton value="Modifier" icon="ui-icon-circle-check"
+							actionListener="#{greveAction.updateGreve(greveAction.greveUpdate)}"
+							update="form" process="@this greveUpdate">
+							<p:confirm header="Confirmation"
+								message="voulez-vous appliquer la modification ?"
+								icon="ui-icon-alert">
+							</p:confirm>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade" severity="alert">
+
+								<p:commandButton value="Oui" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Non" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:commandButton>
+						<p:commandButton value="Annuler" type="reset"
+							icon="ui-icon-circle-minus">
+						</p:commandButton>
+					</f:facet>
+				</p:toolbar>
+			</p:dialog>
+		</p:panel>
+
+	</h:form>
+
+</h:body>
+</html>

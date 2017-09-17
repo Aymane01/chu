@@ -2,7 +2,6 @@ package org.chu.greve.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import org.chu.greve.models.Cadre;
 import org.chu.greve.models.Hopital;
@@ -37,11 +36,6 @@ public class HopitalDaoImpl implements HopitalDao, SessionDao {
 	}
 
 	public int insertService(Service service) {
-		if(service.getHopital().getIntituleFr() != null) {
-
-			Hopital h = selectHopital(service.getHopital().getIntituleFr());
-			service.setHopital(h);
-		}
 		try {
 			openSession();
 			session.save(service);
@@ -67,8 +61,7 @@ public class HopitalDaoImpl implements HopitalDao, SessionDao {
 	public List<Service> listService(Hopital hopital) {
 		try {
 			List<Service> list = new ArrayList<>();
-			String query = "SELECT idSe, intituleAr, intituleFr, fk_idHopital FROM service  WHERE fk_idHopital = "
-					+ hopital.getIdH();
+			String query = "SELECT * FROM service  WHERE fk_idHopital = " + hopital.getIdH();
 			openSession();
 			SQLQuery sql = session.createSQLQuery(query);
 			sql.addEntity(Service.class);
@@ -95,16 +88,7 @@ public class HopitalDaoImpl implements HopitalDao, SessionDao {
 
 		}
 	}
-	public Hopital selectHopital(String intituleFr) {
-		List<Hopital> hops = listHopital();
-		for (Hopital hopital : hops) {
-			if(hopital.getIntituleFr().equals(intituleFr)) {
-				System.out.println(1);
-				return hopital;
-			}
-		}
-		return null;
-	}
+
 	public int deletHopital(Hopital h) {
 		try {
 			String query = "DELETE FROM SERVICE WHERE fk_idHopital = " + h.getIdH();
@@ -155,5 +139,34 @@ public class HopitalDaoImpl implements HopitalDao, SessionDao {
 		} catch (Exception e) {
 			return 0;
 		}
+	}
+
+	public Service selectService(String id) {
+		List<Service> list = new ArrayList<>();
+		List<Integer> idH = new ArrayList<>();
+		String query = "SELECT * FROM Service WHERE IDSE = " + id;
+		String queryH = "SELECT fk_idHopital FROM Service WHERE IDSE = " + id;
+		openSession();
+		SQLQuery sql = session.createSQLQuery(query);
+		sql.addEntity(Service.class);
+		list = sql.list();
+		sql = session.createSQLQuery(queryH);
+		idH = sql.list();
+		String idHopital = String.valueOf(idH.get(0));
+		closeSession();
+		Service s = list.get(0);
+		s.setHopital(selectHopital(idHopital));
+		return s;
+	}
+
+	public Hopital selectHopital(String id) {
+		List<Hopital> list = new ArrayList<>();
+		String query = "SELECT * FROM Hopital WHERE IDH = " + id;
+		openSession();
+		SQLQuery sql = session.createSQLQuery(query);
+		sql.addEntity(Hopital.class);
+		list = sql.list();
+		closeSession();
+		return list.get(0);
 	}
 }

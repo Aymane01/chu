@@ -8,11 +8,8 @@ public class Corps implements Serializable {
 	private String intituleAr;
 
 	public Corps() {
-		super();
 	}
-	public Corps(String fr) {
-		this.intituleFr = fr;
-	}
+
 	public Corps(int id, String intituleFr, String intituleAr) {
 		this.id = id;
 		this.intituleFr = intituleFr;
@@ -23,10 +20,7 @@ public class Corps implements Serializable {
 		this.intituleFr = intituleFr;
 		this.intituleAr = intituleAr;
 	}
-	public Corps(String[] row) {
-		setIntituleFr(row[0]);
-		setIntituleAr("");
-	}
+
 	public int getId() {
 		return id;
 	}

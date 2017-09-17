@@ -4,7 +4,7 @@
 <!-- Generated 26 juil. 2017 17:14:33 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
     <class name="org.chu.greve.models.Corps" table="CORPS">
-        <id name="id" type="int" >
+        <id name="id" type="int">
             <column name="IDCR" />
             <generator class="increment" />
         </id>

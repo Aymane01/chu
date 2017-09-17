@@ -12,7 +12,7 @@
 </h:head>
 <h:body>
 	
-	<ui:include src="included.xhtml" /> 
+	<ui:include src="included.xhtml" />
 	<h:form id="form">
 		<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
 			sticky="false" />
@@ -35,7 +35,10 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{r.nomFr}"></h:outputText>
 				</p:column>
-				
+				<p:column headerText="Prénom" filterBy="#{r.prenomFr}"
+					filterMatchMode="contains">
+					<h:outputText value="#{r.prenomFr}"></h:outputText>
+				</p:column>
 				<p:column headerText="Nom et Prénom (AR)"
 					filterBy="#{r.nomCompletAr}" filterMatchMode="contains">
 					<h:outputText value="#{r.nomCompletAr}"></h:outputText>
@@ -101,7 +104,14 @@
 							<f:validateRequired />
 						</p:inputText>
 					</p:inplace>
-					
+					<p:outputLabel for="prenomFr" value="Prénom en Français :" />
+					<p:inplace>
+						<p:inputText id="prenomFr"
+							value="#{employeAction.employeUpdate.prenomFr}" size="40"
+							validatorMessage="Champs requis : Prénom en Français">
+							<f:validateRequired />
+						</p:inputText>
+					</p:inplace>
 					<p:outputLabel for="nomCompletAr" value="Nom et Prénom en Arabe :" />
 					<p:inplace>
 						<p:inputText id="nomCompletAr"

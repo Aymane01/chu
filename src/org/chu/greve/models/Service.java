@@ -1,7 +1,5 @@
 package org.chu.greve.models;
 
-import java.util.StringTokenizer;
-
 public class Service {
 	private int idSe;
 	private String intituleFr;
@@ -26,23 +24,6 @@ public class Service {
 	public Service(int idSe, String intituleFr, String intituleAr, Hopital hopital) {
 		this(intituleFr, intituleAr, hopital);
 		this.idSe = idSe;
-	}
-	public Service(String[] row) {
-		String francais = row[0];
-		String arabe = row[1];
-		setIntituleAr(arabe);
-		if(francais.contains("-")) {
-			StringTokenizer token = new StringTokenizer(francais, "-");
-			String hopital = token.nextToken();
-			String Service = token.nextToken();
-			
-			setIntituleFr(Service);
-			Hopital h = new Hopital();
-			h.setIntituleFr(hopital);
-			setHopital(h);
-		}else {
-			setIntituleFr(francais);
-		}
 	}
 
 	public int getIdSe() {

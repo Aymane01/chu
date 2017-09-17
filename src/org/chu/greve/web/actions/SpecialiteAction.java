@@ -16,11 +16,11 @@ public class SpecialiteAction {
 	private List<Specialite> specialites;
 	private Specialite specialiteUpdate;
 
-	
 	@PostConstruct
 	public void init() {
 		specService = new SpecialiteBusinessImpl(new SpecialiteDaoHibernate(HibernateUtil.getSessionFactory()));
 		refreshList();
+		specialiteUpdate = new Specialite();
 	}
 
 	public SpecialiteBusiness getSpecService() {
@@ -38,7 +38,6 @@ public class SpecialiteAction {
 	public void setSpecialites(List<Specialite> specialites) {
 		this.specialites = specialites;
 	}
-
 
 	public Specialite getSpecialiteUpdate() {
 		return specialiteUpdate;
@@ -77,7 +76,8 @@ public class SpecialiteAction {
 	}
 
 	public void updateSpecialite(Specialite specialite) {
-		int r = specService.modifySpecialite(specialite);;
+		int r = specService.modifySpecialite(specialite);
+		;
 		refreshList();
 		if (r == 1) {
 			FacesContext.getCurrentInstance().addMessage(null,

@@ -8,12 +8,8 @@ import javax.faces.context.FacesContext;
 
 import org.chu.greve.business.GradeBusiness;
 import org.chu.greve.business.GradeBusinessImpl;
-import org.chu.greve.business.SpecialiteBusiness;
-import org.chu.greve.business.SpecialiteBusinessImpl;
 import org.chu.greve.dao.GradeDaoHibernate;
-import org.chu.greve.dao.SpecialiteDaoHibernate;
 import org.chu.greve.models.Grade;
-import org.chu.greve.models.Specialite;
 import org.chu.greve.util.HibernateUtil;
 
 public class GradeAction {
@@ -37,7 +33,6 @@ public class GradeAction {
 		this.grades = grades;
 	}
 
-
 	public Grade getGradeUpdate() {
 		return gradeUpdate;
 	}
@@ -50,7 +45,6 @@ public class GradeAction {
 	public void init() {
 		gradeService = new GradeBusinessImpl(new GradeDaoHibernate(HibernateUtil.getSessionFactory()));
 		gradeUpdate = new Grade();
-		System.out.println("HERE");
 		refreshList();
 	}
 
@@ -83,7 +77,8 @@ public class GradeAction {
 	}
 
 	public void updateGrade(Grade grade) {
-		int r = gradeService.modifyGrade(grade);;
+		int r = gradeService.modifyGrade(grade);
+
 		refreshList();
 		if (r == 1) {
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -96,7 +91,6 @@ public class GradeAction {
 
 	public void refreshList() {
 		grades = gradeService.selectAllGrade();
-		System.out.println(grades.size());
 		Collections.reverse(grades);
 	}
 

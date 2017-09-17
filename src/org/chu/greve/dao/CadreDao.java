@@ -4,8 +4,7 @@ import java.util.List;
 
 import org.chu.greve.models.Cadre;
 
-public interface CadreDao  {
-
+public interface CadreDao {
 
 	public int insertCadre(Cadre cadre);
 
@@ -14,4 +13,6 @@ public interface CadreDao  {
 	public int updateCadre(Cadre cadre);
 
 	public List<Cadre> listCadre();
+
+	public Cadre selectCadre(String id);
 }

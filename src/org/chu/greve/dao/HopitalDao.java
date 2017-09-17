@@ -21,4 +21,8 @@ public interface HopitalDao extends SessionDao {
 	public int deletHopital(Hopital hopital);
 
 	public int deleteService(Service service);
+
+	public Service selectService(String id);
+
+	public Hopital selectHopital(String id);
 }

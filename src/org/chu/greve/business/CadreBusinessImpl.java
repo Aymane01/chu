@@ -30,4 +30,10 @@ public class CadreBusinessImpl implements Cadrebusiness {
 		return cadreDao.listCadre();
 	}
 
+	@Override
+	public Cadre selectCadre(String id) {
+		return cadreDao.selectCadre(id);
+
+	}
+
 }

@@ -17,18 +17,13 @@ public class Cadre implements Serializable {
 		this.intituleFr = intituleFr;
 		this.intituleAr = intituleAr;
 	}
-	public Cadre(String[] row) {
-		setIntituleFr(row[0]);
-		setIntituleAr("");
-	}
+
 	public Cadre(String intituleFr, String intituleAr) {
 
 		this.intituleFr = intituleFr;
 		this.intituleAr = intituleAr;
 	}
-	public Cadre(String fr) {
-		this.intituleFr = fr;
-	}
+
 	public int getId() {
 		return id;
 	}

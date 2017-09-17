@@ -4,7 +4,7 @@
 <!-- Generated 26 juil. 2017 17:14:33 by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping>
 	<class name="org.chu.greve.models.Service" table="SERVICE">
-		<id name="idSe" type="int" >
+		<id name="idSe" type="int">
 			<column name="IDSE" />
 			<generator class="increment" />
 		</id>
@@ -16,6 +16,6 @@
 		</property>
 		<many-to-one name="hopital"
 			class="org.chu.greve.models.Hopital" column="fk_idHopital"
-			foreign-key="fk_hopital"  cascade="all" />
+			foreign-key="fk_hopital" />
 	</class>
 </hibernate-mapping>

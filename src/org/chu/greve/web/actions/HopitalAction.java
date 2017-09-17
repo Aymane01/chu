@@ -16,7 +16,6 @@ import org.chu.greve.util.HibernateUtil;
 public class HopitalAction {
 	private HopitalService hopitalService;
 	private Hopital hopital;
-	private Service service;
 	private List<Hopital> listHopital;
 	private List<Service> listService;
 	private Service serviceUpdate;
@@ -31,28 +30,11 @@ public class HopitalAction {
 
 	@PostConstruct
 	public void init() {
-		hopital = new Hopital();
-		service = new Service();
 		hopitalService = new HopitalServiceImpl(new HopitalDaoImpl(HibernateUtil.getSessionFactory()));
 		serviceUpdate = new Service();
+		hopital=new Hopital();
 		refreshListHopital();
 
-	}
-
-	public HopitalService getHopitalService() {
-		return hopitalService;
-	}
-
-	public void setHopitalService(HopitalService hopitalService) {
-		this.hopitalService = hopitalService;
-	}
-
-	public Service getService() {
-		return service;
-	}
-
-	public void setService(Service service) {
-		this.service = service;
 	}
 
 	public Service getServiceUpdate() {
@@ -99,7 +81,6 @@ public class HopitalAction {
 
 	public void addHopital(Hopital hopital) {
 		int r = hopitalService.addHopital(hopital);
-		System.out.println(" r = " + r);
 		if (r == 1) {
 			addMessage(FacesMessage.SEVERITY_INFO, "Info", "Hopital ajouté avec succès");
 			refreshListHopital();
@@ -165,22 +146,14 @@ public class HopitalAction {
 	private void refreshListHopital() {
 
 		listHopital = hopitalService.listHopital();
-		//Collections.reverse(listHopital);
+		Collections.reverse(listHopital);
 	}
 
 	public void refreshListService() {
 		listService = hopitalService.listService(hopital);
-		System.out.println("xxxx");
-		System.out.println(hopital.getIdH());
-		for (Service serv : listService) {
-			System.out.println(serv.getIdSe());
-		}
-		
-		//Collections.reverse(listService);
+		Collections.reverse(listService);
 	}
-	public List<Service> services(Hopital h){
-		return hopitalService.listService(h);
-	}
+
 	private void addMessage(FacesMessage.Severity severity, String label, String message) {
 		FacesMessage msg = new FacesMessage(severity, label, message);
 		FacesContext.getCurrentInstance().addMessage(null, msg);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.chu.greve.models.Cadre;
-import org.chu.greve.models.Corps;
 import org.chu.greve.models.Employe;
 import org.chu.greve.models.Fonctionnaire;
 import org.chu.greve.models.Grade;
@@ -73,11 +72,13 @@ public class EmployeDaoHibernate implements EmployeDao {
 	}
 	@Override
 	public int insert(Employe f) {
+
+
 		openSession();
-		remplirGrade(f);// fait pour la premiere insertion a partir des fichiers excel
-		remplirCadre(f);
-		remplirSpecialite(f);
-		remplirCorps(f);
+//		remplirGrade(f);
+//		remplirCadre(f);
+//		remplirSpecialite(f);
+//		f.setCorps(null);
 		try {
 			
 			session.save(f);
@@ -125,30 +126,18 @@ public class EmployeDaoHibernate implements EmployeDao {
 			f.setSpecialite(list.get(0));
 		}
 	}
-	public void remplirCorps(Employe f) {
-		List<Corps> list = new ArrayList<>();
-		String query = "select * from Corps where intituleFr='" + f.getCorps().getIntituleFr().replace("'", "''") + "'";
-		SQLQuery sql = session.createSQLQuery(query);
-		sql.addEntity(Corps.class);
-		list = sql.list();
-		if(list.isEmpty()) {
-			f.setCorps(null);
-		}else {
-			f.setCorps(list.get(0));
-		}
-	}
 	@Override
 	public int delete(String CIN) {
 		openSession();
-		System.out.println(CIN);
+		
 		try {
 			Employe g = (Employe) session.load(Employe.class, CIN);
+			
 			session.delete(g);
 			
 			closeSession();
 			return 1;
 		} catch (Exception e) {
-			e.printStackTrace();
 			return 0;
 		}
 	}
@@ -174,7 +163,6 @@ public class EmployeDaoHibernate implements EmployeDao {
 			g.setGrade(f.getGrade());
 			g.setCorps(f.getCorps());
 			g.setCadre(f.getCadre());
-			g.setSpecialite(f.getSpecialite());
 			
 			session.update(g);
 			closeSession();

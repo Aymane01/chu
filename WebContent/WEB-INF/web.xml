@@ -16,9 +16,7 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
-		
 	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
@@ -33,9 +31,20 @@
 		<param-value>resources.application</param-value>
 	</context-param>
 	<context-param>
+		<param-name>javax.faces.VALIDATE_EMPTY_FIELDS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>cupertino</param-value>
-		
+		<param-value>flick</param-value>
+	</context-param>
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
+	<context-param>
+		<param-name>prefix</param-name>
+		<param-value>G:/StageCHU/workspace/gs-greves/</param-value>
 	</context-param>
 	<listener>
 		<listener-class>com.sun.faces.config.ConfigureListener</listener-class>
@@ -44,9 +53,6 @@
 	<!-- <servlet> <servlet-name>Controller</servlet-name> <servlet-class>org.chu.greve.web.Controller</servlet-class> 
 		</servlet> <servlet-mapping> <servlet-name>Controller</servlet-name> <url-pattern>/chu/*</url-pattern> 
 		</servlet-mapping> -->
-<context-param>
-   <param-name>facelets.SKIP_COMMENTS</param-name>
-   <param-value>true</param-value>
-</context-param>
+
 
 </web-app>

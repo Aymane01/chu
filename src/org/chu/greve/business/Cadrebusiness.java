@@ -13,4 +13,7 @@ public interface Cadrebusiness {
 	public int updateCadre(Cadre cadre);
 
 	public List<Cadre> listCadre();
+
+	public Cadre selectCadre(String id);
+
 }

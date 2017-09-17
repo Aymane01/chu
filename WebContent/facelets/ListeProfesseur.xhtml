@@ -11,7 +11,6 @@
 	<title>Gestion de Grève</title>
 </h:head>
 <h:body>
-	<ui:include src="included.xhtml" />
 	<h:form id="form">
 		<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
 			sticky="false" />
@@ -34,7 +33,10 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{p.nomFr}"></h:outputText>
 				</p:column>
-				
+				<p:column headerText="Prénom" filterBy="#{p.prenomFr}"
+					filterMatchMode="contains">
+					<h:outputText value="#{p.prenomFr}"></h:outputText>
+				</p:column>
 				<p:column headerText="Nom et Prénom (AR)"
 					filterBy="#{p.nomCompletAr}" filterMatchMode="contains">
 					<h:outputText value="#{p.nomCompletAr}"></h:outputText>
@@ -229,7 +231,7 @@
 						</f:selectItems>
 					</p:selectOneMenu>
 
-					<!-- <p:outputLabel for="cadre" value="Cadre :" />
+					<p:outputLabel for="cadre" value="Cadre :" />
 
 					<p:selectOneMenu requiredMessage="Veuillez seletionner un Cadre"
 						effect="scale" id="cadre"
@@ -242,7 +244,7 @@
 						<f:selectItems var="ca" value="#{cadreAction.cadres}"
 							itemLabel="#{ca.intituleFr}" itemValue="#{ca.id}">
 						</f:selectItems>
-					</p:selectOneMenu> -->
+					</p:selectOneMenu>
 
 					<p:outputLabel for="specialite" value="Spécialité :" />
 
