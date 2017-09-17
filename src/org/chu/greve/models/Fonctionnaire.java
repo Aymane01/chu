@@ -27,11 +27,11 @@ public class Fonctionnaire {
 	
 	
 public Fonctionnaire() {
-	service = new Service();
-	grade = new Grade();
-	corps = new Corps();
-	cadre = new Cadre();
-	specialite = new Specialite();
+	this.service = new Service();
+	this.grade = new Grade();
+	this.corps = new Corps();
+	this.cadre = new Cadre();
+	this.specialite = new Specialite();
 	// TODO Auto-generated constructor stub
 }
 	public Fonctionnaire(int ppr2, String nomFr2, String prenomFr2, String nomCompletAr2, String cin2, String dateN2, String sexe2, String nationalite, String dateArrive2, String budget2, String observation2, int echelle2, int echelon2, int indice2, Corps corps2, Grade grade2, Cadre cadre2, Service service2, Specialite specialite2) {

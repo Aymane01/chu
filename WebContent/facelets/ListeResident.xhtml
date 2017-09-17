@@ -33,10 +33,7 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{r.nomFr}"></h:outputText>
 				</p:column>
-				<p:column headerText="Prénom" filterBy="#{r.prenomFr}"
-					filterMatchMode="contains">
-					<h:outputText value="#{r.prenomFr}"></h:outputText>
-				</p:column>
+				
 				<p:column headerText="Nom et Prénom (AR)"
 					filterBy="#{r.nomCompletAr}" filterMatchMode="contains">
 					<h:outputText value="#{r.nomCompletAr}"></h:outputText>
@@ -214,7 +211,38 @@
 						validatorMessage="Champs requis : Observation">
 						<f:validateRequired />
 					</p:inputText>
+					
+					
+						<p:outputLabel for="hopital" value="Hopital :" />
 
+					<p:selectOneMenu requiredMessage="Veuillez seletionner un hopital"
+						effect="scale" id="hopital" value="#{hopitalAction.hopital.idH}"
+						style="width:420px">
+						<f:selectItem
+							itemLabel="#{residentAction.residentUpdate.service.hopital.intituleFr}"
+							itemValue="#{residentAction.residentUpdate.service.hopital.idH}"
+							noSelectionOption="true"></f:selectItem>
+						<f:selectItems var="h" value="#{hopitalAction.listHopital}"
+							itemLabel="#{h.intituleFr}" itemValue="#{h.idH}">
+						</f:selectItems>
+						<p:ajax update="service"
+							listener="#{hopitalAction.refreshListService}" process="@this" />
+					</p:selectOneMenu>
+					<p:outputLabel for="service" value="Service :" />
+					<p:selectOneMenu requiredMessage="Veuillez seletionner un Service"
+						effect="scale" id="service"
+						value="#{residentAction.residentUpdate.service.idSe}"
+						style="width:420px">
+						<f:selectItem
+							itemLabel="#{residentAction.residentUpdate.service.intituleFr}"
+							itemValue="#{residentAction.residentUpdate.service.idSe}"
+							noSelectionOption="true"></f:selectItem>
+						<f:selectItems var="s" value="#{hopitalAction.listService}"
+							itemLabel="#{s.intituleFr}" itemValue="#{s.idSe}">
+						</f:selectItems>
+					</p:selectOneMenu>
+					
+					
 					<p:outputLabel for="corps" value="Corps :" />
 
 					<p:selectOneMenu requiredMessage="Veuillez seletionner un corps"
@@ -277,34 +305,7 @@
 						</f:selectItems>
 					</p:selectOneMenu>
 
-					<p:outputLabel for="hopital" value="Hopital :" />
-
-					<p:selectOneMenu requiredMessage="Veuillez seletionner un hopital"
-						effect="scale" id="hopital" value="#{hopitalAction.hopital.idH}"
-						style="width:420px">
-						<f:selectItem
-							itemLabel="#{residentAction.residentUpdate.service.hopital.intituleFr}"
-							itemValue="#{residentAction.residentUpdate.service.hopital.idH}"
-							noSelectionOption="true"></f:selectItem>
-						<f:selectItems var="h" value="#{hopitalAction.listHopital}"
-							itemLabel="#{h.intituleFr}" itemValue="#{h.idH}">
-						</f:selectItems>
-						<p:ajax update="service"
-							listener="#{hopitalAction.refreshListService}" process="@this" />
-					</p:selectOneMenu>
-					<p:outputLabel for="service" value="Service :" />
-					<p:selectOneMenu requiredMessage="Veuillez seletionner un Service"
-						effect="scale" id="service"
-						value="#{residentAction.residentUpdate.service.idSe}"
-						style="width:420px">
-						<f:selectItem
-							itemLabel="#{residentAction.residentUpdate.service.intituleFr}"
-							itemValue="#{residentAction.residentUpdate.service.idSe}"
-							noSelectionOption="true"></f:selectItem>
-						<f:selectItems var="s" value="#{hopitalAction.listService}"
-							itemLabel="#{s.intituleFr}" itemValue="#{s.idSe}">
-						</f:selectItems>
-					</p:selectOneMenu>
+				
 				</h:panelGrid>
 				<p:toolbar>
 					<f:facet name="left">

@@ -15,6 +15,16 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>compteAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.CompteAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>compte</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Compte</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>hopitalAction</managed-bean-name>
 		<managed-bean-class>org.chu.greve.web.actions.HopitalAction</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
@@ -123,6 +133,17 @@
 		<managed-bean-class>org.chu.greve.util.DocumentCreator</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
-
+	
+	
+	<managed-bean>
+		<managed-bean-name>professeur</managed-bean-name>
+		<managed-bean-class>org.chu.greve.models.Professeur</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>professeurAction</managed-bean-name>
+		<managed-bean-class>org.chu.greve.web.actions.ProfesseurAction</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 	
 </faces-config>

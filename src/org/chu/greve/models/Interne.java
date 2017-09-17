@@ -45,8 +45,6 @@ public class Interne extends Fonctionnaire{
 		Service s = new Service();
 		s.setIdSe(1);
 		setService(s);
-		
-		
 	}
 	public Interne(String nomFr, String prenomFr, String nomCompletAr, String cin, String dateN, String sexe,
 			String dateArrive,int echelle,int echelon,int indice) {

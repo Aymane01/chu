@@ -40,11 +40,15 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.chu.greve.business.InterneBusiness;
 import org.chu.greve.business.InterneBusinessImp;
+import org.chu.greve.business.ProfesseurBusiness;
+import org.chu.greve.business.ProfesseurBusinessImpl;
 import org.chu.greve.business.ResidentBusiness;
 import org.chu.greve.business.ResidentBusinessImpl;
 import org.chu.greve.dao.InterneDaoHibernate;
+import org.chu.greve.dao.ProfesseurDaoImpl;
 import org.chu.greve.dao.ResidentDaoImpl;
 import org.chu.greve.models.Interne;
+import org.chu.greve.models.Professeur;
 import org.chu.greve.models.Resident;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTP;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTPPr;
@@ -57,10 +61,9 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.STTabJc;
 import org.primefaces.model.DefaultStreamedContent;
 
 public class DocumentCreator {
-	private InterneBusiness interneB;
-	private ResidentBusiness residentB;
 	private List<Interne> internes;
 	private List<Resident> residents;
+	private List<Professeur> profs;
 	private String target;
 	private DefaultStreamedContent file;
 	private InputStream stream;
@@ -74,19 +77,20 @@ public class DocumentCreator {
 	  private String File="C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\header.png";
 	@PostConstruct
 	  public void init() {
-		interneB = new InterneBusinessImp(new InterneDaoHibernate(HibernateUtil.getSessionFactory()));
-		residentB = new ResidentBusinessImpl(new ResidentDaoImpl(HibernateUtil.getSessionFactory()));
-		
+		InterneBusiness interneB = new InterneBusinessImp(new InterneDaoHibernate(HibernateUtil.getSessionFactory()));
+		ResidentBusiness residentB = new ResidentBusinessImpl(new ResidentDaoImpl(HibernateUtil.getSessionFactory()));
+		ProfesseurBusiness profB = new ProfesseurBusinessImpl(new ProfesseurDaoImpl(HibernateUtil.getSessionFactory()));
 
 		internes = interneB.selectAllInterne();
 		residents = residentB.listResident();
+		profs = profB.listProfesseur();
 	}
 	  public DocumentCreator() {
 		target="C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\test.docx";
 		try {
 			stream = new FileInputStream(target);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			 
 			e.printStackTrace();
 		}
 	}
@@ -124,12 +128,12 @@ public class DocumentCreator {
 		  // the body conterne
 		  
 		  //header
-			  XWPFParagraph paragraph = doc.createParagraph();
-			  XWPFRun run = paragraph.createRun();
-			  try {
+			XWPFParagraph paragraph = doc.createParagraph();
+			XWPFRun run = paragraph.createRun();
+			try {
 				run.addPicture(new FileInputStream(File), XWPFDocument.PICTURE_TYPE_JPEG, File, Units.toEMU(450) , Units.toEMU(100));
 			} catch (InvalidFormatException | IOException e1) {
-				// TODO Auto-generated catch block
+				 
 				e1.printStackTrace();
 			}
 		  
@@ -157,7 +161,7 @@ public class DocumentCreator {
 				dateAr = dateFormat2.parse(interne.getDateRecru().replace("-", "/"));
 				
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				 
 				e.printStackTrace();
 			}
 			
@@ -179,7 +183,7 @@ public class DocumentCreator {
 			try {
 				dateAr = dateFormat2.parse(interne.getDateRecru().replace("-", "/"));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				 
 				e.printStackTrace();
 			}
 				Date  dateArr = new Date();
@@ -226,7 +230,7 @@ public class DocumentCreator {
 		  try {
 			doc.write(new FileOutputStream("C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\test.docx"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			 
 			e.printStackTrace();
 		}
 		  return 1;
@@ -247,7 +251,7 @@ public class DocumentCreator {
 			  try {
 				run.addPicture(new FileInputStream(File), XWPFDocument.PICTURE_TYPE_JPEG, File, Units.toEMU(450) , Units.toEMU(100));
 			} catch (InvalidFormatException | IOException e1) {
-				// TODO Auto-generated catch block
+				 
 				e1.printStackTrace();
 			}
 		  
@@ -275,7 +279,7 @@ public class DocumentCreator {
 				dateAr = dateFormat2.parse(resident.getDateArrive().replace("-", "/"));
 				
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				 
 				e.printStackTrace();
 			}
 			
@@ -300,7 +304,7 @@ public class DocumentCreator {
 			try {
 				dateAr = dateFormat2.parse(resident.getDateArrive().replace("-", "/"));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				 
 				e.printStackTrace();
 			}
 				Date  dateArr = new Date();
@@ -344,53 +348,33 @@ public class DocumentCreator {
 		  try {
 			doc.write(new FileOutputStream("C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\test.docx"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			 
 			e.printStackTrace();
 		}
 		  return 1;
 	}
 	
 	
-	public static void setTabStop(XWPFParagraph oParagraph, STTabJc.Enum oSTTabJc, BigInteger oPos) {
-        CTP oCTP = oParagraph.getCTP();
-        CTPPr oPPr = oCTP.getPPr();
-        if (oPPr == null) {
-            oPPr = oCTP.addNewPPr();
-        }
-
-        CTTabs oTabs = oPPr.getTabs();
-        if (oTabs == null) {
-            oTabs = oPPr.addNewTabs();
-        }
-
-        CTTabStop oTabStop = oTabs.addNewTab();
-        oTabStop.setVal(oSTTabJc);
-        oTabStop.setPos(oPos);
-    }
+	
 	public List<String> getPropositions(String query) {
 		List<String> props = new Vector<>();
 		
 		for (Resident resident : residents) {
-			if(resident.getPrenomFr()==null) {
-				resident.setPrenomFr("");
-			}
-			if(resident.getNomFr().contains(query) || resident.getPrenomFr().contains(query) ) { 
-
-				props.add(resident.getNomFr() + " " + resident.getPrenomFr());
+			
+			if(resident.getNomFr().contains(query)  ) { 
+				props.add(resident.getNomFr());
 			}
 			
 		}
 		for (Interne interne : internes) {
-			if(interne.getPrenomFr()==null) {
-				interne.setPrenomFr("");
+			
+			if(interne.getNomFr().contains(query)  ) { 
+				props.add(interne.getNomFr());
 			}
-			if(interne.getNomFr().contains(query) || interne.getPrenomFr().contains(query) ) { 
-				if(interne.getPrenomFr()=="") {
-					props.add(interne.getNomFr());
-				}else {
-					props.add(interne.getNomFr() + " " + interne.getPrenomFr());
-				}
-				
+		}
+		for (Professeur prof : profs) {
+			if(prof.getNomFr().contains(query)) {
+				props.add(prof.getNomFr());
 			}
 		}
 		
@@ -415,12 +399,13 @@ public class DocumentCreator {
 			
 		}else if(fonctionnaire instanceof Resident) {
 			CreateAttestationTravailResident((Resident) fonctionnaire);
-		}else {
+		}else if(fonctionnaire instanceof Professeur){
+			CreateAttestationTravailProfesseur((Professeur)fonctionnaire);
+		}else{
 			System.out.println("no instance");
 		}
 	}
 	public Object getFonctionnaire(String name) {
-		System.out.println(name);
 		for (Resident resident : residents) {
 			String chaine = resident.getNomFr();
 			if(chaine.equals(name)) {
@@ -431,6 +416,11 @@ public class DocumentCreator {
 			String chaine = interne.getNomFr();
 			if(chaine.equals(name)) {
 				return interne;
+			}
+		}
+		for (Professeur prof : profs) {
+			if(prof.getNomFr().equals(name)) {
+				return prof;
 			}
 		}
 		return null;
@@ -445,7 +435,7 @@ public class DocumentCreator {
 	
 	public int CreateAttestationTravailInterne(Interne interne) {
 		System.out.println(interne.getDateRecru());
-		file = new DefaultStreamedContent(stream, "doc/docx", "attest_salaire_" + interne.getNomFr() + ".docx");
+		file = new DefaultStreamedContent(stream, "doc/docx", "attest_travail_" + interne.getNomFr() + ".docx");
 		XWPFDocument doc= new XWPFDocument();
 		 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		 Date d = new Date();
@@ -457,7 +447,7 @@ public class DocumentCreator {
 			  try {
 				run.addPicture(new FileInputStream(File), XWPFDocument.PICTURE_TYPE_JPEG, File, Units.toEMU(450) , Units.toEMU(100));
 			} catch (InvalidFormatException | IOException e1) {
-				// TODO Auto-generated catch block
+				 
 				e1.printStackTrace();
 			}
 		  
@@ -483,7 +473,6 @@ public class DocumentCreator {
 			  exp = "Mr";
 		  }
 		  String stage = "";
-		  
 		  if(interne.getStage4() == null) {
 			  if(interne.getStage3() == null) {
 				  if(interne.getStage2() == null) {
@@ -497,7 +486,7 @@ public class DocumentCreator {
 		  }else {
 			  stage = interne.getStage4();
 		  }
-		  System.out.println(stage);
+		  System.out.println(stage +   " XXX");
 		  run.setText("		Le Directeur du Centre Hospitalier Hassan II, atteste par la présente que " + exp +" " + interne.getNomFr() + " (CIN N° : " + interne.getCin() +"), est actuellement en formation au Centre Hospitalier Hassan II de Fès en qualité d’Interne en " + stage);
 
 		  run.setTextPosition(40);
@@ -523,7 +512,7 @@ public class DocumentCreator {
 		  try {
 			doc.write(new FileOutputStream("C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\test.docx"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			 
 			e.printStackTrace();
 		}
 		  return 1;
@@ -541,7 +530,7 @@ public class DocumentCreator {
 			  try {
 				run.addPicture(new FileInputStream(File), XWPFDocument.PICTURE_TYPE_JPEG, File, Units.toEMU(450) , Units.toEMU(100));
 			} catch (InvalidFormatException | IOException e1) {
-				// TODO Auto-generated catch block
+				 
 				e1.printStackTrace();
 			}
 		  
@@ -596,7 +585,81 @@ public class DocumentCreator {
 		  try {
 			doc.write(new FileOutputStream("C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\test.docx"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			 
+			e.printStackTrace();
+		}
+		  return 1;
+	}
+	public int CreateAttestationTravailProfesseur(Professeur prof) {
+		file = new DefaultStreamedContent(stream, "doc/docx", "attest_salaire_" + prof.getNomFr() + ".docx");
+		XWPFDocument doc= new XWPFDocument();
+		 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		 Date d = new Date();
+		  // the body conterne
+		  
+		  //header
+			  XWPFParagraph paragraph = doc.createParagraph();
+			  XWPFRun run = paragraph.createRun();
+			  try {
+				run.addPicture(new FileInputStream(File), XWPFDocument.PICTURE_TYPE_JPEG, File, Units.toEMU(450) , Units.toEMU(100));
+			} catch (InvalidFormatException | IOException e1) {
+				 
+				e1.printStackTrace();
+			}
+		  
+		  
+		  paragraph = doc.createParagraph();
+		  paragraph.setAlignment(ParagraphAlignment.CENTER);
+		  run=paragraph.createRun();
+		  run.addBreak();
+		  run.setText("ATTESTATION DE TRAVAIL:");
+		  run.setBold(true);
+		  run.setFontSize(16);
+		  run.setFontFamily("Times New Roman");
+		  run.addBreak();
+		  run.addBreak();
+		  run.addBreak();
+
+		  paragraph = doc.createParagraph();
+		  run=paragraph.createRun();  
+		  run.setFontSize(16);
+		  run.setFontFamily("Times New Roman");
+		  String exp = "Mme";
+		  if(prof.getSexe().equals("MASCULIN")) {
+			  exp = "Mr";
+		  }
+		  
+		  if(!prof.getIsChef().contains("Chef de service ")) {
+			  run.setText("			Le Directeur du Centre Hospitalo-universitaire Hassan II de Fès, atteste par la présente que "+ exp +" le Pr. " + prof.getNomFr() +", (Mle à la DDP: " + prof.getPpr() + "), Enseignant chercheur, est en fonction au service de " + prof.getService().getIntituleFr() + " à l’Hôpital des " + prof.getService().getHopital().getIntituleFr() + " relevant dudit Centre, et ce, en qualité de Professeur Agrégé en " + prof.getSpecialite().getIntituleFr() +".");
+		  }else {
+			  run.setText("			Le Directeur du Centre Hospitalo-universitaire Hassan II de Fès, atteste par la présente que " + exp + " le Dr. " + prof.getNomFr() + ", (Mle à la DDP : " + prof.getPpr() + "), Professeur de l’Enseignement Supérieur est en fonction à l’" + prof.getService().getHopital().getIntituleFr() + " relevant dudit Centre, et ce, en qualité de chef de Service de " + prof.getSpecialite().getIntituleFr() + ".");
+		  }
+		 
+		  
+		  run.setTextPosition(40);
+		  run.addBreak();
+
+		  paragraph = doc.createParagraph();
+		  run=paragraph.createRun();
+		  run.setFontSize(18);
+		  run.setFontFamily("Times New Roman");
+		  run.setTextPosition(40);
+		  run.setText("      La présente attestation est délivrée à l’intéressé(e) sur sa demande pour servir et valoir ce que de droit.");
+		  
+		  
+		  paragraph = doc.createParagraph();
+		  paragraph.setAlignment(ParagraphAlignment.RIGHT);
+		  run=paragraph.createRun();
+		  run.setFontSize(18);
+		  run.setFontFamily("Times New Roman");
+		  run.setTextPosition(40);
+
+		  run.setText(" Fès, le " + dateFormat.format(d));
+		  
+		  try {
+			doc.write(new FileOutputStream("C:\\Utilisateur\\mk-15\\workspace JEE\\CHU\\CHU\\resources\\test.docx"));
+			doc.close();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		  return 1;

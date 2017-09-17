@@ -4,6 +4,8 @@ public class Employe extends Fonctionnaire {
 
 	public Employe() {
 		super();
+		setGrade(new Grade());
+		setSpecialite(new Specialite());
 	}
 
 	public Employe(Integer ppr, String nomFr, String prenomFr, String nomCompletAr, String cin, String dateN,
@@ -24,7 +26,6 @@ public class Employe extends Fonctionnaire {
 		setNomCompletAr(rows[4]);
 		
 		if(rows[5] != "") {
-			System.out.println(rows[5]);
 			setPpr(Integer.parseInt(rows[5]));
 		}
 		
@@ -53,6 +54,7 @@ public class Employe extends Fonctionnaire {
 		setGrade(new Grade(rows[13]));
 		setCadre(new Cadre(rows[15]));
 		setSpecialite(new Specialite(rows[31]));
+		setCorps(new Corps(rows[14]));
 		
 		
 		Service s = new Service();s.setIdSe(1);

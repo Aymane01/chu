@@ -12,17 +12,17 @@
 </h:head>
 <h:body>
 	
-	<ui:include src="included.xhtml" /> 
+	<ui:include src="included.xhtml" />
 	<h:form id="form">
 		<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
 			sticky="false" />
 
-		<p:panel id="listPanel" header="Liste des Employes"
+		<p:panel id="listPanel" header="Liste des Résident"
 			style="margin-bottom:10px; margin-top:10px;">
 
-			<p:dataTable var="r" value="#{employeAction.listeEmploye}"
+			<p:dataTable var="r" value="#{residentAction.listeResident}"
 				paginator="true" rowsPerPageTemplate="10,15,20" rows="15"
-				emptyMessage="Aucun Employes">
+				emptyMessage="Aucun Résident">
 				<p:column headerText="PPR" filterBy="#{r.ppr}"
 					filterMatchMode="contains">
 					<h:outputText value="#{r.ppr}" />
@@ -35,7 +35,10 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{r.nomFr}"></h:outputText>
 				</p:column>
-				
+				<p:column headerText="Prénom" filterBy="#{r.prenomFr}"
+					filterMatchMode="contains">
+					<h:outputText value="#{r.prenomFr}"></h:outputText>
+				</p:column>
 				<p:column headerText="Nom et Prénom (AR)"
 					filterBy="#{r.nomCompletAr}" filterMatchMode="contains">
 					<h:outputText value="#{r.nomCompletAr}"></h:outputText>
@@ -48,7 +51,7 @@
 						showEffect="clip" hideEffect="clip" position="left" />
 					<p:commandButton icon="ui-icon-closethick" id="remove"
 						update="form" process="@this"
-						action="#{employeAction.deleteEmploye(r.cin)}">
+						action="#{residentAction.deleteResident(r)}">
 						<p:confirm header="Confirmation"
 							message="Voulez-vous supprimer le résident ?"
 							icon="ui-icon-alert">
@@ -64,15 +67,15 @@
 
 
 					<p:commandButton icon="ui-icon-pencil" update=":form:updatePanel"
-						id="showMore" oncomplete="PF('employeDialog').show()"
-						process="@this" action="#{employeAction.setEmployeUpdate(r)}">
+						id="showMore" oncomplete="PF('residentDialog').show()"
+						process="@this" action="#{residentAction.setResidentUpdate(r)}">
 
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 		<!--  Modify Dialogue -->
-		<p:dialog header="Employes" widgetVar="employeDialog" modal="true"
+		<p:dialog header="Résident" widgetVar="residentDialog" modal="true"
 			showEffect="fade" hideEffect="fade" resizable="false" width="750"
 			height="600">
 
@@ -81,14 +84,14 @@
 				<h:panelGrid columns="2">
 					<p:outputLabel for="ppr" value="PPR :" />
 					<p:inplace>
-						<p:inputText id="ppr" value="#{employeAction.employeUpdate.ppr}"
+						<p:inputText id="ppr" value="#{residentAction.residentUpdate.ppr}"
 							size="40" validatorMessage="Champs requis ou invalide : PPR ">
 							<f:validateRequired />
 						</p:inputText>
 					</p:inplace>
 					<p:outputLabel for="cin" value="CIN :" />
 					<p:inplace>
-						<p:inputText id="cin" value="#{employeAction.employeUpdate.cin}"
+						<p:inputText id="cin" value="#{residentAction.residentUpdate.cin}"
 							size="40" validatorMessage="Champs requis : CIN">
 							<f:validateRequired />
 						</p:inputText>
@@ -96,16 +99,23 @@
 					<p:outputLabel for="nomFr" value="Nom en Français :" />
 					<p:inplace>
 						<p:inputText id="nomFr"
-							value="#{employeAction.employeUpdate.nomFr}" size="40"
+							value="#{residentAction.residentUpdate.nomFr}" size="40"
 							validatorMessage="Champs requis : Nom en Français">
 							<f:validateRequired />
 						</p:inputText>
 					</p:inplace>
-					
+					<p:outputLabel for="prenomFr" value="Prénom en Français :" />
+					<p:inplace>
+						<p:inputText id="prenomFr"
+							value="#{residentAction.residentUpdate.prenomFr}" size="40"
+							validatorMessage="Champs requis : Prénom en Français">
+							<f:validateRequired />
+						</p:inputText>
+					</p:inplace>
 					<p:outputLabel for="nomCompletAr" value="Nom et Prénom en Arabe :" />
 					<p:inplace>
 						<p:inputText id="nomCompletAr"
-							value="#{employeAction.employeUpdate.nomCompletAr}" size="40"
+							value="#{residentAction.residentUpdate.nomCompletAr}" size="40"
 							validatorMessage="Champs requis : Nom et Prénom en Arabe">
 							<f:validateRequired />
 						</p:inputText>
@@ -113,7 +123,7 @@
 					<p:outputLabel for="dateN" value="Date de naissance :" />
 					<p:inplace>
 						<p:calendar id="dateN"
-							value="#{employeAction.employeUpdate.dateN}"
+							value="#{residentAction.residentUpdate.dateN}"
 							pattern="yyyy-MM-dd" mask="true"
 							validatorMessage="Champs requis : Date de naissance"
 							effect="scale" converter="myDateConverter">
@@ -123,7 +133,7 @@
 					<p:outputLabel for="sexe" value="Sexe :" />
 					<p:inplace>
 						<p:selectOneRadio id="sexe"
-							value="#{employeAction.employeUpdate.sexe}"
+							value="#{residentAction.residentUpdate.sexe}"
 							validatorMessage="Champs requis : Sexe">
 							<f:selectItem itemLabel="Masculin" itemValue="Masculin" />
 							<f:selectItem itemLabel="Feminin" itemValue="Feminin" />
@@ -134,13 +144,13 @@
 					<p:inplace>
 						<p:selectOneMenu id="nationalite"
 							validatorMessage="Champs requis : Nationalité"
-							value="#{employeAction.employeUpdate.nationalite}"
+							value="#{residentAction.residentUpdate.nationalite}"
 							effect="scale">
 							<f:selectItem
-								itemLabel="#{employeAction.employeUpdate.nationalite}"
-								itemValue="#{employeAction.employeUpdate.nationalite}"
+								itemLabel="#{residentAction.residentUpdate.nationalite}"
+								itemValue="#{residentAction.residentUpdate.nationalite}"
 								noSelectionOption="true" />
-							<f:selectItems var="n" value="#{employeAction.nationalite}"
+							<f:selectItems var="n" value="#{residentAction.nationalite}"
 								itemValue="#{n}" itemLabel="#{n}" />
 							<f:validateRequired />
 						</p:selectOneMenu>
@@ -148,17 +158,33 @@
 					<p:outputLabel for="dateArrive" value="Date d'arrivée :" />
 					<p:inplace>
 						<p:calendar id="dateArrive"
-							value="#{employeAction.employeUpdate.dateArrive}"
+							value="#{residentAction.residentUpdate.dateArrive}"
 							pattern="yyyy-MM-dd" mask="true"
 							validatorMessage="Champs requis : Date d'arrivée" effect="scale"
 							converter="myDateConverter">
 							<f:validateRequired />
 						</p:calendar>
 					</p:inplace>
+					<p:outputLabel for="status" value="Status :" />
+					<p:inplace>
+						<p:inputText id="status"
+							value="#{residentAction.residentUpdate.status}" size="40"
+							validatorMessage="Champs requis : Status">
+							<f:validateRequired />
+						</p:inputText>
+					</p:inplace>
+					<p:outputLabel for="type" value="Type :" />
+					<p:inplace>
+						<p:inputText id="type"
+							value="#{residentAction.residentUpdate.type}" size="40"
+							validatorMessage="Champs requis : Type">
+							<f:validateRequired />
+						</p:inputText>
+					</p:inplace>
 					<p:outputLabel for="echelle" value="Echelle :" />
 					<p:inplace>
 						<p:inputText id="echelle"
-							value="#{employeAction.employeUpdate.echelle}" size="40"
+							value="#{residentAction.residentUpdate.echelle}" size="40"
 							validatorMessage="Champs requis : Echelle">
 							<f:validateRequired />
 						</p:inputText>
@@ -166,7 +192,7 @@
 					<p:outputLabel for="echelon" value="Echelon :" />
 					<p:inplace>
 						<p:inputText id="echelon"
-							value="#{employeAction.employeUpdate.echelon}" size="40"
+							value="#{residentAction.residentUpdate.echelon}" size="40"
 							validatorMessage="Champs requis : Echelon">
 							<f:validateRequired />
 						</p:inputText>
@@ -174,7 +200,7 @@
 					<p:outputLabel for="indice" value="Indice :" />
 					<p:inplace>
 						<p:inputText id="indice"
-							value="#{employeAction.employeUpdate.indice}" size="40"
+							value="#{residentAction.residentUpdate.indice}" size="40"
 							validatorMessage="Champs requis : Indice">
 							<f:validateRequired />
 						</p:inputText>
@@ -182,7 +208,7 @@
 					<p:outputLabel for="budget" value="Budget :" />
 					<p:inplace>
 						<p:selectOneRadio id="budget"
-							value="#{employeAction.employeUpdate.budget}"
+							value="#{residentAction.residentUpdate.budget}"
 							validatorMessage="Champs requis : Budget">
 							<f:selectItem itemLabel="Autonome" itemValue="Autonome" />
 							<f:selectItem itemLabel="Générale" itemValue="Générale" />
@@ -190,16 +216,31 @@
 						</p:selectOneRadio>
 					</p:inplace>
 
-					
+					<p:outputLabel for="corps" value="Corps :" />
+					<p:inplace>
+						<p:selectOneMenu requiredMessage="Veuillez seletionner un corps"
+							effect="scale" id="corps"
+							value="#{residentAction.residentUpdate.corps.id}"
+							style="width:420px">
+
+							<f:selectItem
+								itemLabel="#{residentAction.residentUpdate.corps.intituleFr}"
+								itemValue="#{residentAction.residentUpdate.corps.id}"
+								noSelectionOption="true"></f:selectItem>
+							<f:selectItems var="c" value="#{corpsAction.corps}"
+								itemLabel="#{c.intituleFr}" itemValue="#{c.id}">
+							</f:selectItems>
+						</p:selectOneMenu>
+					</p:inplace>
 					<p:outputLabel for="grade" value="Grade :" />
 					<p:inplace>
 						<p:selectOneMenu requiredMessage="Veuillez seletionner un Grade"
 							effect="scale" id="grade"
-							value="#{employeAction.employeUpdate.grade.idG}"
+							value="#{residentAction.residentUpdate.grade.idG}"
 							style="width:420px">
 							<f:selectItem
-								itemLabel="#{employeAction.employeUpdate.grade.intituleFr}"
-								itemValue="#{employeAction.employeUpdate.grade.idG}"
+								itemLabel="#{residentAction.residentUpdate.grade.intituleFr}"
+								itemValue="#{residentAction.residentUpdate.grade.idG}"
 								noSelectionOption="true"></f:selectItem>
 							<f:selectItems var="g" value="#{gradeAction.grades}"
 								itemLabel="#{g.intituleFr}" itemValue="#{g.idG}">
@@ -210,11 +251,11 @@
 					<p:inplace>
 						<p:selectOneMenu requiredMessage="Veuillez seletionner un Cadre"
 							effect="scale" id="cadre"
-							value="#{employeAction.employeUpdate.cadre.id}"
+							value="#{residentAction.residentUpdate.cadre.id}"
 							style="width:420px">
 							<f:selectItem
-								itemLabel="#{employeAction.employeUpdate.cadre.intituleFr}"
-								itemValue="#{employeAction.employeUpdate.cadre.id}"
+								itemLabel="#{residentAction.residentUpdate.cadre.intituleFr}"
+								itemValue="#{residentAction.residentUpdate.cadre.id}"
 								noSelectionOption="true"></f:selectItem>
 							<f:selectItems var="ca" value="#{cadreAction.cadres}"
 								itemLabel="#{ca.intituleFr}" itemValue="#{ca.id}">
@@ -226,11 +267,11 @@
 						<p:selectOneMenu
 							requiredMessage="Veuillez seletionner une spécialité"
 							effect="scale" id="specialite"
-							value="#{employeAction.employeUpdate.specialite.idS}"
+							value="#{residentAction.residentUpdate.specialite.idS}"
 							style="width:420px">
 							<f:selectItem
-								itemLabel="#{employeAction.employeUpdate.specialite.intituleFr}"
-								itemValue="#{employeAction.employeUpdate.specialite.idS}"
+								itemLabel="#{residentAction.residentUpdate.specialite.intituleFr}"
+								itemValue="#{residentAction.residentUpdate.specialite.idS}"
 								noSelectionOption="true"></f:selectItem>
 							<f:selectItems var="sp" value="#{specialiteAction.specialites}"
 								itemLabel="#{sp.intituleFr}" itemValue="#{sp.idS}">
@@ -243,8 +284,8 @@
 							effect="scale" id="hopital" value="#{hopitalAction.hopital.idH}"
 							style="width:420px">
 							<f:selectItem
-								itemLabel="#{employeAction.employeUpdate.service.hopital.intituleFr}"
-								itemValue="#{employeAction.employeUpdate.service.hopital.idH}"
+								itemLabel="#{residentAction.residentUpdate.service.hopital.intituleFr}"
+								itemValue="#{residentAction.residentUpdate.service.hopital.idH}"
 								noSelectionOption="true"></f:selectItem>
 							<f:selectItems var="h" value="#{hopitalAction.listHopital}"
 								itemLabel="#{h.intituleFr}" itemValue="#{h.idH}">
@@ -258,11 +299,11 @@
 					<p:inplace>
 						<p:selectOneMenu requiredMessage="Veuillez seletionner un Service"
 							effect="scale" id="service"
-							value="#{employeAction.employeUpdate.service.idSe}"
+							value="#{residentAction.residentUpdate.service.idSe}"
 							style="width:420px">
 							<f:selectItem
-								itemLabel="#{employeAction.employeUpdate.service.intituleFr}"
-								itemValue="#{employeAction.employeUpdate.service.idSe}"
+								itemLabel="#{residentAction.residentUpdate.service.intituleFr}"
+								itemValue="#{residentAction.residentUpdate.service.idSe}"
 								noSelectionOption="true"></f:selectItem>
 							<f:selectItems var="s" value="#{hopitalAction.listService}"
 								itemLabel="#{s.intituleFr}" itemValue="#{s.idSe}">
@@ -274,7 +315,7 @@
 				<p:toolbar>
 					<f:facet name="left">
 						<p:commandButton value="Modifier" icon="ui-icon-circle-check"
-							actionListener="#{employeAction.updateEmploye(employeAction.employeUpdate)}"
+							actionListener="#{residentAction.updateResident(residentAction.residentUpdate)}"
 							update="form">
 							<p:confirm header="Confirmation"
 								message="Voulez-vous appliquer la modification ?"
@@ -290,7 +331,7 @@
 						</p:commandButton>
 						<p:commandButton value="Supprimer" icon="ui-icon-closethick"
 							id="remove" update="form" process="@this"
-							action="#{employeAction.deleteEmploye(employeAction.employeUpdate.cin)}">
+							action="#{residentAction.deleteResident(residentAction.residentUpdate)}">
 							<p:confirm header="Confirmation"
 								message="Voulez-vous supprimer le résident ?"
 								icon="ui-icon-alert">

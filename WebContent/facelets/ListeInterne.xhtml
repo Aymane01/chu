@@ -34,10 +34,7 @@
 					filterMatchMode="contains">
 					<h:outputText value="#{r.nomFr}"></h:outputText>
 				</p:column>
-				<p:column headerText="Prénom" filterBy="#{r.prenomFr}"
-					filterMatchMode="contains">
-					<h:outputText value="#{r.prenomFr}"></h:outputText>
-				</p:column>
+			
 				<p:column headerText="Nom et Prénom (AR)"
 					filterBy="#{r.nomCompletAr}" filterMatchMode="contains">
 					<h:outputText value="#{r.nomCompletAr}"></h:outputText>
@@ -73,135 +70,195 @@
 				</p:column>
 			</p:dataTable>
 		</p:panel>
-		<!--  Modify Dialogue -->
-		<p:dialog header="Internes" widgetVar="interneDialog" modal="true"
+		
+		<p:dialog header="Interne" widgetVar="interneDialog" modal="true"
 			showEffect="fade" hideEffect="fade" resizable="false" width="750"
 			height="600">
-
 			<p:panel id="updatePanel" style="margin-bottom:5px; ">
-
 				<h:panelGrid columns="2">
 					<p:outputLabel for="ppr" value="PPR :" />
-					<p:inplace>
-						<p:inputText id="ppr" value="#{interneAction.interneUpdate.ppr}"
-							size="40" validatorMessage="Champs requis ou invalide : PPR ">
-							<f:validateRequired />
-						</p:inputText>
-					</p:inplace>
-					<p:outputLabel for="cin" value="CIN :" />
-					<p:inplace>
-						<p:inputText id="cin" value="#{interneAction.interneUpdate.cin}"
-							size="40" validatorMessage="Champs requis : CIN">
-							<f:validateRequired />
-						</p:inputText>
-					</p:inplace>
-					<p:outputLabel for="nomFr" value="Nom en Français :" />
-					<p:inplace>
-						<p:inputText id="nomFr"
-							value="#{interneAction.interneUpdate.nomFr}" size="40"
-							validatorMessage="Champs requis : Nom en Français">
-							<f:validateRequired />
-						</p:inputText>
-					</p:inplace>
-					<p:outputLabel for="prenomFr" value="Prénom en Français :" />
-					<p:inplace>
-						<p:inputText id="prenomFr"
-							value="#{interneAction.interneUpdate.prenomFr}" size="40"
-							validatorMessage="Champs requis : Prénom en Français">
-							<f:validateRequired />
-						</p:inputText>
-					</p:inplace>
-					<p:outputLabel for="nomCompletAr" value="Nom et Prénom en Arabe :" />
-					<p:inplace>
-						<p:inputText id="nomCompletAr"
-							value="#{interneAction.interneUpdate.nomCompletAr}" size="40"
-							validatorMessage="Champs requis : Nom et Prénom en Arabe">
-							<f:validateRequired />
-						</p:inputText>
-					</p:inplace>
-					<p:outputLabel for="dateN" value="Date de naissance :" />
-					<p:inplace>
-						<p:calendar id="dateN"
-							value="#{interneAction.interneUpdate.dateN}"
-							pattern="yyyy-MM-dd" mask="true"
-							validatorMessage="Champs requis : Date de naissance"
-							effect="scale" converter="myDateConverter">
-							<f:validateRequired />
-						</p:calendar>
-					</p:inplace>
-					<p:outputLabel for="sexe" value="Sexe :" />
-					<p:inplace>
-						<p:selectOneRadio id="sexe"
-							value="#{interneAction.interneUpdate.sexe}"
-							validatorMessage="Champs requis : Sexe">
-							<f:selectItem itemLabel="Masculin" itemValue="Masculin" />
-							<f:selectItem itemLabel="Feminin" itemValue="Feminin" />
-							<f:validateRequired />
-						</p:selectOneRadio>
-					</p:inplace>
-					<p:outputLabel for="nationalite" value="Nationalité :" />
-					<p:inplace>
-						<p:selectOneMenu id="nationalite"
-							validatorMessage="Champs requis : Nationalité"
-							value="#{interneAction.interneUpdate.nationalite}"
-							effect="scale">
-							<f:selectItem
-								itemLabel="#{interneAction.interneUpdate.nationalite}"
-								itemValue="#{interneAction.interneUpdate.nationalite}"
-								noSelectionOption="true" />
-							<f:selectItems var="n" value="#{interneAction.nationalite}"
-								itemValue="#{n}" itemLabel="#{n}" />
-							<f:validateRequired />
-						</p:selectOneMenu>
-					</p:inplace>
-					<p:outputLabel for="dateArrive" value="Date d'arrivée :" />
-					<p:inplace>
-						<p:calendar id="dateArrive"
-							value="#{interneAction.interneUpdate.dateRecru}"
-							pattern="yyyy-MM-dd" mask="true"
-							validatorMessage="Champs requis : Date d'arrivée" effect="scale"
-							converter="myDateConverter">
-							<f:validateRequired />
-						</p:calendar>
-					</p:inplace>
-					
-					
-				
 
+					<p:inputText id="ppr" value="#{interneAction.interneUpdate.ppr}"
+						size="40" validatorMessage="Champs requis ou invalide : PPR "
+						label="Number" converterMessage="Champs requis ou invalide : PPR ">
+						<f:validateRequired />
+						<f:validateDoubleRange minimum="1" maximum="1000000" />
+					</p:inputText>
+
+					<p:outputLabel for="cin" value="CIN :" />
+
+					<p:inputText id="cin" value="#{interneAction.interneUpdate.cin}"
+						size="40" validatorMessage="Champs requis : CIN">
+						<f:validateRequired />
+					</p:inputText>
+
+					<p:outputLabel for="nomFr" value="Nom et Prénom en Français :" />
+
+					<p:inputText id="nomFr"
+						value="#{interneAction.interneUpdate.nomFr}" size="40"
+						validatorMessage="Champs requis : Nom et Prénom en Français">
+						<f:validateRequired />
+					</p:inputText>
+
+					<p:outputLabel for="nomCompletAr" value="Nom et Prénom en Arabe :" />
+
+					<p:inputText id="nomCompletAr"
+						value="#{interneAction.interneUpdate.nomCompletAr}" size="40"
+						validatorMessage="Champs requis : Nom et Prénom en Arabe">
+						<f:validateRequired />
+					</p:inputText>
+
+					<p:outputLabel for="dateN" value="Date de naissance :" />
+
+					<p:calendar id="dateN"
+						value="#{interneAction.interneUpdate.dateN}"
+						pattern="yyyy-MM-dd" mask="true"
+						validatorMessage="Champs requis : Date de naissance"
+						effect="scale" converter="myDateConverter">
+						<f:validateRequired />
+					</p:calendar>
+
+					<p:outputLabel for="sexe" value="Sexe :" />
+
+					<p:selectOneRadio id="sexe"
+						value="#{interneAction.interneUpdate.sexe}"
+						validatorMessage="Champs requis : Sexe">
+						<f:selectItem itemLabel="Masculin" itemValue="Masculin" />
+						<f:selectItem itemLabel="Feminin" itemValue="Feminin" />
+						<f:validateRequired />
+					</p:selectOneRadio>
+
+					<p:outputLabel for="nationalite" value="Nationalité :" />
+
+					<p:selectOneMenu id="nationalite"
+						validatorMessage="Champs requis : Nationalité"
+						value="#{interneAction.interneUpdate.nationalite}"
+						effect="scale">
+						<f:selectItem
+							itemLabel="#{interneAction.interneUpdate.nationalite}"
+							itemValue="#{interneAction.interneUpdate.nationalite}"
+							noSelectionOption="true" />
+						<f:selectItems var="n" value="#{interneAction.nationalite}"
+							itemValue="#{n}" itemLabel="#{n}" />
+						<f:validateRequired />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="dateArrive" value="Date d'arrivée :" />
+
+					<p:calendar id="dateArrive"
+						value="#{interneAction.interneUpdate.dateArrive}"
+						pattern="yyyy-MM-dd" mask="true"
+						validatorMessage="Champs requis : Date d'arrivée" effect="scale"
+						converter="myDateConverter">
+						<f:validateRequired />
+					</p:calendar>
+
+
+
+					
+
+					<p:outputLabel for="echelle" value="Echelle :" />
+
+					<p:inputText id="echelle"
+						value="#{interneAction.interneUpdate.echelle}" size="40"
+						validatorMessage="Champs requis : Echelle">
+						<f:validateRequired />
+					</p:inputText>
+
+					<p:outputLabel for="echelon" value="Echelon :" />
+
+					<p:inputText id="echelon"
+						value="#{interneAction.interneUpdate.echelon}" size="40"
+						validatorMessage="Champs requis : Echelon">
+						<f:validateRequired />
+					</p:inputText>
+
+					<p:outputLabel for="indice" value="Indice :" />
+
+					<p:inputText id="indice"
+						value="#{interneAction.interneUpdate.indice}" size="40"
+						validatorMessage="Champs requis : Indice">
+						<f:validateRequired />
+					</p:inputText>
+
+					<p:outputLabel for="budget" value="Budget :" />
+
+					<p:selectOneRadio id="budget"
+						value="#{interneAction.interneUpdate.budget}"
+						validatorMessage="Champs requis : Budget">
+						<f:selectItem itemLabel="Autonome" itemValue="Autonome" />
+						<f:selectItem itemLabel="Générale" itemValue="Générale" />
+						<f:validateRequired />
+					</p:selectOneRadio>
+
+
+					<p:outputLabel for="observation" value="Observation :" />
+					<p:inputText id="observation"
+						value="#{interneAction.interneUpdate.observation}" size="40"
+						validatorMessage="Champs requis : Observation">
+						<f:validateRequired />
+					</p:inputText>
+
+					
 					
 					<p:outputLabel for="hopital" value="Hopital :" />
-					<p:inplace>
-						<p:selectOneMenu requiredMessage="Veuillez seletionner un hopital"
-							effect="scale" id="hopital" value="#{hopitalAction.hopital.idH}"
-							style="width:420px">
-							<f:selectItem
-								itemLabel="#{interneAction.interneUpdate.service.hopital.intituleFr}"
-								itemValue="#{interneAction.interneUpdate.service.hopital.idH}"
-								noSelectionOption="true"></f:selectItem>
-							<f:selectItems var="h" value="#{hopitalAction.listHopital}"
-								itemLabel="#{h.intituleFr}" itemValue="#{h.idH}">
-							</f:selectItems>
-							<p:ajax update="service"
-								listener="#{hopitalAction.refreshListService}" process="@this" />
-						</p:selectOneMenu>
-					</p:inplace>
 
+					<p:selectOneMenu requiredMessage="Veuillez seletionner un hopital"
+						effect="scale" id="hopital" value="#{hopitalAction.hopital.idH}"
+						style="width:420px">
+						<f:selectItem
+							itemLabel="#{interneAction.interneUpdate.service.hopital.intituleFr}"
+							itemValue="#{interneAction.interneUpdate.service.hopital.idH}"
+							noSelectionOption="true"></f:selectItem>
+						<f:selectItems var="h" value="#{hopitalAction.listHopital}"
+							itemLabel="#{h.intituleFr}" itemValue="#{h.idH}">
+						</f:selectItems>
+						<p:ajax update="service"
+							listener="#{hopitalAction.refreshListService}" process="@this" />
+					</p:selectOneMenu>
 					<p:outputLabel for="service" value="Service :" />
-					<p:inplace>
-						<p:selectOneMenu requiredMessage="Veuillez seletionner un Service"
-							effect="scale" id="service"
-							value="#{interneAction.interneUpdate.service.idSe}"
-							style="width:420px">
-							<f:selectItem
-								itemLabel="#{interneAction.interneUpdate.service.intituleFr}"
-								itemValue="#{interneAction.interneUpdate.service.idSe}"
-								noSelectionOption="true"></f:selectItem>
-							<f:selectItems var="s" value="#{hopitalAction.listService}"
-								itemLabel="#{s.intituleFr}" itemValue="#{s.idSe}">
-							</f:selectItems>
-						</p:selectOneMenu>
-					</p:inplace>
+					<p:selectOneMenu requiredMessage="Veuillez seletionner un Service"
+						effect="scale" id="service"
+						value="#{interneAction.interneUpdate.service.idSe}"
+						style="width:420px">
+						<f:selectItem
+							itemLabel="#{interneAction.interneUpdate.service.intituleFr}"
+							itemValue="#{interneAction.interneUpdate.service.idSe}"
+							noSelectionOption="true"></f:selectItem>
+						<f:selectItems var="s" value="#{hopitalAction.listService}"
+							itemLabel="#{s.intituleFr}" itemValue="#{s.idSe}">
+						</f:selectItems>
+					</p:selectOneMenu>
+					<p:outputLabel for="stage1" value="1er Stage :" />
 
+					<p:inputText id="stage1"
+						value="#{interneAction.interneUpdate.stage1}" size="40"
+						validatorMessage="Champs requis : Stage 1">
+						<f:validateRequired />
+					</p:inputText>
+					<p:outputLabel for="stage2" value="2eme Stage :" />
+
+					<p:inputText id="stage2"
+						value="#{interneAction.interneUpdate.stage2}" size="40"
+						validatorMessage="Champs requis : Stage 2">
+						<f:validateRequired />
+					</p:inputText>
+					
+					<p:outputLabel for="stage3" value="3eme Stage :" />
+
+					<p:inputText id="stage3"
+						value="#{interneAction.interneUpdate.stage3}" size="40"
+						validatorMessage="Champs requis : Stage 3">
+						<f:validateRequired />
+					</p:inputText>
+					
+					<p:outputLabel for="stage4" value="4eme Stage :" />
+
+					<p:inputText id="stage4"
+						value="#{interneAction.interneUpdate.stage4}" size="40"
+						validatorMessage="Champs requis : Stage 4">
+						<f:validateRequired />
+					</p:inputText>
 				</h:panelGrid>
 				<p:toolbar>
 					<f:facet name="left">
@@ -222,9 +279,9 @@
 						</p:commandButton>
 						<p:commandButton value="Supprimer" icon="ui-icon-closethick"
 							id="remove" update="form" process="@this"
-							action="#{interneAction.deleteInterne(interneAction.interneUpdate.cin)}">
+							action="#{interneAction.deleteInterne(interneAction.interneUpdate)}">
 							<p:confirm header="Confirmation"
-								message="Voulez-vous supprimer le résident ?"
+								message="Voulez-vous supprimer l'interne ?"
 								icon="ui-icon-alert">
 							</p:confirm>
 							<p:confirmDialog global="true" showEffect="fade"
@@ -242,6 +299,7 @@
 				</p:toolbar>
 			</p:panel>
 		</p:dialog>
+	
 	</h:form>
 
 </h:body>

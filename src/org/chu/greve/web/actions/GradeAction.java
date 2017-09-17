@@ -49,6 +49,7 @@ public class GradeAction {
 	@PostConstruct
 	public void init() {
 		gradeService = new GradeBusinessImpl(new GradeDaoHibernate(HibernateUtil.getSessionFactory()));
+		gradeUpdate = new Grade();
 		System.out.println("HERE");
 		refreshList();
 	}

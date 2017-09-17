@@ -6,7 +6,7 @@ public class Professeur extends Fonctionnaire {
 	private String dateIntegration;
 
 	public Professeur() {
-
+		setCorps(new Corps());
 	}
 
 	public Professeur(String isChef, String dateNomination, String dateIntegration, int ppr, String nomFr,
@@ -18,6 +18,38 @@ public class Professeur extends Fonctionnaire {
 		this.isChef = isChef;
 		this.dateNomination = dateNomination;
 		this.dateIntegration = dateIntegration;
+		setService(service);
+		setSpecialite(specialite);
+		setGrade(grade);
+		setCorps(corps);
+		setCadre(cadre);
+	}
+	public Professeur(String[] row) {
+		if(row[0] != "") {
+			setIndice(Integer.parseInt(row[0]));
+		}
+		setCin(row[6]);
+		setNomFr(row[3]);
+		setNomCompletAr(row[5]);
+		if(row[4] != "") {
+			setPpr(Integer.parseInt(row[4]));
+		}
+		setGrade(new Grade(row[2]));
+		setSexe(row[1]);
+		setDateN(row[7]);
+		setSpecialite(new Specialite(row[8]));
+		setDateIntegration(row[10]);
+		setCorps(new Corps(row[11]));
+		setGrade(new Grade(row[2]));
+		System.out.println(row[2]);
+		setIsChef(row[13]);
+		setDateNomination(row[14]);
+		setObservation(row[15]);
+		
+		
+		
+//		Service s = new Service(1,"","",new Hopital(1, "", ""));
+//		setService(s);
 	}
 
 	public String getIsChef() {

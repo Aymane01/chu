@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Gestion de Grève</title>
+</h:head>
+<h:body>
+	<ui:include src="included.xhtml" />
+	<h:form id="form">
+		<p:panel id="addPanel" header="Ajouter compte"
+			style="margin-bottom:10px;">
+
+			<h:panelGrid columns="2">
+				<p:outputLabel for="username" value="Intitulé en Français :" />
+				<p:inputText id="username" value="#{compte.username}" size="40"
+					validatorMessage="Champs requis : Intitulé en Français ">
+					<f:validateRequired />
+				</p:inputText>
+				<p:outputLabel for="password" value="Intitulé en Arabe :" />
+				<p:inputText id="password" value="#{compte.password}" size="40"
+					validatorMessage="Champs requis : Intitulé en Arabe  ">
+					<f:validateRequired />
+				</p:inputText>
+			</h:panelGrid>
+		</p:panel>
+		<p:toolbar>
+			<f:facet name="left">
+				<p:commandButton value="Ajouter" icon="ui-icon-circle-check"
+					actionListener="#{compteAction.addCompte(compte)}" update="form">
+				</p:commandButton>
+				<p:commandButton value="Annuler" type="reset"
+					icon="ui-icon-circle-minus">
+				</p:commandButton>
+			</f:facet>
+		</p:toolbar>
+
+		<p:panel id="listPanel" header="Liste des Comptes"
+			style="margin-bottom:10px; margin-top:50px;">
+			<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
+				sticky="false" />
+			<p:dataTable var="c" value="#{compteAction.comptes}" paginator="true"
+				rowsPerPageTemplate="10,15,20" rows="15" emptyMessage="Aucun compte">
+				<p:column headerText="Intitulé en Français"
+					filterBy="#{c.username}" filterMatchMode="contains">
+					<h:outputText value="#{c.username}" />
+				</p:column>
+				<p:column headerText="Intitulé en Arabe" filterBy="#{c.password}"
+					filterMatchMode="contains">
+					<h:outputText value="#{c.password}"></h:outputText>
+				</p:column>
+				<p:column headerText="Options"
+					style="width:90px; text-align:  center">
+
+					<p:commandButton icon="ui-icon-closethick" update="form"
+						action="#{compteAction.removeCompte(c)}" process="@this">
+						<p:confirm header="Confirmation"
+							message="voulez-vous supprimer le compte ?" icon="ui-icon-alert">
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+
+								<p:commandButton value="Oui" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Non" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:confirm>
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil" update=":form:compteUpdate"
+						oncomplete="PF('compteDialog').show()" process="@this"
+						action="#{compteAction.setCompteUpdate(c)}">
+
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+
+		<p:dialog header="Modifier compte" widgetVar="compteDialog" modal="true"
+			showEffect="fade" hideEffect="fade" resizable="false" width="665">
+
+			<p:panel id="compteUpdate" style="text-align:left;" >
+				<p:panelGrid columns="2">
+					<p:outputLabel for="username2" value="Intitulé en Français :" />
+					<p:inputText id="username2" size="40"
+						value="#{compteAction.compteUpdate.username}">
+					</p:inputText>
+					<p:outputLabel for="password2" value="Intitulé en Arabe :" />
+					<p:inputText id="password2" size="40"
+						value="#{compteAction.compteUpdate.password}">
+					</p:inputText>
+
+				</p:panelGrid >
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton value="Modifier"
+							action="#{compteAction.updateCompte(compteAction.compteUpdate)}"
+							update="form" icon="ui-icon-circle-check" process="compteUpdate" >
+							<p:confirm header="Confirmation"
+								message="voulez-vous appliquer la modification ?"
+								icon="ui-icon-alert" />
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Oui" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Non" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:commandButton>
+						<p:commandButton value="Annuler" type="reset"
+							icon="ui-icon-circle-minus">
+
+						</p:commandButton>
+					</f:facet>
+				</p:toolbar>
+			</p:panel>
+		</p:dialog>
+	</h:form>
+
+</h:body>
+</html>

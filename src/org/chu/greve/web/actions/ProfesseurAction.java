@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import org.chu.greve.business.ProfesseurBusiness;
 import org.chu.greve.business.ProfesseurBusinessImpl;
 import org.chu.greve.dao.ProfesseurDaoImpl;
+import org.chu.greve.models.Corps;
 import org.chu.greve.models.Professeur;
 import org.chu.greve.util.HibernateUtil;
 import org.chu.greve.util.Nationalite;

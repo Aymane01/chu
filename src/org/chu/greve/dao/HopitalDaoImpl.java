@@ -2,6 +2,7 @@ package org.chu.greve.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.chu.greve.models.Cadre;
 import org.chu.greve.models.Hopital;
@@ -25,8 +26,6 @@ public class HopitalDaoImpl implements HopitalDao, SessionDao {
 	public int insertHopital(Hopital hopital) {
 		try {
 			openSession();
-
-			System.out.println(hopital.getIdH());
 			session.save(hopital);
 			closeSession();
 
@@ -38,6 +37,11 @@ public class HopitalDaoImpl implements HopitalDao, SessionDao {
 	}
 
 	public int insertService(Service service) {
+		if(service.getHopital().getIntituleFr() != null) {
+
+			Hopital h = selectHopital(service.getHopital().getIntituleFr());
+			service.setHopital(h);
+		}
 		try {
 			openSession();
 			session.save(service);
@@ -91,7 +95,16 @@ public class HopitalDaoImpl implements HopitalDao, SessionDao {
 
 		}
 	}
-
+	public Hopital selectHopital(String intituleFr) {
+		List<Hopital> hops = listHopital();
+		for (Hopital hopital : hops) {
+			if(hopital.getIntituleFr().equals(intituleFr)) {
+				System.out.println(1);
+				return hopital;
+			}
+		}
+		return null;
+	}
 	public int deletHopital(Hopital h) {
 		try {
 			String query = "DELETE FROM SERVICE WHERE fk_idHopital = " + h.getIdH();

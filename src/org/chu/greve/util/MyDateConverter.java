@@ -11,9 +11,7 @@ public class MyDateConverter implements Converter {
 	}
 
 	public String getAsString(FacesContext context, UIComponent c, Object s) {
-		String t = (String) s;
-		t.replace("-", "/");
-		return t;
+		return (String)s;
 	}
 
 }

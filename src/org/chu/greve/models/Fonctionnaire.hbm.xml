@@ -75,8 +75,11 @@
 				<column name="IDSPECIALITE" />
 			</property>
 		</component>
-			<many-to-one name="corps" class="org.chu.greve.models.Corps"
-			column="idCorps" foreign-key="fk_corps" cascade="all" />
+		<component name="corps" class="org.chu.greve.models.Corps">
+			<property name="id" type="int">
+				<column name="IDCORPS" />
+			</property>
+		</component>
 			<property name="type" type="java.lang.String">
 				<column name="TYPER"></column>
 			</property>
@@ -84,6 +87,50 @@
 				<column name="STATUS"></column>
 			</property>
 		</union-subclass>
+		
+		<union-subclass name="org.chu.greve.models.Professeur"
+			table="PROFESSEUR">
+			
+			<component name="cadre" class="org.chu.greve.models.Cadre">
+			<property name="id" type="int">
+				<column name="IDCADRE" />
+			</property>
+		</component>
+		<component name="grade" class="org.chu.greve.models.Grade">
+			<property name="idG" type="int">
+				<column name="IDGRADE" />
+			</property>
+		</component>
+		<!-- <many-to-one name="service" class="org.chu.greve.models.Service"
+			column="idService" foreign-key="fk_service" cascade="all" /> -->
+		<component name="service" class="org.chu.greve.models.Service">
+			<property name="idSe" type="int">
+				<column name="IDSERVICE" />
+			</property>
+		</component>
+		<component name="specialite" class="org.chu.greve.models.Specialite">
+			<property name="idS" type="int">
+				<column name="IDSPECIALITE" />
+			</property>
+		</component>
+		<component name="corps" class="org.chu.greve.models.Corps">
+			<property name="id" type="int">
+				<column name="IDCORPS" />
+			</property>
+		</component>
+			
+			
+			<property name="isChef" type="java.lang.String">
+				<column name="ISCHEF" />
+			</property>
+			<property name="dateNomination" type="java.lang.String">
+				<column name="DATENOMINATION" />
+			</property>
+			<property name="dateIntegration" type="java.lang.String">
+				<column name="DATEINTEGRATION" />
+			</property>
+		</union-subclass>
+		
 		<union-subclass name="org.chu.greve.models.Employe" table="Employe">
         	<component name="cadre" class="org.chu.greve.models.Cadre">
 			<property name="id" type="int">
@@ -138,29 +185,5 @@
 	            <column name="STAGE1" />
 	        </property>
         </union-subclass>
-
-        <!-- Professeur et Résident-->
-        	<union-subclass name="org.chu.greve.models.Resident"
-			table="RESIDENT">
-			<property name="type" type="java.lang.String">
-				<column name="TYPER"></column>
-			</property>
-			<property name="status" type="java.lang.String">
-				<column name="STATUS"></column>
-			</property>
-		</union-subclass>
-		<union-subclass name="org.chu.greve.models.Professeur"
-			table="PROFESSEUR">
-			<property name="isChef" type="java.lang.String">
-				<column name="ISCHEF" />
-			</property>
-			<property name="dateNomination" type="java.lang.String">
-				<column name="DATENOMINATION" />
-			</property>
-			<property name="dateIntegration" type="java.lang.String">
-				<column name="DATEINTEGRATION" />
-			</property>
-		</union-subclass>
-        <!---->
 	</class>
 </hibernate-mapping> 

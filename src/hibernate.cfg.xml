@@ -15,6 +15,7 @@
 		<property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
 		<property name="current_session_context_class">thread</property>
 		
+		<mapping  resource="org/chu/greve/models/Compte.hbm.xml" />
 		<mapping  resource="org/chu/greve/models/Grade.hbm.xml" />
 		<mapping  resource="org/chu/greve/models/Cadre.hbm.xml" />
 		<mapping  resource="org/chu/greve/models/Corps.hbm.xml" />
