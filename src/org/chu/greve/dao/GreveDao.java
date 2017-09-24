@@ -30,4 +30,6 @@ public interface GreveDao {
 
 	public int updateJour(Greviste greviste, String jour, String nouveauJour);
 
+	public int retenuSalaire(Greviste g);
+
 }

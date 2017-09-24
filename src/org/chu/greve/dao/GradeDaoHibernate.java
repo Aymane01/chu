@@ -40,6 +40,7 @@ public class GradeDaoHibernate implements GradeDao{
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -78,7 +79,6 @@ public class GradeDaoHibernate implements GradeDao{
 			closeSession();
 			return list;
 		} catch (Exception e) {
-			System.out.println("l'exeption est ici");
 			closeSession();
 			return null;
 		}

@@ -11,19 +11,20 @@
 	<title>Gestion de Grève</title>
 </h:head>
 <h:body>
+	<ui:include src="included.xhtml" />
 	<h:form id="form">
 		<p:panel id="addPanel" header="Ajouter Specialite"
 			style="margin-bottom:10px;">
 
 			<h:panelGrid columns="2">
 				<p:outputLabel for="intituleFr" value="Intitulé en Français :" />
-				<p:inputText id="intituleFr" value="#{specialite.intituleFr}" size="40"
-					validatorMessage="Champs requis : Intitulé en Français ">
+				<p:inputText id="intituleFr" value="#{specialite.intituleFr}"
+					size="40" validatorMessage="Champs requis : Intitulé en Français ">
 					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="intituleAr" value="Intitulé en Arabe :" />
-				<p:inputText id="intituleAr" value="#{specialite.intituleAr}" size="40"
-					validatorMessage="Champs requis : Intitulé en Arabe  ">
+				<p:inputText id="intituleAr" value="#{specialite.intituleAr}"
+					size="40" validatorMessage="Champs requis : Intitulé en Arabe  ">
 					<f:validateRequired />
 				</p:inputText>
 			</h:panelGrid>
@@ -31,7 +32,8 @@
 		<p:toolbar>
 			<f:facet name="left">
 				<p:commandButton value="Ajouter" icon="ui-icon-circle-check"
-					actionListener="#{specialiteAction.addSpecialite(specialite)}" update="form">
+					actionListener="#{specialiteAction.addSpecialite(specialite)}"
+					update="form">
 				</p:commandButton>
 				<p:commandButton value="Annuler" type="reset"
 					icon="ui-icon-circle-minus">
@@ -43,8 +45,9 @@
 			style="margin-bottom:10px; margin-top:50px;">
 			<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
 				sticky="false" />
-			<p:dataTable var="c" value="#{specialiteAction.specialites}" paginator="true"
-				rowsPerPageTemplate="10,15,20" rows="15" emptyMessage="Aucun specialite">
+			<p:dataTable var="c" value="#{specialiteAction.specialites}"
+				paginator="true" rowsPerPageTemplate="10,15,20" rows="15"
+				emptyMessage="Aucun specialite">
 				<p:column headerText="Intitulé en Français"
 					filterBy="#{c.intituleFr}" filterMatchMode="contains">
 					<h:outputText value="#{c.intituleFr}" />
@@ -59,7 +62,8 @@
 					<p:commandButton icon="ui-icon-closethick" update="form"
 						action="#{specialiteAction.removeSpecialite(c)}" process="@this">
 						<p:confirm header="Confirmation"
-							message="voulez-vous supprimer le Specialite ?" icon="ui-icon-alert">
+							message="voulez-vous supprimer le Specialite ?"
+							icon="ui-icon-alert">
 							<p:confirmDialog global="true" showEffect="fade"
 								hideEffect="fade">
 
@@ -71,7 +75,8 @@
 						</p:confirm>
 					</p:commandButton>
 
-					<p:commandButton icon="ui-icon-pencil" update=":form:specialiteUpdate"
+					<p:commandButton icon="ui-icon-pencil"
+						update=":form:specialiteUpdate"
 						oncomplete="PF('specialiteDialog').show()" process="@this"
 						action="#{specialiteAction.setSpecialiteUpdate(c)}">
 
@@ -80,10 +85,11 @@
 			</p:dataTable>
 		</p:panel>
 
-		<p:dialog header="Modifier Specialite" widgetVar="specialiteDialog" modal="true"
-			showEffect="fade" hideEffect="fade" resizable="false" width="665">
+		<p:dialog header="Modifier Specialite" widgetVar="specialiteDialog"
+			modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+			width="665">
 
-			<p:panel id="specialiteUpdate" style="text-align:left;" >
+			<p:panel id="specialiteUpdate" style="text-align:left;">
 				<p:panelGrid columns="2">
 					<p:outputLabel for="intituleFr2" value="Intitulé en Français :" />
 					<p:inputText id="intituleFr2" size="40"
@@ -94,12 +100,13 @@
 						value="#{specialiteAction.specialiteUpdate.intituleAr}">
 					</p:inputText>
 
-				</p:panelGrid >
+				</p:panelGrid>
 				<p:toolbar>
 					<f:facet name="left">
 						<p:commandButton value="Modifier"
 							action="#{specialiteAction.updateSpecialite(specialiteAction.specialiteUpdate)}"
-							update="form" icon="ui-icon-circle-check" process="specialiteUpdate" >
+							update="form" icon="ui-icon-circle-check"
+							process="specialiteUpdate">
 							<p:confirm header="Confirmation"
 								message="voulez-vous appliquer la modification ?"
 								icon="ui-icon-alert" />

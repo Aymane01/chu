@@ -27,6 +27,7 @@ public class CompteDaoImpl implements CompteDao {
 		session.getTransaction().commit();
 		session.close();
 	}
+
 	@Override
 	public int insertCompte(Compte compte) {
 		try {
@@ -35,6 +36,7 @@ public class CompteDaoImpl implements CompteDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -49,6 +51,7 @@ public class CompteDaoImpl implements CompteDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -61,6 +64,7 @@ public class CompteDaoImpl implements CompteDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -77,6 +81,7 @@ public class CompteDaoImpl implements CompteDao {
 			closeSession();
 			return list;
 		} catch (Exception e) {
+			closeSession();
 			return null;
 		}
 	}

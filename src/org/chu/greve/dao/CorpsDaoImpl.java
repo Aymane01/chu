@@ -34,6 +34,7 @@ public class CorpsDaoImpl implements CorpsDao, SessionDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -47,6 +48,7 @@ public class CorpsDaoImpl implements CorpsDao, SessionDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -58,6 +60,7 @@ public class CorpsDaoImpl implements CorpsDao, SessionDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -74,6 +77,7 @@ public class CorpsDaoImpl implements CorpsDao, SessionDao {
 			closeSession();
 			return list;
 		} catch (Exception e) {
+			closeSession();
 			return null;
 		}
 	}

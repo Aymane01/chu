@@ -35,6 +35,8 @@ public class CadreDaoImpl implements CadreDao, SessionDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
+
 			return 0;
 		}
 	}
@@ -48,6 +50,8 @@ public class CadreDaoImpl implements CadreDao, SessionDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
+
 			return 0;
 		}
 	}
@@ -59,6 +63,7 @@ public class CadreDaoImpl implements CadreDao, SessionDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -75,6 +80,7 @@ public class CadreDaoImpl implements CadreDao, SessionDao {
 			closeSession();
 			return list;
 		} catch (Exception e) {
+			closeSession();
 			return null;
 		}
 	}
@@ -90,8 +96,17 @@ public class CadreDaoImpl implements CadreDao, SessionDao {
 			closeSession();
 			return list.get(0);
 		} catch (Exception e) {
+			closeSession();
 			return null;
 		}
+	}
+
+	public Session getSession() {
+		return session;
+	}
+
+	public void setSession(Session session) {
+		this.session = session;
 	}
 
 }

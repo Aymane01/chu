@@ -11,28 +11,31 @@ import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
-public class SpecialiteDaoHibernate implements SpecialiteDao{
+public class SpecialiteDaoHibernate implements SpecialiteDao {
 	private SessionFactory factory;
 
 	private Session session;
+
 	public SpecialiteDaoHibernate(SessionFactory factory) {
 		this.factory = factory;
 	}
-	
+
 	public void openSession() {
 		session = factory.openSession();
 		session.beginTransaction();
 	}
+
 	public void closeSession() {
 		session.getTransaction().commit();
 		session.close();
 	}
+
 	@Override
 	public Specialite select(int id) {
 		openSession();
-		
+
 		Specialite spec = (Specialite) session.get(Specialite.class, id);
-		
+
 		closeSession();
 		return spec;
 	}
@@ -46,11 +49,10 @@ public class SpecialiteDaoHibernate implements SpecialiteDao{
 			SQLQuery sql = session.createSQLQuery(query);
 			sql.addEntity(Specialite.class);
 			list = sql.list();
-			
+
 			closeSession();
 			return list;
 		} catch (Exception e) {
-			System.out.println("l'exeption est ici");
 			closeSession();
 			return null;
 		}
@@ -61,11 +63,11 @@ public class SpecialiteDaoHibernate implements SpecialiteDao{
 		openSession();
 		try {
 			session.beginTransaction();
-			
+
 			Specialite s = new Specialite();
 			s.setIntituleAr(spec.getIntituleAr());
 			s.setIntituleFr(spec.getIntituleFr());
-			
+
 			session.save(s);
 			closeSession();
 			return 1;
@@ -78,25 +80,25 @@ public class SpecialiteDaoHibernate implements SpecialiteDao{
 	@Override
 	public void delete(int id) {
 		openSession();
-		
+
 		Specialite g = (Specialite) session.load(Specialite.class, id);
-		
+
 		session.delete(g);
-		
+
 		closeSession();
 	}
 
 	@Override
 	public void modify(Specialite spec) {
 		openSession();
-		
+
 		Specialite g = (Specialite) session.get(Specialite.class, spec.getIdS());
 		g.setIntituleAr(spec.getIntituleAr());
 		g.setIntituleFr(spec.getIntituleFr());
-		
+
 		session.update(g);
 		closeSession();
-		
+
 	}
 
 }

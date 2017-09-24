@@ -49,13 +49,12 @@ public class TestAymane {
 		Greviste greviste = business.listGreviste(greve).get(0);
 		greviste.ajouterJour("2017-02-02");
 		greviste.ajouterJour("2017-02-02");
-
-		String path = "resources/RetenueSalaire.docx";
-		File f = new File(path);
-		System.out.println(f.getAbsolutePath());
-
+		Service s = new Service("d", "مصلحة طب القلب و الشرايين");
+		s.setHopital(new Hopital("", "مستشفى الإختصاصات"));
+		greviste.getGreviste().setService(s);
 		DocumentGeneratorGreve doc = new DocumentGeneratorGreve();
-		System.out.println(doc.generateRetenueSalaire(greviste, null));
+		// System.out.println(doc.generateRetenueSalaire(greviste, null));
+		System.out.println(doc.generateDemandeExplication(greviste, "", new Date(), "الساعة الخامسة"));
 	}
 
 	public void test05() {

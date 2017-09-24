@@ -8,6 +8,7 @@ public class Greviste {
 	private Greve greve;
 	private Fonctionnaire greviste;
 	private Service service;
+	private String retenuSalaire;
 	private List<String> jours;
 
 	public Greviste() {
@@ -64,5 +65,13 @@ public class Greviste {
 
 	public void setService(Service service) {
 		this.service = service;
+	}
+
+	public String getRetenuSalaire() {
+		return retenuSalaire;
+	}
+
+	public void setRetenuSalaire(String retenuSalaire) {
+		this.retenuSalaire = retenuSalaire;
 	}
 }

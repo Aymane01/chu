@@ -16,6 +16,6 @@
 		</property>
 		<many-to-one name="hopital"
 			class="org.chu.greve.models.Hopital" column="fk_idHopital"
-			foreign-key="fk_hopital" />
+			foreign-key="fk_hopital" cascade="all" />
 	</class>
 </hibernate-mapping>

@@ -11,13 +11,16 @@
 	<title>Gestion de Grève</title>
 </h:head>
 <h:body>
-	
- 
-<h:form>
-    <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
-        <p:fileDownload value="#{fileDownloadView.file}" />
-    </p:commandButton>
-</h:form>
- 
+	<ui:include src="included.xhtml" />
+
+
+	<h:form>
+		<p:commandButton value="Download" ajax="false"
+			onclick="PrimeFaces.monitorDownload(start, stop);"
+			icon="ui-icon-arrowthick-1-s">
+			<p:fileDownload value="#{fileDownloadView.file}" />
+		</p:commandButton>
+	</h:form>
+
 </h:body>
 </html>

@@ -33,4 +33,6 @@ public interface GreveBusiness {
 
 	public int updateJour(Greviste greviste, String jour, String nouveauJour);
 
+	public int retenuSalaire(Greviste g);
+
 }

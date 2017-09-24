@@ -47,7 +47,6 @@ public class InterneDaoHibernate implements InterneDao{
 			closeSession();
 			return list;
 		} catch (Exception e) {
-			System.out.println("l'exeption est ici");
 			closeSession();
 			return null;
 		}
@@ -67,7 +66,6 @@ public class InterneDaoHibernate implements InterneDao{
 			closeSession();
 			return list;
 		} catch (Exception e) {
-			System.out.println("l'exeption est ici selectAll dao");
 			closeSession();
 			return null;
 		}

@@ -1,6 +1,5 @@
 package org.chu.greve.web.actions;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Stream;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -41,19 +39,24 @@ public class GreveAction {
 	private StreamedContent file;
 	private List<String> listServices;
 	private List<Greviste> listeUrgences;
+	private Date dateR;
+	private int days;
+	private String heureR;
+	private Date dateRa;
+	private Date dateDe;
+	private Date dateRep;
 
 	@PostConstruct
 	public void init() {
 		service = new GreveBusinessImpl(new GreveDaoImpl(HibernateUtil.getSessionFactory()));
 		greveUpdate = new Greve();
-		listFonctionnaire = service.listFonctionnaire();
+		refreshListFontionnaire();
 		refreshListGreve();
 		documentGenerator = new DocumentGeneratorGreve();
 		prefix = FacesContext.getCurrentInstance().getExternalContext().getInitParameter("prefix");
 		listServices = new ArrayList<>();
 		listeUrgences = new ArrayList<>();
 		loadServices();
-
 	}
 
 	public void addGreve(Greve greve) {
@@ -72,17 +75,111 @@ public class GreveAction {
 
 	}
 
+	public void generateAvertissement(Greviste g, Date dateD, Date dateR) {
+		try {
+			String path = "resources/Avertissement.docx";
+			g.setJours(service.listJour(g));
+
+			if (documentGenerator.generateAvertissement(g, prefix, dateD, dateR) == 1) {
+				InputStream stream;
+				stream = new FileInputStream(prefix + path);
+				file = new DefaultStreamedContent(stream, "doc/docx",
+						"Avertissement_" + g.getGreviste().getCin() + ".docx");
+				addMessage(FacesMessage.SEVERITY_INFO, "Info", "Le document est crée avec succès");
+				service.retenuSalaire(g);
+			} else {
+				addMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
+						"Une erreur s'est produit lors de la création du document");
+				file = null;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void generateDemandeExplication(Greviste g, Date date, String heure) {
+		try {
+			String path = "resources/DemandeExplication.docx";
+			g.setJours(service.listJour(g));
+
+			if (documentGenerator.generateDemandeExplication(g, prefix, date, heure) == 1) {
+				InputStream stream;
+				stream = new FileInputStream(prefix + path);
+				file = new DefaultStreamedContent(stream, "doc/docx",
+						"Demande_Explication_" + g.getGreviste().getCin() + ".docx");
+				addMessage(FacesMessage.SEVERITY_INFO, "Info", "Le document est crée avec succès");
+				service.retenuSalaire(g);
+			} else {
+				addMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
+						"Une erreur s'est produit lors de la création du document");
+				file = null;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void generatePunition(Greviste g, Date date, int days) {
+		System.out.println((date == null) + "  " + days);
+		try {
+			String path = "resources/Punition.docx";
+			g.setJours(service.listJour(g));
+
+			if (documentGenerator.generatePunition(g, prefix, date, days) == 1) {
+				InputStream stream;
+				stream = new FileInputStream(prefix + path);
+				file = new DefaultStreamedContent(stream, "doc/docx", "Punition_" + g.getGreviste().getCin() + ".docx");
+				addMessage(FacesMessage.SEVERITY_INFO, "Info", "Le document est crée avec succès");
+				service.retenuSalaire(g);
+			} else {
+				addMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
+						"Une erreur s'est produit lors de la création du document");
+				file = null;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void generateArretTravail(Greviste g) {
+
+		try {
+			String path = "resources/ArretTravail.docx";
+			g.setJours(service.listJour(g));
+
+			if (documentGenerator.generateArretTravail(g, prefix) == 1) {
+				InputStream stream;
+				stream = new FileInputStream(prefix + path);
+				file = new DefaultStreamedContent(stream, "doc/docx",
+						"Arret_travail_" + g.getGreviste().getCin() + ".docx");
+				addMessage(FacesMessage.SEVERITY_INFO, "Info", "Le document est crée avec succès");
+				service.retenuSalaire(g);
+			} else {
+				addMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
+						"Une erreur s'est produit lors de la création du document");
+				file = null;
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public void generateRetenueDocument(Greviste g) {
 
 		try {
 			g.setJours(service.listJour(g));
 			String path = "resources/RetenueSalaire.docx";
 			if (documentGenerator.generateRetenueSalaire(g, prefix) == 1) {
-				addMessage(FacesMessage.SEVERITY_INFO, "Info", "Le document est crée avec succès");
 				InputStream stream;
 				stream = new FileInputStream(prefix + path);
 				file = new DefaultStreamedContent(stream, "doc/docx",
 						"Retenue_salaire_" + g.getGreviste().getCin() + ".docx");
+				addMessage(FacesMessage.SEVERITY_INFO, "Info", "Le document est crée avec succès");
+				service.retenuSalaire(g);
 			} else {
 				addMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
 						"Une erreur s'est produit lors de la création du document");
@@ -198,6 +295,7 @@ public class GreveAction {
 		counter = 1;
 		setGreveUpdate(greve);
 		refreshListGreviste();
+		refreshListFontionnaire();
 		return "greviste";
 	}
 
@@ -227,6 +325,10 @@ public class GreveAction {
 
 	public void setGreveUpdate(Greve greveUpdate) {
 		this.greveUpdate = greveUpdate;
+	}
+
+	private void refreshListFontionnaire() {
+		listFonctionnaire = service.listFonctionnaire();
 	}
 
 	public List<Fonctionnaire> getListFonctionnaire() {
@@ -351,5 +453,53 @@ public class GreveAction {
 
 	public void setListeUrgences(List<Greviste> listeUrgences) {
 		this.listeUrgences = listeUrgences;
+	}
+
+	public Date getDateR() {
+		return dateR;
+	}
+
+	public void setDateR(Date dateR) {
+		this.dateR = dateR;
+	}
+
+	public int getDays() {
+		return days;
+	}
+
+	public void setDays(int days) {
+		this.days = days;
+	}
+
+	public String getHeureR() {
+		return heureR;
+	}
+
+	public void setHeureR(String heureR) {
+		this.heureR = heureR;
+	}
+
+	public Date getDateRa() {
+		return dateRa;
+	}
+
+	public void setDateRa(Date dateRa) {
+		this.dateRa = dateRa;
+	}
+
+	public Date getDateDe() {
+		return dateDe;
+	}
+
+	public void setDateDe(Date dateDe) {
+		this.dateDe = dateDe;
+	}
+
+	public Date getDateRep() {
+		return dateRep;
+	}
+
+	public void setDateRep(Date dateRep) {
+		this.dateRep = dateRep;
 	}
 }

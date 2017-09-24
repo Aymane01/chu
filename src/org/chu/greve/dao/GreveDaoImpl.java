@@ -27,6 +27,7 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			return 1;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			closeSession();
 			return 0;
 		}
 	}
@@ -38,6 +39,7 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -49,6 +51,7 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -64,6 +67,7 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			closeSession();
 			return list;
 		} catch (Exception e) {
+			closeSession();
 			return null;
 		}
 	}
@@ -71,7 +75,6 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 	public int addGreviste(Greviste greviste) {
 		try {
 			openSession();
-			greviste.setService(greviste.getGreviste().getService());
 			session.save(greviste);
 			int id = greviste.getId();
 			closeSession();
@@ -86,6 +89,7 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -97,6 +101,7 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -111,6 +116,7 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			list = sql.list();
 			return list;
 		} catch (Exception e) {
+			closeSession();
 			return null;
 		}
 	}
@@ -135,6 +141,7 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			return 1;
 
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -149,6 +156,7 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			closeSession();
 			return list;
 		} catch (Exception e) {
+			closeSession();
 			return null;
 		}
 	}
@@ -163,6 +171,7 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -177,6 +186,21 @@ public class GreveDaoImpl implements SessionDao, GreveDao {
 			closeSession();
 			return 1;
 		} catch (Exception e) {
+			closeSession();
+			return 0;
+		}
+	}
+
+	public int retenuSalaire(Greviste g) {
+		String query = "UPDATE Greviste SET retenu_salaire='Oui' WHERE id= " + g.getId();
+		try {
+			openSession();
+			SQLQuery sql = session.createSQLQuery(query);
+			sql.executeUpdate();
+			closeSession();
+			return 1;
+		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}

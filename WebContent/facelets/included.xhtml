@@ -5,53 +5,32 @@
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
     
-
-<p:breadCrumb>
-    <p:menuitem value="CRUD Hopitaux" url="Hopital.xhtml" />
-    <p:menuitem value="#{loginBean.uname}" url="" />
-    <p:menuitem value="Comptes" url="Compte.xhtml" />
-    <p:menuitem value="Ajouter Interne" url="interne.xhtml" />
-    <p:menuitem value="Liste Internes" url="ListeInterne.xhtml" />
-    <p:menuitem value="Ajouter Resident" url="Resident.xhtml" />
-    <p:menuitem value="Liste Residents" url="ListeResident.xhtml" />
-    <p:menuitem value="Ajouter Professeur" url="Professeur.xhtml" />
-    <p:menuitem value="Liste Professeurs" url="ListeProfesseur.xhtml" />
-    <p:menuitem value="Ajouter Employe" url="employe.xhtml" />
-    <p:menuitem value="Liste Employee" url="ListeEmploye.xhtml" />
-    <p:menuitem value="CRUD Hopitaux" url="Hopital.xhtml" />
-    <p:menuitem value="CRUD Specialite" url="Specialite.xhtml" />
-    <p:menuitem value="CRUD Cadre" url="Cadre.xhtml" />
-    <p:menuitem value="CRUD Corps" url="Corps.xhtml" />
-    <p:menuitem value="CRUD Grade" url="Grade.xhtml" />
-    <p:menuitem value="Attestation Salaire" url="AttestationSalaire.xhtml" />
-    <p:menuitem value="Attestation Travail" url="AttestationTravail.xhtml" />
-    <p:menuitem value="Deconnexion" url="logout.xhtml" />
-</p:breadCrumb>
-</ui:composition>
-<!-- <h:form>  
+ <h:form>  
     <p:growl id="messages"/>
  
     <p:menubar>
-        <p:submenu label="Fonctionnaire" icon="ui-icon-document">
-            <p:submenu label="Interne" icon="ui-icon-contact">
-                <p:menuitem value="Liste" url="ListeInterne.xhtml" />
-                <p:menuitem value="Ajouter" url="interne.xhtml" />
-            </p:submenu> 
-            <p:submenu label="Resident" icon="ui-icon-contact">
-                <p:menuitem value="Liste" url="ListeResident.xhtml" />
-                <p:menuitem value="Ajouter" url="Resident.xhtml" />
+        <p:submenu label="Fonctionnaire" icon="ui-icon-person">
+            <p:submenu label="Interne" icon="ui-icon-person">
+                <p:menuitem value="Liste" url="ListeInterne.xhtml" icon="ui-icon-carat-2-n-s" />
+                <p:menuitem value="Ajouter" url="interne.xhtml" icon="ui-icon-plusthick" />
+        	</p:submenu> 
+            <p:submenu label="Resident" icon="ui-icon-person">
+                <p:menuitem value="Liste" url="ListeResident.xhtml" icon="ui-icon-carat-2-n-s" />
+                <p:menuitem value="Ajouter" url="Resident.xhtml" icon="ui-icon-plusthick" />
             </p:submenu>
-            <p:submenu label="Employe" icon="ui-icon-contact">
-                <p:menuitem value="Liste" url="ListeEmploye.xhtml" />
-                <p:menuitem value="Ajouter" url="employe.xhtml" />
+            <p:submenu label="Professeur" icon="ui-icon-person">
+                <p:menuitem value="Liste" url="ListeProfesseur.xhtml" icon="ui-icon-carat-2-n-s" />
+                <p:menuitem value="Ajouter" url="Professeur.xhtml" icon="ui-icon-plusthick" />
+        	</p:submenu> 
+            <p:submenu label="Employe" icon="ui-icon-person">
+                <p:menuitem value="Liste" url="ListeEmploye.xhtml" icon="ui-icon-carat-2-n-s" />
+                <p:menuitem value="Ajouter" url="employe.xhtml" icon="ui-icon-plusthick" />
             </p:submenu>
         </p:submenu>
  
         <p:submenu label="Hopitaux" icon="ui-icon-pencil">
             <p:menuitem value="Liste Hopitaux" url="Hopital.xhtml" icon="ui-icon-arrowreturnthick-1-w" />
-            <p:menuitem value="Liste Services" url="Service.xhtml" icon="ui-icon-arrowreturnthick-1-e" />
         </p:submenu>
- 
         <p:submenu label="Caracteristique" icon="ui-icon-help">
             <p:menuitem value="Specialite" url="Specialite.xhtml" />
             <p:menuitem value="Grade" url="Grade.xhtml" />
@@ -68,13 +47,26 @@
                 <p:menuitem value="Generer" url="AttestationSalaire.xhtml" icon="ui-icon-close" update="messages" ajax="false"/>
             </p:submenu>
         </p:submenu>
+        
+        <p:submenu label="Greve" icon="ui-icon-gear" >
+            <p:menuitem value="Gestion de grèves" url="Greve.xhtml" icon="ui-icon-arrowrefresh-1-w" update="messages"/>
+        </p:submenu>
+        
  
-        <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
  
         <f:facet name="options">
             <p:inputText style="margin-right:10px" placeholder="Search"/>
-            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+            <!-- <p:commandButton type="button" value="Logout" url="logout.xhtml" icon="ui-icon-extlink" />
+            <p:commandButton type="button" value="#{loginBean.uname}" url="" icon="ui-icon-extlink" /> -->
+            <h:form>
+			    <p:growl id="messages" />
+			    <p:splitButton value="#{loginBean.uname}"  icon="ui-icon-unlocked">
+			        <p:menuitem value="Logout" url="logout.xhtml"  icon="ui-icon-power" />
+			        <p:menuitem value="Gestion Comptes" url="Compte.xhtml" ajax="false" icon="ui-icon-close" />
+			        <p:separator />
+			    </p:splitButton>
+			</h:form>
         </f:facet>
     </p:menubar>
 </h:form> 
-</ui:composition>-->
+</ui:composition>

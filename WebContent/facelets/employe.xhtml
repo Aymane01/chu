@@ -34,20 +34,17 @@
 					validatorMessage="Champs requis : Nom en Français">
 					<f:validateRequired />
 				</p:inputText>
-				<p:outputLabel for="prenomFr" value="Prénom en Français :" />
-				<p:inputText id="prenomFr" value="#{employe.prenomFr}" size="40"
-					validatorMessage="Champs requis : Prénom en Français">
-					<f:validateRequired />
-				</p:inputText>
+				
 				<p:outputLabel for="nomCompletAr" value="Nom et Prénom en Arabe :" />
 				<p:inputText id="nomCompletAr" value="#{employe.nomCompletAr}"
 					size="40" validatorMessage="Champs requis : Nom et Prénom en Arabe">
 					<f:validateRequired />
 				</p:inputText>
 				<p:outputLabel for="dateN" value="Date de naissance :" />
-				<p:calendar id="dateN" value="#{employe.dateN}" pattern="yyyy-MM-dd"
-					mask="true" validatorMessage="Champs requis : Date de naissance"
-					effect="scale" converter="myDateConverter">
+				<p:calendar id="dateN" value="#{employe.dateN}"
+					pattern="yyyy-MM-dd" mask="true"
+					validatorMessage="Champs requis : Date de naissance" effect="scale"
+					converter="myDateConverter">
 
 					<f:validateRequired />
 				</p:calendar>
@@ -76,7 +73,7 @@
 					<f:validateRequired />
 
 				</p:calendar>
-
+				
 				<p:outputLabel for="echelle" value="Echelle :" />
 				<p:inputText id="echelle" value="#{employe.echelle}" size="40"
 					validatorMessage="Champs requis : Echelle">
@@ -100,7 +97,7 @@
 					<f:validateRequired />
 				</p:selectOneRadio>
 
-
+				
 				<p:outputLabel for="grade" value="Grade :" />
 				<p:selectOneMenu required="true"
 					requiredMessage="Veuillez seletionner un Grade" effect="scale"
@@ -162,7 +159,8 @@
 		<p:toolbar>
 			<f:facet name="left">
 				<p:commandButton value="Ajouter" icon="ui-icon-circle-check"
-					actionListener="#{employeAction.addEmploye(employe)}" update="form">
+					actionListener="#{employeAction.addEmploye(employe)}"
+					update="form">
 				</p:commandButton>
 				<p:commandButton value="Annuler" type="reset"
 					icon="ui-icon-circle-minus">

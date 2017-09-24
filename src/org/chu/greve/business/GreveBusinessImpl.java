@@ -72,6 +72,8 @@ public class GreveBusinessImpl implements GreveBusiness {
 	public int addGreviste(Greviste greviste) {
 		Fonctionnaire f = listFontionnaire.get(greviste.getGreviste().getCin());
 		greviste.setGreviste(f);
+		greviste.setService(greviste.getGreviste().getService());
+		greviste.setRetenuSalaire("Non");
 		return greveDao.addGreviste(greviste);
 	}
 
@@ -137,5 +139,9 @@ public class GreveBusinessImpl implements GreveBusiness {
 
 	public int updateJour(Greviste greviste, String jour, String nouveauJour) {
 		return greveDao.updateJour(greviste, jour, nouveauJour);
+	}
+
+	public int retenuSalaire(Greviste g) {
+		return greveDao.retenuSalaire(g);
 	}
 }

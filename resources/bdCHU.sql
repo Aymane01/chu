@@ -175,6 +175,7 @@ id INT PRIMARY KEY,
 idGreve INT,
 idGreviste VARCHAR(10),
 idServiceGreviste INT,
+retenu_salaire VARCHAR(3) NOT NULL DEFAULT "Non",
 
 CONSTRAINT  fk_greve FOREIGN KEY (idGreve) REFERENCES Greve(idG),
 CONSTRAINT fk_service_greviste FOREIGN KEY (idServiceGreviste) REFERENCES Service(idSe)

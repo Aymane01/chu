@@ -35,6 +35,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao, SessionDao {
 			return 1;
 
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -47,6 +48,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao, SessionDao {
 			return 1;
 
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -59,6 +61,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao, SessionDao {
 			return 1;
 
 		} catch (Exception e) {
+			closeSession();
 			return 0;
 		}
 	}
@@ -74,6 +77,7 @@ public class ProfesseurDaoImpl implements ProfesseurDao, SessionDao {
 			return list;
 
 		} catch (Exception e) {
+			closeSession();
 			return null;
 		}
 

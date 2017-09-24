@@ -46,7 +46,7 @@ public class EmployeAction {
 		if (r == 1) {
 			refreshListEmploye();
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Résident enregistré avec succès."));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Employé enregistré avec succès."));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
 					"Une erreur s'est produit lors d'enregistrement."));
@@ -58,7 +58,7 @@ public class EmployeAction {
 		int r = service.modifyEmploye(employe);
 		if (r == 1) {
 			refreshListEmploye();
-			addMessage(FacesMessage.SEVERITY_INFO, "Info", "Résident supprimé avec succès.");
+			addMessage(FacesMessage.SEVERITY_INFO, "Info", "Employé Modifié avec succès.");
 		} else {
 			addMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Une erreur s'est produit lors de la modification");
 		}
@@ -68,7 +68,7 @@ public class EmployeAction {
 		int r = service.deleteEmploye(CIN);
 		if (r == 1) {
 			refreshListEmploye();
-			addMessage(FacesMessage.SEVERITY_INFO, "Info", "Résident supprimé avec succès.");
+			addMessage(FacesMessage.SEVERITY_INFO, "Info", "Employé supprimé avec succès.");
 		} else {
 			addMessage(FacesMessage.SEVERITY_ERROR, "Erreur", "Une erreur s'est produit lors de la suppression");
 		}

@@ -11,6 +11,7 @@
 	<title>Gestion de Grève</title>
 </h:head>
 <h:body>
+	<ui:include src="included.xhtml" />
 	<h:form id="form">
 		<p:panel id="addPanel" header="Ajouter Corps"
 			style="margin-bottom:10px;">
@@ -83,7 +84,7 @@
 		<p:dialog header="Modifier corps" widgetVar="corpsDialog" modal="true"
 			showEffect="fade" hideEffect="fade" resizable="false" width="665">
 
-			<p:panel id="corpsUpdate" style="text-align:left;" >
+			<p:panel id="corpsUpdate" style="text-align:left;">
 				<p:panelGrid columns="2">
 					<p:outputLabel for="intituleFr2" value="Intitulé en Français :" />
 					<p:inputText id="intituleFr2" size="40"
@@ -94,12 +95,12 @@
 						value="#{corpsAction.corpsUpdate.intituleAr}">
 					</p:inputText>
 
-				</p:panelGrid >
+				</p:panelGrid>
 				<p:toolbar>
 					<f:facet name="left">
 						<p:commandButton value="Modifier"
 							action="#{corpsAction.updateCorps(corpsAction.corpsUpdate)}"
-							update="form" icon="ui-icon-circle-check" process="corpsUpdate" >
+							update="form" icon="ui-icon-circle-check" process="corpsUpdate">
 							<p:confirm header="Confirmation"
 								message="voulez-vous appliquer la modification ?"
 								icon="ui-icon-alert" />

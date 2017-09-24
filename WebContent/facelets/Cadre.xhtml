@@ -11,6 +11,7 @@
 	<title>Gestion de Grève</title>
 </h:head>
 <h:body>
+	<ui:include src="included.xhtml" />
 	<h:form id="form">
 		<p:growl id="growl" showDetail="true" showSummary="false" life="6000"
 			sticky="false" />
@@ -60,8 +61,9 @@
 						showEffect="clip" hideEffect="clip" position="left" />
 					<p:tooltip id="toolTipGrowU" for="update" value="Modifier"
 						showEffect="clip" hideEffect="clip" position="left" />
-					<p:commandButton icon="ui-icon-closethick" update="form"
-						id="remove" action="#{cadreAction.removeCadre(c)}" process="@this">
+					<p:commandButton icon="ui-icon-closethick" id="remove"
+						action="#{cadreAction.removeCadre(c)}" update="form"
+						process="@this">
 						<p:confirm header="Confirmation"
 							message="voulez-vous supprimer le cadre ?" icon="ui-icon-alert">
 							<p:confirmDialog global="true" showEffect="fade"

@@ -66,8 +66,8 @@
 			<many-to-one name="service" class="org.chu.greve.models.Service"
 				column="IDSERVICE" />
 
-	<!-- <component name="service" class="org.chu.greve.models.Service"> <property 
-		name="idSe" type="int"> <column name="IDSERVICE" /> </property> </component> -->
+			<!-- <component name="service" class="org.chu.greve.models.Service"> <property 
+				name="idSe" type="int"> <column name="IDSERVICE" /> </property> </component> -->
 			<component name="specialite" class="org.chu.greve.models.Specialite">
 				<property name="idS" type="int">
 					<column name="IDSPECIALITE" />
@@ -99,13 +99,10 @@
 					<column name="IDGRADE" />
 				</property>
 			</component>
-			<!-- <many-to-one name="service" class="org.chu.greve.models.Service" 
-				column="idService" foreign-key="fk_service" cascade="all" /> -->
-			<component name="service" class="org.chu.greve.models.Service">
-				<property name="idSe" type="int">
-					<column name="IDSERVICE" />
-				</property>
-			</component>
+			<many-to-one name="service" class="org.chu.greve.models.Service"
+				column="idService" foreign-key="fk_service" cascade="all" />
+			<!-- <component name="service" class="org.chu.greve.models.Service"> <property 
+				name="idSe" type="int"> <column name="IDSERVICE" /> </property> </component> -->
 			<component name="specialite" class="org.chu.greve.models.Specialite">
 				<property name="idS" type="int">
 					<column name="IDSPECIALITE" />

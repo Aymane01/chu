@@ -63,10 +63,10 @@ public class CadreAction {
 	public void removeCadre(Cadre cadre) {
 
 		int r = cadreService.deleteCadre(cadre.getId());
-		refreshList();
 		if (r == 1) {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, "Info", "Cadre supprimé avec succès."));
+			refreshList();
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreur",
 					"Une erreur s'est produit lors de la suppression."));
